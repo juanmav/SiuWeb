@@ -1,0 +1,2 @@
+serviceClass: com.diphot.siuweb.client.services.AreaService
+path: E8FDC967F777472316A527E0F55D7B33.gwt.rpc
