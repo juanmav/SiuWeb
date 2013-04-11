@@ -4,6 +4,9 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+
+import com.google.appengine.datanucleus.annotations.Unowned;
+
 import java.util.Date;
 
 @PersistenceCapable
@@ -17,6 +20,7 @@ public class Inspeccion {
 	@Persistent
 	private String altura;
 	@Persistent
+	@Unowned
 	private Tema tema;
 	@Persistent
 	private double latitude;

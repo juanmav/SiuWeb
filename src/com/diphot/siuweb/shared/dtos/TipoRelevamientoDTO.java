@@ -1,11 +1,10 @@
 package com.diphot.siuweb.shared.dtos;
 
-import com.diphot.siuweb.shared.Jsonizable.Jsonizable;
 import com.extjs.gxt.ui.client.data.BeanModelTag;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class TipoRelevamientoDTO implements IsSerializable, BeanModelTag, Jsonizable{
-	private String id;
+public class TipoRelevamientoDTO implements IsSerializable, BeanModelTag, InterfaceDTO{
+	private Long id;
 	private String nombre;
 	private AreaDTO areadto;
 		
@@ -13,11 +12,17 @@ public class TipoRelevamientoDTO implements IsSerializable, BeanModelTag, Jsoniz
 		
 	}
 
-	public String getId() {
+	public TipoRelevamientoDTO(Long id, String nombre, AreaDTO areaDTO){
+		this.id = id;
+		this.nombre = nombre;
+		this.areadto = areaDTO;
+	}
+	
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

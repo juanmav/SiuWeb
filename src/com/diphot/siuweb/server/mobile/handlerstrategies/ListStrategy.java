@@ -3,16 +3,18 @@ package com.diphot.siuweb.server.mobile.handlerstrategies;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import com.diphot.siuweb.shared.Jsonizable.Jsonizable;
+import com.diphot.siuweb.server.pesistense.DAOFactory;
+import com.diphot.siuweb.server.pesistense.DAOInterface;
+import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.google.gson.Gson;
 
 public class ListStrategy implements PostStrategyInterfaceHandler {
 
-  private Jsonizable o;
+  private InterfaceDTO o;
   private PrintWriter printWriter;
   private Gson gson;
 
-  public ListStrategy(Jsonizable o, PrintWriter printWriter, Gson gson) {
+  public ListStrategy(InterfaceDTO o, PrintWriter printWriter, Gson gson) {
     this.o = o;
     this.printWriter = printWriter;
     this.gson = gson;
@@ -20,10 +22,9 @@ public class ListStrategy implements PostStrategyInterfaceHandler {
 
   @Override
   public void execute() {
-    //CRUDController data = new CRUDController();
-    ArrayList<Jsonizable> list = new ArrayList<Jsonizable>();
-    /*list.add(new Registro("asd2341","Rivadavia","400", new Tema()));
-    list.add(new Registro("asd2341","Rivadavia","400", new Tema()));*/
+    DAOInterface<?, ?> dao = DAOFactory.getDAOImpl(o);
+    ArrayList<InterfaceDTO> list  = (ArrayList<InterfaceDTO>) dao.getDTOList();
+       
     try {
       this.printWriter.print(this.gson.toJson(list));
     } catch (Exception e) {

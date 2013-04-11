@@ -2,19 +2,16 @@ package com.diphot.siuweb.server.mobile.handlerstrategies;
 
 import java.io.PrintWriter;
 
-
-import com.diphot.siuweb.server.business.Inspeccion;
-import com.diphot.siuweb.server.business.Tema;
-import com.diphot.siuweb.shared.Jsonizable.Jsonizable;
+import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.google.gson.Gson;
 
 public class GetStrategy implements PostStrategyInterfaceHandler {
 
-  private Jsonizable o;
+  private InterfaceDTO o;
   private PrintWriter printWriter;
   private Gson gson;
 
-  public GetStrategy(Jsonizable o, PrintWriter printWriter,Gson gson) {
+  public GetStrategy(InterfaceDTO o, PrintWriter printWriter,Gson gson) {
     this.o = o;
     this.printWriter = printWriter;
     this.gson = gson;

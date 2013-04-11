@@ -9,6 +9,7 @@ import com.diphot.siuweb.server.business.Inspeccion;
 import com.diphot.siuweb.server.pesistense.DAOInterface;
 import com.diphot.siuweb.server.pesistense.PMF.PMF;
 import com.diphot.siuweb.shared.dtos.EncodedImageDTO;
+import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 
 public class EncodedImageDAO implements DAOInterface<EncodedImage, EncodedImageDTO>{
 

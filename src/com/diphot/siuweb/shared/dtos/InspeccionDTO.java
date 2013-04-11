@@ -2,19 +2,22 @@ package com.diphot.siuweb.shared.dtos;
 
 import java.util.Date;
 
-import com.diphot.siuweb.shared.Jsonizable.Jsonizable;
 import com.extjs.gxt.ui.client.data.BeanModelTag;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class InspeccionDTO implements IsSerializable, BeanModelTag, Jsonizable {
+public class InspeccionDTO implements IsSerializable, BeanModelTag, InterfaceDTO {
 
 	private Long id;
 	private String calle;
 	private String altura;
 	private TemaDTO tema;
-	private double longitude;
-	private double latitude;
+	private Double longitude;
+	private Double latitude;
 	private Date fecha;
+	
+	public InspeccionDTO(){
+		
+	}
 	
 	public InspeccionDTO(Long id, String calle, String altura, TemaDTO tema,
 							double longitude, double latitude, Date fecha) {
@@ -60,19 +63,19 @@ public class InspeccionDTO implements IsSerializable, BeanModelTag, Jsonizable {
 		this.tema = tema;
 	}
 	
-	public double getLongitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
 	
-	public void setLongitude(double longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 	
-	public double getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
 	
-	public void setLatitude(double latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
 	

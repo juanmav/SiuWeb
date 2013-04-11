@@ -1,10 +1,9 @@
 package com.diphot.siuweb.shared.dtos;
 
-import com.diphot.siuweb.shared.Jsonizable.Jsonizable;
 import com.extjs.gxt.ui.client.data.BeanModelTag;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class EncodedImageDTO implements IsSerializable, BeanModelTag, Jsonizable{
+public class EncodedImageDTO implements IsSerializable, BeanModelTag, InterfaceDTO{
 
 	private Long id;
 	private InspeccionDTO inspeccionDTO;

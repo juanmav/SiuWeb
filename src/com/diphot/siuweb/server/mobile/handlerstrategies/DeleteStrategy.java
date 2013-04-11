@@ -1,15 +1,14 @@
 package com.diphot.siuweb.server.mobile.handlerstrategies;
 
 import java.io.PrintWriter;
-
-import com.diphot.siuweb.shared.Jsonizable.Jsonizable;
+import com.diphot.siuweb.shared.dtos.InterfaceDTO;
  
 public class DeleteStrategy implements PostStrategyInterfaceHandler{
 
-  private Jsonizable o;
+  private InterfaceDTO o;
   private PrintWriter printWriter;
 
-  public DeleteStrategy(Jsonizable o, PrintWriter printWriter) {
+  public DeleteStrategy(InterfaceDTO o, PrintWriter printWriter) {
     this.o = o;
     this.printWriter = printWriter;
 

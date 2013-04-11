@@ -2,7 +2,9 @@ package com.diphot.siuweb.server.pesistense;
 
 import java.util.List;
 
-public interface DAOInterface <Bussines,DTO> {
+import com.diphot.siuweb.shared.dtos.InterfaceDTO;
+
+public interface DAOInterface <Bussines, DTO extends InterfaceDTO> {
 	public Bussines findById(Long id);
 	public List<Bussines> findAll();
 	public Bussines create(Bussines entity);
@@ -11,6 +13,6 @@ public interface DAOInterface <Bussines,DTO> {
 	public Bussines update(Bussines entity);
 	public Bussines updateFromDTO(DTO dto);
 	public void delete(Long id);
-	public DTO getDTO(Long id);
+	public InterfaceDTO getDTO(Long id);
 	public List<DTO> getDTOList();
 }

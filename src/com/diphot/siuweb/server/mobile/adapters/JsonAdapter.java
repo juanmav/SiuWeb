@@ -2,8 +2,7 @@ package com.diphot.siuweb.server.mobile.adapters;
 
 import java.lang.reflect.Type;
 
-
-import com.diphot.siuweb.shared.Jsonizable.Jsonizable;
+import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -13,7 +12,7 @@ import com.google.gson.JsonSerializer;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-public class JsonAdapter implements JsonSerializer<Jsonizable>, JsonDeserializer<Jsonizable> {
+public class JsonAdapter implements JsonSerializer<InterfaceDTO>, JsonDeserializer<InterfaceDTO> {
 
   private static final String CLASSNAME = "CLASSNAME";
   private static final String INSTANCE  = "INSTANCE";
@@ -34,9 +33,9 @@ public class JsonAdapter implements JsonSerializer<Jsonizable>, JsonDeserializer
   }
   
   @Override
-  public JsonElement serialize(Jsonizable src, Type typeOfSrc, JsonSerializationContext context) {
+  public JsonElement serialize(InterfaceDTO src, Type typeOfSrc, JsonSerializationContext context) {
      JsonObject retValue = new JsonObject();
-        String className = src.getClass().getSimpleName();
+        String className = src.getClass().getName();
         retValue.addProperty(ACTIONLABEL,action.toString());
         retValue.addProperty(CLASSNAME, className);
         JsonElement elem = context.serialize(src); 
@@ -45,9 +44,9 @@ public class JsonAdapter implements JsonSerializer<Jsonizable>, JsonDeserializer
   }
   
   @Override
-  public Jsonizable deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+  public InterfaceDTO deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
      JsonObject jsonObject =  json.getAsJsonObject();
-        String className = "com.diphot.urban.shared.entities"+ "." + ((JsonPrimitive) jsonObject.get(CLASSNAME)).getAsString();
+        String className = ((JsonPrimitive) jsonObject.get(CLASSNAME)).getAsString();
         String actionString = ((JsonPrimitive) jsonObject.get(ACTIONLABEL)).getAsString();
         this.action = ACTION.valueOf(actionString);
         Class<?> klass = null;

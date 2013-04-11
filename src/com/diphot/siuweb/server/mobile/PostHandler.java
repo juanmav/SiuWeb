@@ -16,7 +16,7 @@ import com.diphot.siuweb.server.mobile.handlerstrategies.ListStrategy;
 import com.diphot.siuweb.server.mobile.handlerstrategies.PostStrategyInterfaceHandler;
 import com.diphot.siuweb.server.mobile.handlerstrategies.PutStrategy;
 import com.diphot.siuweb.server.mobile.handlerstrategies.UpdateStrategy;
-import com.diphot.siuweb.shared.Jsonizable.Jsonizable;
+import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -29,10 +29,10 @@ public class PostHandler {
     Gson gson;
     GsonBuilder builder = new GsonBuilder();
     JsonAdapter adapter = new JsonAdapter();
-    builder.registerTypeAdapter(Jsonizable.class,adapter);
+    builder.registerTypeAdapter(InterfaceDTO.class,adapter);
     gson = builder.create();
     String inputData = readReader(req.getReader());
-    Jsonizable o = gson.fromJson(inputData, Jsonizable.class);
+    InterfaceDTO o = gson.fromJson(inputData, InterfaceDTO.class);
     setStrategy(adapter.getAction(),o,resp.getWriter(),gson);
   }  
 
@@ -40,7 +40,7 @@ public class PostHandler {
     strategy.execute();
   }
 
-  private void setStrategy(ACTION action,Jsonizable o, PrintWriter printWriter,Gson gson){
+  private void setStrategy(ACTION action,InterfaceDTO o, PrintWriter printWriter,Gson gson){
 
     // {PUT,GET,UPDATE,DELETE,LIST,QUERY,NONE};
     switch (action) {
