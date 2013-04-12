@@ -59,6 +59,17 @@
     <url-pattern>/siuweb/inspeccionservice</url-pattern>
   </servlet-mapping>
   
+  <!-- MobileEndPoint Service -->
+	<servlet>
+		<servlet-name>mobileendpointService</servlet-name>
+		<servlet-class>com.diphot.siuweb.server.mobile.MobileEndPoint</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>mobileendpointService</servlet-name>
+		<url-pattern>/mobileendpointService</url-pattern>
+	</servlet-mapping>
+  
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>SiuWeb.html</welcome-file>
