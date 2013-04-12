@@ -43,6 +43,8 @@ public class EncodedImageDAO implements DAOInterface<EncodedImage, EncodedImageD
 		EncodedImage encodedImage = new EncodedImage(dto.getEncodedImageString());
 		InspeccionDAO inspeccionDAO = new InspeccionDAO();
 		Inspeccion inspeccion = inspeccionDAO.findById(dto.getInspeccionDTO().getId());
+		// Creo la imagen
+		//this.create(encodedImage);
 		// Agrego la nueva Imagen a la Inspeccion
 		inspeccion.addImage(encodedImage);
 		inspeccionDAO.update(inspeccion);
@@ -75,6 +77,12 @@ public class EncodedImageDAO implements DAOInterface<EncodedImage, EncodedImageD
 
 	@Override
 	public List<EncodedImageDTO> getDTOList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InterfaceDTO getDTO(EncodedImage entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}

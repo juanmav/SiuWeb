@@ -7,6 +7,7 @@ import com.diphot.siuweb.server.business.TipoRelevamiento;
 import com.diphot.siuweb.server.pesistense.DAOInterface;
 import com.diphot.siuweb.server.pesistense.PMF.PMF;
 import com.diphot.siuweb.shared.dtos.AreaDTO;
+import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
 
 public class TipoRelevamientoDAO implements DAOInterface<TipoRelevamiento, TipoRelevamientoDTO>{
@@ -78,6 +79,12 @@ public class TipoRelevamientoDAO implements DAOInterface<TipoRelevamiento, TipoR
 
 	@Override
 	public List<TipoRelevamientoDTO> getDTOList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public InterfaceDTO getDTO(TipoRelevamiento entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -23,17 +23,19 @@ public class Inspeccion {
 	@Unowned
 	private Tema tema;
 	@Persistent
-	private double latitude;
+	private Double latitude;
 	@Persistent
-	private double longitude;
+	private Double longitude;
 	@Persistent
 	private Date fecha;
-	
 	@Persistent
+	@Unowned
 	private EncodedImage encodedIMG1;
 	@Persistent
+	@Unowned
 	private EncodedImage encodedIMG2;
 	@Persistent
+	@Unowned
 	private EncodedImage encodedIMG3;
 	
 	public Inspeccion (Long id, String calle, String altura, Tema tema, double latitude, double longitude){
@@ -82,5 +84,48 @@ public class Inspeccion {
 	}
 	public void setTema(Tema tema) {
 		this.tema = tema;
+	}
+	public Double getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+	public Double getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public EncodedImage getEncodedIMG1() {
+		return encodedIMG1;
+	}
+
+	public void setEncodedIMG1(EncodedImage encodedIMG1) {
+		this.encodedIMG1 = encodedIMG1;
+	}
+
+	public EncodedImage getEncodedIMG2() {
+		return encodedIMG2;
+	}
+
+	public void setEncodedIMG2(EncodedImage encodedIMG2) {
+		this.encodedIMG2 = encodedIMG2;
+	}
+
+	public EncodedImage getEncodedIMG3() {
+		return encodedIMG3;
+	}
+
+	public void setEncodedIMG3(EncodedImage encodedIMG3) {
+		this.encodedIMG3 = encodedIMG3;
 	}
 }

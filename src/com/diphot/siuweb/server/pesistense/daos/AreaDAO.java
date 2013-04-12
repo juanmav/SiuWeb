@@ -8,6 +8,7 @@ import com.diphot.siuweb.server.business.Area;
 import com.diphot.siuweb.server.pesistense.DAOInterface;
 import com.diphot.siuweb.server.pesistense.PMF.PMF;
 import com.diphot.siuweb.shared.dtos.AreaDTO;
+import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 
 public class AreaDAO implements DAOInterface<Area, AreaDTO>{
 
@@ -84,5 +85,11 @@ public class AreaDAO implements DAOInterface<Area, AreaDTO>{
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		pm.makePersistentAll(list);
 		return list;
+	}
+
+	@Override
+	public InterfaceDTO getDTO(Area entity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

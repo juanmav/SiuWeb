@@ -5,6 +5,7 @@ import javax.jdo.PersistenceManager;
 import com.diphot.siuweb.server.business.Tema;
 import com.diphot.siuweb.server.pesistense.DAOInterface;
 import com.diphot.siuweb.server.pesistense.PMF.PMF;
+import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 
 public class TemaDAO implements DAOInterface<Tema, TemaDTO>{
@@ -67,5 +68,13 @@ public class TemaDAO implements DAOInterface<Tema, TemaDTO>{
 	public List<TemaDTO> getDTOList() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public InterfaceDTO getDTO(Tema entity) {
+		TemaDTO dto = new TemaDTO();
+		dto.setId(entity.getId());
+		dto.setNombre(entity.getNombre());
+		return dto;
 	}
 }

@@ -14,5 +14,6 @@ public interface DAOInterface <Bussines, DTO extends InterfaceDTO> {
 	public Bussines updateFromDTO(DTO dto);
 	public void delete(Long id);
 	public InterfaceDTO getDTO(Long id);
+	public InterfaceDTO getDTO(Bussines entity);
 	public List<DTO> getDTOList();
 }

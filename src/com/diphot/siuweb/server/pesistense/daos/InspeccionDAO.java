@@ -4,20 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
 
+import com.diphot.siuweb.server.business.Area;
+import com.diphot.siuweb.server.business.EncodedImage;
 import com.diphot.siuweb.server.business.Inspeccion;
 import com.diphot.siuweb.server.business.Tema;
 import com.diphot.siuweb.server.pesistense.DAOInterface;
 import com.diphot.siuweb.server.pesistense.PMF.PMF;
+import com.diphot.siuweb.shared.dtos.AreaDTO;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
+import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 
 public class InspeccionDAO implements DAOInterface<Inspeccion, InspeccionDTO> {
 
 	@Override
 	public Inspeccion findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		Inspeccion i = pm.getObjectById(Inspeccion.class,id);
+		pm.close();
+		return i;
 	}
 
 	@Override
@@ -50,8 +57,10 @@ public class InspeccionDAO implements DAOInterface<Inspeccion, InspeccionDTO> {
 
 	@Override
 	public Inspeccion update(Inspeccion entity) {
-		// TODO Auto-generated method stub
-		return null;
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		pm.makePersistent(entity);
+		pm.close();
+		return entity;
 	}
 
 	@Override
@@ -74,6 +83,33 @@ public class InspeccionDAO implements DAOInterface<Inspeccion, InspeccionDTO> {
 
 	@Override
 	public ArrayList<InspeccionDTO> getDTOList() {
+		ArrayList<InspeccionDTO> dtos = new ArrayList<InspeccionDTO>();
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		Query q = pm.newQuery(Inspeccion.class);
+		List<Inspeccion> inspecciones = (List<Inspeccion>) q.execute();
+		TemaDAO temadao = new TemaDAO();
+		for (Inspeccion i : inspecciones){
+			TemaDTO temadto = (TemaDTO) temadao.getDTO(i.getTema());
+			dtos.add(new InspeccionDTO(i.getId(), i.getCalle(), i.getAltura(), 
+					temadto,i.getLatitude(), i.getLongitude(),i.getFecha(),
+					getValueImage(i.getEncodedIMG1()),
+					getValueImage(i.getEncodedIMG2()),
+					getValueImage(i.getEncodedIMG3())));
+		}
+		pm.close();
+		return dtos;
+	}
+
+	private String getValueImage(EncodedImage i){
+		if (i == null){
+			return "";
+		} else {
+			return i.getEncodedImageString();
+		}
+	}
+	
+	@Override
+	public InterfaceDTO getDTO(Inspeccion entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}

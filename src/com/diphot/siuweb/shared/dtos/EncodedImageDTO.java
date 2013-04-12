@@ -9,6 +9,15 @@ public class EncodedImageDTO implements IsSerializable, BeanModelTag, InterfaceD
 	private InspeccionDTO inspeccionDTO;
 	private String encodedImageString;
 	
+	public EncodedImageDTO(){
+		
+	}
+	
+	public EncodedImageDTO(String encodedImageString, InspeccionDTO inspeccionDTO){
+		this.encodedImageString = encodedImageString;
+		this.inspeccionDTO = inspeccionDTO;
+	}
+	
 	public Long getId() {
 		return id;
 	}
