@@ -16,7 +16,7 @@ public class TipoRelevamiento {
 	private Long id;
 	@Persistent
 	private String nombre;
-	@Persistent
+	@Persistent(defaultFetchGroup = "true")
 	@Unowned
 	private Area area;
 	

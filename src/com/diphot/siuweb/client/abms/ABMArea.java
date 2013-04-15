@@ -34,7 +34,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.TabPanel;
 
 
-public class ABMArea extends Window{
+public class ABMArea extends Window {
 
 	private TabPanel tabPanel;
 	private TabItem busquedaTab;

@@ -1,7 +1,5 @@
 package com.diphot.siuweb.shared.dtos;
 
-import java.util.Date;
-
 import com.extjs.gxt.ui.client.data.BeanModelTag;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -9,22 +7,21 @@ public class InspeccionDTO implements IsSerializable, BeanModelTag, InterfaceDTO
 
 	private Long id;
 	private String calle;
-	private String altura;
+	private Integer altura;
 	private TemaDTO tema;
 	private Double latitude;
 	private Double longitude;
-	private Date fecha;
+	private String fecha;
 	private String img1;
 	private String img2;
 	private String img3;
-	
 	
 	public InspeccionDTO(){
 		
 	}
 	
-	public InspeccionDTO(Long id, String calle, String altura, TemaDTO tema,
-			 Double latitude, Double longitude,Date fecha) {
+	public InspeccionDTO(Long id, String calle, Integer altura, TemaDTO tema,
+			 Double latitude, Double longitude,String fecha) {
 		super();
 		this.id = id;
 		this.calle = calle;
@@ -35,8 +32,8 @@ public class InspeccionDTO implements IsSerializable, BeanModelTag, InterfaceDTO
 		this.fecha = fecha;
 	}
 	
-	public InspeccionDTO(Long id, String calle, String altura, TemaDTO tema,
-			 Double latitude, Double longitude, Date fecha, String img1, String img2, String img3) {
+	public InspeccionDTO(Long id, String calle, Integer altura, TemaDTO tema,
+			 Double latitude, Double longitude, String fecha, String img1, String img2, String img3) {
 		super();
 		this.id = id;
 		this.calle = calle;
@@ -45,6 +42,9 @@ public class InspeccionDTO implements IsSerializable, BeanModelTag, InterfaceDTO
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.fecha = fecha;
+		this.img1 = img1;
+		this.img2 = img2;
+		this.img3 = img3;
 	}
 
 	public Long getId() {
@@ -63,11 +63,11 @@ public class InspeccionDTO implements IsSerializable, BeanModelTag, InterfaceDTO
 		this.calle = calle;
 	}
 	
-	public String getAltura() {
+	public Integer getAltura() {
 		return altura;
 	}
 	
-	public void setAltura(String altura) {
+	public void setAltura(Integer altura) {
 		this.altura = altura;
 	}
 	
@@ -95,11 +95,11 @@ public class InspeccionDTO implements IsSerializable, BeanModelTag, InterfaceDTO
 		this.latitude = latitude;
 	}
 	
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 	
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 

@@ -15,9 +15,11 @@ public class TipoRelevamientoDAO implements DAOInterface<TipoRelevamiento, TipoR
 	@Override
 	public TipoRelevamiento findById(Long id) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		TipoRelevamiento a = pm.getObjectById(TipoRelevamiento.class,id);
+		TipoRelevamiento tipo = pm.getObjectById(TipoRelevamiento.class,id);
+		// TODO ver esto es para forzar la carga del area.
+		//Area a = tipo.getArea();
 		pm.close();
-		return a;
+		return tipo;
 	}
 
 	@Override

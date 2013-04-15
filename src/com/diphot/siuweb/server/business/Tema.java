@@ -15,7 +15,7 @@ public class Tema {
 	private Long id;
 	@Persistent
 	private String nombre;
-	@Persistent
+	@Persistent(defaultFetchGroup = "true")
 	@Unowned
 	private TipoRelevamiento tiporelevamiento;
 	

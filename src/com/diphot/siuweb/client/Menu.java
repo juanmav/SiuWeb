@@ -2,8 +2,11 @@ package com.diphot.siuweb.client;
 
 
 import com.diphot.siuweb.client.abms.ABMArea;
+import com.diphot.siuweb.client.abms.TableroView;
 import com.diphot.siuweb.client.services.AreaService;
 import com.diphot.siuweb.client.services.AreaServiceAsync;
+import com.diphot.siuweb.client.services.InspeccionService;
+import com.diphot.siuweb.client.services.InspeccionServiceAsync;
 import com.diphot.siuweb.client.services.TemaService;
 import com.diphot.siuweb.client.services.TemaServiceAsync;
 import com.diphot.siuweb.client.services.TipoRelevamientoService;
@@ -51,6 +54,15 @@ public class Menu extends LayoutContainer {
 		tablero.setHeading("Tablero Partido");  
 		tablero.setLayout(new RowLayout(Orientation.VERTICAL));
 		Button tableroControl = new Button("Tablero Control");
+		
+		tableroControl.addListener(Events.OnClick, new Listener<BaseEvent>(){
+			@Override
+			public void handleEvent(BaseEvent be) {
+				TableroView tableroView = new TableroView();
+				tableroView.show();
+			}
+		});
+		
 		tableroControl.setWidth(135);
 		tablero.add(tableroControl);
 		
@@ -174,11 +186,31 @@ public class Menu extends LayoutContainer {
 			}
 		});
 		
-		
+		Button inspeccionesBTN = new Button("Crear Inspecciones de Ejemplo");
+		inspeccionesBTN.setWidth("100%");
+		inspeccionesBTN.addListener(Events.OnClick, new Listener<BaseEvent>(){
+			@Override
+			public void handleEvent(BaseEvent be) {
+				final InspeccionServiceAsync tipoRelevamientoServiceAsync = GWT.create(InspeccionService.class);
+				tipoRelevamientoServiceAsync.examplesCreate(new AsyncCallback<Void>() {
+					
+					@Override
+					public void onSuccess(Void result) {
+						Info.display("Ejemplos Creados", "eso");
+					}
+					
+					@Override
+					public void onFailure(Throwable caught) {
+						Info.display("FALLO Ejemplos Creados", "eso");
+					}
+				});
+			}
+		});
 		
 		populatorsContainer.add(areaBTN);
 		populatorsContainer.add(tipoRelevBTN);
 		populatorsContainer.add(temasvBTN);
+		populatorsContainer.add(inspeccionesBTN);
 		
 		accordionPanel.add(populatorsContainer);
 	}

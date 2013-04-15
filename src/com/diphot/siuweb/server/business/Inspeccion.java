@@ -18,7 +18,7 @@ public class Inspeccion {
 	@Persistent
 	private String calle;
 	@Persistent
-	private String altura;
+	private Integer altura;
 	@Persistent
 	@Unowned
 	private Tema tema;
@@ -28,17 +28,17 @@ public class Inspeccion {
 	private Double longitude;
 	@Persistent
 	private Date fecha;
-	@Persistent
+	@Persistent(defaultFetchGroup = "true")
 	@Unowned
 	private EncodedImage encodedIMG1;
-	@Persistent
+	@Persistent(defaultFetchGroup = "true")
 	@Unowned
 	private EncodedImage encodedIMG2;
-	@Persistent
+	@Persistent(defaultFetchGroup = "true")
 	@Unowned
 	private EncodedImage encodedIMG3;
 	
-	public Inspeccion (Long id, String calle, String altura, Tema tema, double latitude, double longitude){
+	public Inspeccion (Long id, String calle, Integer altura, Tema tema, double latitude, double longitude){
 		this.id = id;
 		this.calle = calle;
 		this.altura = altura;
@@ -73,10 +73,10 @@ public class Inspeccion {
 	public void setCalle(String calle) {
 		this.calle = calle;
 	}
-	public String getAltura() {
+	public Integer getAltura() {
 		return altura;
 	}
-	public void setAltura(String altura) {
+	public void setAltura(Integer altura) {
 		this.altura = altura;
 	}
 	public Tema getTema() {
@@ -127,5 +127,10 @@ public class Inspeccion {
 
 	public void setEncodedIMG3(EncodedImage encodedIMG3) {
 		this.encodedIMG3 = encodedIMG3;
+	}
+	
+	public void setLatLong(Double latitude, Double longitude){
+		this.latitude = latitude;
+		this.longitude = longitude;
 	}
 }

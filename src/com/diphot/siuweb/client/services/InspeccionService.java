@@ -11,6 +11,6 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface InspeccionService extends RemoteService {
 	ArrayList<InspeccionDTO> getList();
 	Long create(InspeccionDTO dto);
-	
 	void createImage(EncodedImageDTO dto, int numero);
+	void examplesCreate();
 }

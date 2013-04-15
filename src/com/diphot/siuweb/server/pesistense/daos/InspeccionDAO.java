@@ -6,13 +6,11 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import com.diphot.siuweb.server.business.Area;
 import com.diphot.siuweb.server.business.EncodedImage;
 import com.diphot.siuweb.server.business.Inspeccion;
 import com.diphot.siuweb.server.business.Tema;
 import com.diphot.siuweb.server.pesistense.DAOInterface;
 import com.diphot.siuweb.server.pesistense.PMF.PMF;
-import com.diphot.siuweb.shared.dtos.AreaDTO;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
 import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
@@ -23,6 +21,8 @@ public class InspeccionDAO implements DAOInterface<Inspeccion, InspeccionDTO> {
 	public Inspeccion findById(Long id) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		Inspeccion i = pm.getObjectById(Inspeccion.class,id);
+		// TODO ver esto para forzar la carga de los objetos.
+		//i.getTema().getTiporelevamiento().getArea();
 		pm.close();
 		return i;
 	}
@@ -91,7 +91,7 @@ public class InspeccionDAO implements DAOInterface<Inspeccion, InspeccionDTO> {
 		for (Inspeccion i : inspecciones){
 			TemaDTO temadto = (TemaDTO) temadao.getDTO(i.getTema());
 			dtos.add(new InspeccionDTO(i.getId(), i.getCalle(), i.getAltura(), 
-					temadto,i.getLatitude(), i.getLongitude(),i.getFecha(),
+					temadto,i.getLatitude(), i.getLongitude(),i.getFecha().toString(),
 					getValueImage(i.getEncodedIMG1()),
 					getValueImage(i.getEncodedIMG2()),
 					getValueImage(i.getEncodedIMG3())));

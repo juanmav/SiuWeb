@@ -14,6 +14,8 @@ public class TemaDAO implements DAOInterface<Tema, TemaDTO>{
 	public Tema findById(Long id) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		Tema a = pm.getObjectById(Tema.class,id);
+		// TODO ver esto, es para forzar la carga del relevamiento y la Area.
+		//a.getTiporelevamiento().getArea();
 		pm.close();
 		return a;
 	}
