@@ -15,8 +15,7 @@ public class TipoRelevamientoServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public ArrayList<TipoRelevamientoDTO> getList() {
-		// TODO Auto-generated method stub
-		return null;
+		return new TipoRelevamientoDAO().getDTOList();
 	}
 
 	@Override

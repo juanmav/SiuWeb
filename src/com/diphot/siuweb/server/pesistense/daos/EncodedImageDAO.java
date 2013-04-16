@@ -1,9 +1,7 @@
 package com.diphot.siuweb.server.pesistense.daos;
 
-import java.util.List;
-
+import java.util.ArrayList;
 import javax.jdo.PersistenceManager;
-
 import com.diphot.siuweb.server.business.EncodedImage;
 import com.diphot.siuweb.server.business.Inspeccion;
 import com.diphot.siuweb.server.pesistense.DAOInterface;
@@ -20,7 +18,7 @@ public class EncodedImageDAO implements DAOInterface<EncodedImage, EncodedImageD
 	}
 
 	@Override
-	public List<EncodedImage> findAll() {
+	public ArrayList<EncodedImage> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -34,7 +32,7 @@ public class EncodedImageDAO implements DAOInterface<EncodedImage, EncodedImageD
 	}
 
 	@Override
-	public List<EncodedImage> massiveCreate(List<EncodedImage> list) {
+	public ArrayList<EncodedImage> massiveCreate(ArrayList<EncodedImage> list) {
 		return null;
 	}
 
@@ -76,7 +74,7 @@ public class EncodedImageDAO implements DAOInterface<EncodedImage, EncodedImageD
 	}
 
 	@Override
-	public List<EncodedImageDTO> getDTOList() {
+	public ArrayList<EncodedImageDTO> getDTOList() {
 		// TODO Auto-generated method stub
 		return null;
 	}

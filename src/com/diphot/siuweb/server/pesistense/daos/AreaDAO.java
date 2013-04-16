@@ -22,9 +22,9 @@ public class AreaDAO implements DAOInterface<Area, AreaDTO>{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Area> findAll() {
+	public ArrayList<Area> findAll() {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		List<Area> areas = (List<Area>) pm.getObjectById(Area.class);
+		ArrayList<Area> areas = (ArrayList<Area>) pm.getObjectById(Area.class);
 		return areas;
 	}
 
@@ -74,14 +74,14 @@ public class AreaDAO implements DAOInterface<Area, AreaDTO>{
 		Query q = pm.newQuery(Area.class);
 		List<Area> areas = (List<Area>) q.execute();
 		for (Area a : areas){
-			dtos.add(new AreaDTO(a.getId(), a.getNombre()));
+			dtos.add((AreaDTO) getDTO(a));
 		}
 		pm.close();
 		return dtos;
 	}
 
 	@Override
-	public List<Area> massiveCreate(List<Area> list) {
+	public ArrayList<Area> massiveCreate(ArrayList<Area> list) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		pm.makePersistentAll(list);
 		return list;
@@ -89,7 +89,7 @@ public class AreaDAO implements DAOInterface<Area, AreaDTO>{
 
 	@Override
 	public InterfaceDTO getDTO(Area entity) {
-		// TODO Auto-generated method stub
-		return null;
+		AreaDTO dto = new AreaDTO(entity.getId(), entity.getNombre());
+		return dto;
 	}
 }

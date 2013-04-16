@@ -16,6 +16,8 @@ public class DAOFactory {
 			// TODO mejorar esto tiene que ser un archivo de configurarcion o algo similar.
 			clazzName = clazzName.replace("DTO", "DAO");
 			Class<DAOInterface<?, InterfaceDTO>> c = (Class<DAOInterface<?, InterfaceDTO>>) Class.forName("com.diphot.siuweb.server.pesistense.daos."+clazzName);
+			System.out.println("Nombre del Dao: ");
+			System.out.println("com.diphot.siuweb.server.pesistense.daos."+clazzName);
 			dao = (DAOInterface<?, InterfaceDTO>) c.newInstance();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block

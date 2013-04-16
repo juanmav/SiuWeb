@@ -1,7 +1,10 @@
 package com.diphot.siuweb.server.pesistense.daos;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.jdo.PersistenceManager;
+import javax.jdo.Query;
+
 import com.diphot.siuweb.server.business.Area;
 import com.diphot.siuweb.server.business.TipoRelevamiento;
 import com.diphot.siuweb.server.pesistense.DAOInterface;
@@ -23,7 +26,7 @@ public class TipoRelevamientoDAO implements DAOInterface<TipoRelevamiento, TipoR
 	}
 
 	@Override
-	public List<TipoRelevamiento> findAll() {
+	public ArrayList<TipoRelevamiento> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -35,7 +38,7 @@ public class TipoRelevamientoDAO implements DAOInterface<TipoRelevamiento, TipoR
 	}
 
 	@Override
-	public List<TipoRelevamiento> massiveCreate(List<TipoRelevamiento> list) {
+	public ArrayList<TipoRelevamiento> massiveCreate(ArrayList<TipoRelevamiento> list) {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		pm.makePersistentAll(list);
 		return list;
@@ -75,19 +78,29 @@ public class TipoRelevamientoDAO implements DAOInterface<TipoRelevamiento, TipoR
 
 	@Override
 	public TipoRelevamientoDTO getDTO(Long id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<TipoRelevamientoDTO> getDTOList() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<TipoRelevamientoDTO> getDTOList() {
+		ArrayList<TipoRelevamientoDTO> dtos = new ArrayList<TipoRelevamientoDTO>();
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		Query q = pm.newQuery(TipoRelevamiento.class);
+		List<TipoRelevamiento> areas = (List<TipoRelevamiento>) q.execute();
+		for (TipoRelevamiento a : areas){
+			dtos.add((TipoRelevamientoDTO) getDTO(a));
+		}
+		pm.close();
+		return dtos;
 	}
 
 	@Override
 	public InterfaceDTO getDTO(TipoRelevamiento entity) {
-		// TODO Auto-generated method stub
-		return null;
+		TipoRelevamientoDTO dto = new TipoRelevamientoDTO();
+		dto.setId(entity.getId());
+		dto.setNombre(entity.getNombre());
+		AreaDTO adto = (AreaDTO) new AreaDAO().getDTO(entity.getArea());
+		dto.setAreadto(adto);
+		return dto;
 	}
 }

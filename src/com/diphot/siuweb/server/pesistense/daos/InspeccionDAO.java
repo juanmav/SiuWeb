@@ -1,5 +1,5 @@
 package com.diphot.siuweb.server.pesistense.daos;
-
+        
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class InspeccionDAO implements DAOInterface<Inspeccion, InspeccionDTO> {
 	}
 
 	@Override
-	public List<Inspeccion> findAll() {
+	public ArrayList<Inspeccion> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -42,7 +42,7 @@ public class InspeccionDAO implements DAOInterface<Inspeccion, InspeccionDTO> {
 	}
 
 	@Override
-	public List<Inspeccion> massiveCreate(List<Inspeccion> list) {
+	public ArrayList<Inspeccion> massiveCreate(ArrayList<Inspeccion> list) {
 		// TODO Auto-generated method stub
 		return null;
 	}

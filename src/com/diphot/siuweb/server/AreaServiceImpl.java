@@ -10,16 +10,15 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class AreaServiceImpl extends RemoteServiceServlet implements AreaService {
 
-	private static final AreaDAO areaDAO = new AreaDAO();
-	
 	@Override
 	public ArrayList<AreaDTO> getList() {
-		return areaDAO.getDTOList();
+		return new AreaDAO().getDTOList();
 	}
 
 	@Override
 	public void create(AreaDTO dto) {
-		areaDAO.creatFromDTO(dto);
+		new AreaDAO().creatFromDTO(dto);
+		
 	}
 
 	@Override
@@ -29,6 +28,6 @@ public class AreaServiceImpl extends RemoteServiceServlet implements AreaService
 		areas.add(new Area(2L,"CONTROL URBANO Y AMBIENTAL"));
 		areas.add(new Area(3L,"PROTECCION CIUDADANA"));
 		areas.add(new Area(4L,"INERSIÓN PÚBLICA Y PLANEAMIENTO URBANO"));
-		areaDAO.massiveCreate(areas);
+		new AreaDAO().massiveCreate(areas);
 	}
 }

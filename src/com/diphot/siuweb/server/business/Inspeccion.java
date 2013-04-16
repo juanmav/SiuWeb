@@ -11,7 +11,6 @@ import java.util.Date;
 
 @PersistenceCapable
 public class Inspeccion {
-
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Long id;

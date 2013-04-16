@@ -10,7 +10,6 @@ import com.diphot.siuweb.client.services.TemaService;
 import com.diphot.siuweb.client.services.TemaServiceAsync;
 import com.diphot.siuweb.client.services.TipoRelevamientoService;
 import com.diphot.siuweb.client.services.TipoRelevamientoServiceAsync;
-import com.diphot.siuweb.server.business.Area;
 import com.diphot.siuweb.shared.dtos.AreaDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
@@ -28,6 +27,7 @@ import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.Info;
 import com.extjs.gxt.ui.client.widget.Window;
+import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.form.ComboBox;
 import com.extjs.gxt.ui.client.widget.form.ComboBox.TriggerAction;
 import com.extjs.gxt.ui.client.widget.form.TextField;
@@ -85,6 +85,8 @@ public class TableroView extends Window {
 		
 		this.setBottomComponent(filtros);
 		
+		this.addButton(new Button("Filtrar"));
+		
 	}
 	
 	private ComboBox<BaseModel> areaCombobox(){
@@ -110,6 +112,7 @@ public class TableroView extends Window {
 		ListStore<BaseModel> store = new ListStore<BaseModel>(loader);
 		ComboBox<BaseModel> combobox = new ComboBox<BaseModel>();
 		combobox.setDisplayField("nombre");
+		combobox.setFieldLabel("Area");
 		combobox.setWidth(150);
 		combobox.setAllowBlank(false);
 		combobox.setEditable(false);
@@ -141,6 +144,7 @@ public class TableroView extends Window {
 		ListStore<BaseModel> store = new ListStore<BaseModel>(loader);
 		ComboBox<BaseModel> combobox = new ComboBox<BaseModel>();
 		combobox.setDisplayField("nombre");
+		combobox.setFieldLabel("Tipo Relevamiento");
 		combobox.setWidth(150);
 		combobox.setAllowBlank(false);
 		combobox.setEditable(false);
@@ -172,6 +176,7 @@ public class TableroView extends Window {
 		ListStore<BaseModel> store = new ListStore<BaseModel>(loader);
 		ComboBox<BaseModel> combobox = new ComboBox<BaseModel>();
 		combobox.setDisplayField("nombre");
+		combobox.setFieldLabel("Tema");
 		combobox.setWidth(150);
 		combobox.setAllowBlank(false);
 		combobox.setEditable(false);

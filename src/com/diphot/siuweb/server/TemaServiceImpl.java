@@ -15,8 +15,7 @@ public class TemaServiceImpl extends RemoteServiceServlet implements TemaService
 
 	@Override
 	public ArrayList<TemaDTO> getList() {
-		// TODO Auto-generated method stub
-		return null;
+		return new TemaDAO().getDTOList();
 	}
 
 	@Override
