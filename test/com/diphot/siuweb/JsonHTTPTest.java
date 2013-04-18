@@ -1,6 +1,8 @@
 package com.diphot.siuweb;
 
 import org.apache.http.HttpResponse;
+
+
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -15,9 +17,12 @@ import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class JsonHTTPTest {
@@ -52,12 +57,12 @@ public class JsonHTTPTest {
 		String stringResponse = EntityUtils.toString(response.getEntity());
 		System.out.println(stringResponse);
 
-		/*System.out.println("Obteniendo Lista Objetos: ");
+		System.out.println("Obteniendo Lista Objetos: ");
 		Type type = new TypeToken<ArrayList<InspeccionDTO>>(){}.getType();
 		ArrayList<InspeccionDTO> registros = gson.fromJson(stringResponse,type);
 
 		for (InspeccionDTO r : registros){
 			System.out.println(r.toString());
-		};*/
+		};//*/
 	}
 }
