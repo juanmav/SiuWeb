@@ -1,6 +1,7 @@
 package com.diphot.siuweb.server.pesistense.daos;
         
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -51,7 +52,8 @@ public class InspeccionDAO implements DAOInterface<Inspeccion, InspeccionDTO> {
 	public Inspeccion creatFromDTO(InspeccionDTO dto) {
 		TemaDTO temadto = dto.getTema();
 		Tema tema = new TemaDAO().findById(temadto.getId());
-		Inspeccion inspeccion = new Inspeccion(null, dto.getCalle(), dto.getAltura(), tema, dto.getLatitude(), dto.getLongitude());
+		// TODO resolver el tema de las fechas
+		Inspeccion inspeccion = new Inspeccion(null, dto.getCalle(), dto.getAltura(), new Date(), tema, dto.getLatitude(), dto.getLongitude());
 		return this.create(inspeccion);
 	}
 

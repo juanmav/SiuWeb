@@ -37,13 +37,14 @@ public class Inspeccion {
 	@Unowned
 	private EncodedImage encodedIMG3;
 	
-	public Inspeccion (Long id, String calle, Integer altura, Tema tema, double latitude, double longitude){
+	public Inspeccion (Long id, String calle, Integer altura, Date fecha, Tema tema, double latitude, double longitude){
 		this.id = id;
 		this.calle = calle;
 		this.altura = altura;
 		this.tema = tema;
 		this.latitude = latitude;
 		this.longitude = longitude;
+		this.fecha = fecha;
 	}
 		
 	public Inspeccion(){
