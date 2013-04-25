@@ -32,8 +32,10 @@ import com.extjs.gxt.ui.client.widget.form.ComboBox;
 import com.extjs.gxt.ui.client.widget.form.ComboBox.TriggerAction;
 import com.extjs.gxt.ui.client.widget.form.TextField;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
+import com.extjs.gxt.ui.client.widget.grid.ColumnData;
 import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
 import com.extjs.gxt.ui.client.widget.grid.Grid;
+import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.layout.FormLayout;
 import com.google.gwt.core.client.GWT;
@@ -219,7 +221,6 @@ public class TableroView extends Window {
 			}
 
 		});
-		
 		/*Agrego la grilla a la ventana*/
 		this.add(grid);
 	}
@@ -250,12 +251,20 @@ public class TableroView extends Window {
 		c.setHeader("Fecha");
 		c.setWidth(100);
 		configs.add(c);
-
 		
-		
-		
+		c = new ColumnConfig();
+		c.setId("tema");
+		c.setHeader("Tema");
+		c.setWidth(100);
+		GridCellRenderer<BaseModel> change = new GridCellRenderer<BaseModel>() {
+			@Override
+			public Object render(BaseModel model, String property, ColumnData config, int rowIndex, int colIndex, ListStore<BaseModel> store, Grid<BaseModel> grid) {
+					return (model.get(property));
+			}
+		};
+		c.setRenderer(change);
+		configs.add(c);
 		ColumnModel columnmodel = new ColumnModel(configs);	
 		return columnmodel;
 	}
-	
 }

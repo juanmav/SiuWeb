@@ -11,7 +11,11 @@ public class TemaDTO implements IsSerializable, BeanModelTag,  InterfaceDTO {
 	public TemaDTO() {
 		
 	}
-		
+	
+	public String toString(){
+		return this.nombre;
+	}
+	
 	public TemaDTO (Long id, String nombre, TipoRelevamientoDTO tiporelevamientodto){
 		this.id = id;
 		this.nombre = nombre;

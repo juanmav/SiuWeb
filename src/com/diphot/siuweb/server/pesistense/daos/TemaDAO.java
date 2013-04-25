@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-
-import com.diphot.siuweb.server.business.Area;
 import com.diphot.siuweb.server.business.Tema;
 import com.diphot.siuweb.server.pesistense.DAOInterface;
 import com.diphot.siuweb.server.pesistense.PMF.PMF;
-import com.diphot.siuweb.shared.dtos.AreaDTO;
 import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;

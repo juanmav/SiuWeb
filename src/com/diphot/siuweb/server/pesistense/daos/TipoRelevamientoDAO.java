@@ -97,10 +97,15 @@ public class TipoRelevamientoDAO implements DAOInterface<TipoRelevamiento, TipoR
 	@Override
 	public InterfaceDTO getDTO(TipoRelevamiento entity) {
 		TipoRelevamientoDTO dto = new TipoRelevamientoDTO();
-		dto.setId(entity.getId());
-		dto.setNombre(entity.getNombre());
-		AreaDTO adto = (AreaDTO) new AreaDAO().getDTO(entity.getArea());
-		dto.setAreadto(adto);
+		if (entity != null){
+			dto.setId(entity.getId());
+			dto.setNombre(entity.getNombre());
+			AreaDTO adto = (AreaDTO) new AreaDAO().getDTO(entity.getArea());
+			dto.setAreadto(adto);
+		} else {
+			dto.setId(-1L);
+			dto.setNombre("Algo paso en la DB");
+		}
 		return dto;
 	}
 }

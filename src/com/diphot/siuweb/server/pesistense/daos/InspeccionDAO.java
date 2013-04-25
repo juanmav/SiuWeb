@@ -54,6 +54,12 @@ public class InspeccionDAO implements DAOInterface<Inspeccion, InspeccionDTO> {
 		Tema tema = new TemaDAO().findById(temadto.getId());
 		// TODO resolver el tema de las fechas
 		Inspeccion inspeccion = new Inspeccion(null, dto.getCalle(), dto.getAltura(), new Date(), tema, dto.getLatitude(), dto.getLongitude());
+		if (dto.getImg1() != null)
+			inspeccion.addImage(new EncodedImage(dto.getImg1()));
+		if (dto.getImg2() != null)
+			inspeccion.addImage(new EncodedImage(dto.getImg2()));
+		if (dto.getImg3() != null)
+			inspeccion.addImage(new EncodedImage(dto.getImg3()));
 		return this.create(inspeccion);
 	}
 
