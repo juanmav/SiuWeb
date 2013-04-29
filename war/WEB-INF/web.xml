@@ -59,6 +59,17 @@
     <url-pattern>/siuweb/inspeccionservice</url-pattern>
   </servlet-mapping>
   
+   <!-- Diphot Service -->
+  <servlet>
+    <servlet-name>DiphotServiceServlet</servlet-name>
+    <servlet-class>com.diphot.siuweb.server.DiphotServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>DiphotServiceServlet</servlet-name>
+    <url-pattern>/siuweb/diphotservice</url-pattern>
+  </servlet-mapping>
+  
   <!-- MobileEndPoint Service -->
 	<servlet>
 		<servlet-name>mobileendpointService</servlet-name>

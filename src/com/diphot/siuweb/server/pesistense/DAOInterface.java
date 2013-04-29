@@ -2,6 +2,7 @@ package com.diphot.siuweb.server.pesistense;
 
 import java.util.ArrayList;
 import com.diphot.siuweb.shared.dtos.InterfaceDTO;
+import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 
 public interface DAOInterface <Bussines, DTO extends InterfaceDTO> {
 	public Bussines findById(Long id);
@@ -15,4 +16,5 @@ public interface DAOInterface <Bussines, DTO extends InterfaceDTO> {
 	public InterfaceDTO getDTO(Long id);
 	public InterfaceDTO getDTO(Bussines entity);
 	public ArrayList<DTO> getDTOList();
+	public ArrayList<DTO> getDTOList(FilterInterfaceDTO filter);
 }

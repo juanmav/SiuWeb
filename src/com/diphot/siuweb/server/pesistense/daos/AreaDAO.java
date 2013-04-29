@@ -9,6 +9,7 @@ import com.diphot.siuweb.server.pesistense.DAOInterface;
 import com.diphot.siuweb.server.pesistense.PMF.PMF;
 import com.diphot.siuweb.shared.dtos.AreaDTO;
 import com.diphot.siuweb.shared.dtos.InterfaceDTO;
+import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 
 public class AreaDAO implements DAOInterface<Area, AreaDTO>{
 
@@ -91,5 +92,11 @@ public class AreaDAO implements DAOInterface<Area, AreaDTO>{
 	public InterfaceDTO getDTO(Area entity) {
 		AreaDTO dto = new AreaDTO(entity.getId(), entity.getNombre());
 		return dto;
+	}
+
+	@Override
+	public ArrayList<AreaDTO> getDTOList(FilterInterfaceDTO filter) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -8,6 +8,7 @@ import com.diphot.siuweb.server.pesistense.DAOInterface;
 import com.diphot.siuweb.server.pesistense.PMF.PMF;
 import com.diphot.siuweb.shared.dtos.EncodedImageDTO;
 import com.diphot.siuweb.shared.dtos.InterfaceDTO;
+import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 
 public class EncodedImageDAO implements DAOInterface<EncodedImage, EncodedImageDTO>{
 
@@ -85,4 +86,10 @@ public class EncodedImageDAO implements DAOInterface<EncodedImage, EncodedImageD
 		return null;
 	}
 
+	@Override
+	public ArrayList<EncodedImageDTO> getDTOList(FilterInterfaceDTO filter) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

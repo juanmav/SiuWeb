@@ -12,6 +12,7 @@ import com.diphot.siuweb.server.pesistense.PMF.PMF;
 import com.diphot.siuweb.shared.dtos.AreaDTO;
 import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
+import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 
 public class TipoRelevamientoDAO implements DAOInterface<TipoRelevamiento, TipoRelevamientoDTO>{
 
@@ -81,6 +82,7 @@ public class TipoRelevamientoDAO implements DAOInterface<TipoRelevamiento, TipoR
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<TipoRelevamientoDTO> getDTOList() {
 		ArrayList<TipoRelevamientoDTO> dtos = new ArrayList<TipoRelevamientoDTO>();
@@ -107,5 +109,11 @@ public class TipoRelevamientoDAO implements DAOInterface<TipoRelevamiento, TipoR
 			dto.setNombre("Algo paso en la DB");
 		}
 		return dto;
+	}
+
+	@Override
+	public ArrayList<TipoRelevamientoDTO> getDTOList(FilterInterfaceDTO filter) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

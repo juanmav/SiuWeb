@@ -3,10 +3,8 @@ package com.diphot.siuweb.server.pesistense.daos;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-
 import com.diphot.siuweb.server.business.EncodedImage;
 import com.diphot.siuweb.server.business.Inspeccion;
 import com.diphot.siuweb.server.business.Tema;
@@ -15,6 +13,7 @@ import com.diphot.siuweb.server.pesistense.PMF.PMF;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
 import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
+import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 
 public class InspeccionDAO implements DAOInterface<Inspeccion, InspeccionDTO> {
 
@@ -122,4 +121,9 @@ public class InspeccionDAO implements DAOInterface<Inspeccion, InspeccionDTO> {
 		return null;
 	}
 
+	@Override
+	public ArrayList<InspeccionDTO> getDTOList(FilterInterfaceDTO filter) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

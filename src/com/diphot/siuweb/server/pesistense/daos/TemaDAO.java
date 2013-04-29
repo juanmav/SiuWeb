@@ -10,6 +10,7 @@ import com.diphot.siuweb.server.pesistense.PMF.PMF;
 import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
+import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 
 public class TemaDAO implements DAOInterface<Tema, TemaDTO>{
 
@@ -64,6 +65,7 @@ public class TemaDAO implements DAOInterface<Tema, TemaDTO>{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<TemaDTO> getDTOList() {
 		ArrayList<TemaDTO> dtos = new ArrayList<TemaDTO>();
@@ -85,5 +87,11 @@ public class TemaDAO implements DAOInterface<Tema, TemaDTO>{
 		TipoRelevamientoDTO tdto = (TipoRelevamientoDTO) new TipoRelevamientoDAO().getDTO(entity.getTiporelevamiento());
 		dto.setTiporelevamientodto(tdto);
 		return dto;
+	}
+
+	@Override
+	public ArrayList<TemaDTO> getDTOList(FilterInterfaceDTO filter) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
