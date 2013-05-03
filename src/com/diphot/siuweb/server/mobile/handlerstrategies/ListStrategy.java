@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import com.diphot.siuweb.server.pesistense.DAOFactory;
 import com.diphot.siuweb.server.pesistense.DAOInterface;
-import com.diphot.siuweb.shared.dtos.InterfaceDTO;
+import com.diphot.siuweb.shared.InterfaceDTO;
 import com.google.gson.Gson;
 
 public class ListStrategy implements PostStrategyInterfaceHandler {

@@ -2,7 +2,7 @@ package com.diphot.siuweb.client.services;
 
 import java.util.ArrayList;
 
-import com.diphot.siuweb.shared.dtos.InterfaceDTO;
+import com.diphot.siuweb.shared.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;

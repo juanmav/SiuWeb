@@ -1,5 +1,6 @@
 package com.diphot.siuweb.shared.dtos;
 
+import com.diphot.siuweb.shared.InterfaceDTO;
 import com.extjs.gxt.ui.client.data.BeanModelTag;
 import com.google.gwt.user.client.rpc.IsSerializable;
 

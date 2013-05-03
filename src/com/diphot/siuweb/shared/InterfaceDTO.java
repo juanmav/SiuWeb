@@ -1,4 +1,4 @@
-package com.diphot.siuweb.shared.dtos;
+package com.diphot.siuweb.shared;
 
 public interface InterfaceDTO {
 	Long getId();

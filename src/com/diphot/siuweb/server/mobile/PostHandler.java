@@ -16,7 +16,7 @@ import com.diphot.siuweb.server.mobile.handlerstrategies.ListStrategy;
 import com.diphot.siuweb.server.mobile.handlerstrategies.PostStrategyInterfaceHandler;
 import com.diphot.siuweb.server.mobile.handlerstrategies.PutStrategy;
 import com.diphot.siuweb.server.mobile.handlerstrategies.UpdateStrategy;
-import com.diphot.siuweb.shared.dtos.InterfaceDTO;
+import com.diphot.siuweb.shared.InterfaceDTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

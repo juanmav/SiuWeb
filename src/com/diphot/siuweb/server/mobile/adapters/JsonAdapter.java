@@ -2,7 +2,7 @@ package com.diphot.siuweb.server.mobile.adapters;
 
 import java.lang.reflect.Type;
 
-import com.diphot.siuweb.shared.dtos.InterfaceDTO;
+import com.diphot.siuweb.shared.InterfaceDTO;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;

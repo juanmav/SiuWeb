@@ -2,7 +2,7 @@ package com.diphot.siuweb.server.pesistense;
 
 import java.util.logging.Logger;
 
-import com.diphot.siuweb.shared.dtos.InterfaceDTO;
+import com.diphot.siuweb.shared.InterfaceDTO;
 
 public class DAOFactory {
 

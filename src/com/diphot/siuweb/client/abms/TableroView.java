@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import com.diphot.siuweb.client.services.DiphotService;
 import com.diphot.siuweb.client.services.DiphotServiceAsync;
+import com.diphot.siuweb.shared.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.AreaDTO;
-import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;

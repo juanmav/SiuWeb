@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import com.diphot.siuweb.server.business.EncodedImage;
 import com.diphot.siuweb.server.business.Inspeccion;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
+import com.diphot.siuweb.shared.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.EncodedImageDTO;
-import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 
 public class EncodedImageDAO extends AbstractDAO<EncodedImage, EncodedImageDTO>{

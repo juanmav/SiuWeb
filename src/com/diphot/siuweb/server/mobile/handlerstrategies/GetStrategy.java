@@ -2,7 +2,7 @@ package com.diphot.siuweb.server.mobile.handlerstrategies;
 
 import java.io.PrintWriter;
 
-import com.diphot.siuweb.shared.dtos.InterfaceDTO;
+import com.diphot.siuweb.shared.InterfaceDTO;
 import com.google.gson.Gson;
 
 public class GetStrategy implements PostStrategyInterfaceHandler {

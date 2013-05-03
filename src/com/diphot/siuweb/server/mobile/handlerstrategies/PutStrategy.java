@@ -3,7 +3,7 @@ package com.diphot.siuweb.server.mobile.handlerstrategies;
 import java.io.PrintWriter;
 import com.diphot.siuweb.server.pesistense.DAOFactory;
 import com.diphot.siuweb.server.pesistense.DAOInterface;
-import com.diphot.siuweb.shared.dtos.InterfaceDTO;
+import com.diphot.siuweb.shared.InterfaceDTO;
 
 public class PutStrategy implements PostStrategyInterfaceHandler {
 	private InterfaceDTO o;

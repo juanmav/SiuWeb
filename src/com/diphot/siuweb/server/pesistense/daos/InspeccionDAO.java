@@ -3,8 +3,6 @@ package com.diphot.siuweb.server.pesistense.daos;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import com.diphot.siuweb.server.business.EncodedImage;
@@ -12,8 +10,8 @@ import com.diphot.siuweb.server.business.Inspeccion;
 import com.diphot.siuweb.server.business.Tema;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
 import com.diphot.siuweb.server.pesistense.PMF.PMF;
+import com.diphot.siuweb.shared.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
-import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 
@@ -29,8 +27,6 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		TemaDAO temaDAO = new TemaDAO();
 		temaDAO.begin();
 		Tema tema = temaDAO.findById(temadto.getId());
-		// TODO ver bien esto.
-		//pm = JDOHelper.getPersistenceManager(tema);
 		// TODO resolver el tema de las fechas
 		Inspeccion inspeccion = new Inspeccion(null, dto.getCalle(), dto.getAltura(), new Date(), tema, dto.getLatitude(), dto.getLongitude());
 		if (dto.getImg1() != null)
