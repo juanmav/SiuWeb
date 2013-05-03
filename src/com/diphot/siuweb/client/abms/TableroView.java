@@ -2,15 +2,10 @@ package com.diphot.siuweb.client.abms;
 
 import java.util.ArrayList;
 
-import com.diphot.siuweb.client.services.AreaService;
-import com.diphot.siuweb.client.services.AreaServiceAsync;
-import com.diphot.siuweb.client.services.InspeccionService;
-import com.diphot.siuweb.client.services.InspeccionServiceAsync;
-import com.diphot.siuweb.client.services.TemaService;
-import com.diphot.siuweb.client.services.TemaServiceAsync;
-import com.diphot.siuweb.client.services.TipoRelevamientoService;
-import com.diphot.siuweb.client.services.TipoRelevamientoServiceAsync;
+import com.diphot.siuweb.client.services.DiphotService;
+import com.diphot.siuweb.client.services.DiphotServiceAsync;
 import com.diphot.siuweb.shared.dtos.AreaDTO;
+import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
@@ -44,10 +39,7 @@ import com.extjs.gxt.ui.client.data.BeanModel;
 
 public class TableroView extends Window {
 
-	private final InspeccionServiceAsync inspeccionServiceAsync = GWT.create(InspeccionService.class);
-	private final AreaServiceAsync areaServiceAsync = GWT.create(AreaService.class);
-	private final TipoRelevamientoServiceAsync tipoRelevamientoServiceAsync = GWT.create(TipoRelevamientoService.class);
-	private final TemaServiceAsync temaServiceAsync = GWT.create(TemaService.class);
+	private final DiphotServiceAsync diphotServiceAsync = GWT.create(DiphotService.class);
 	
 	private final int alto = 500;
 	private final int ancho = 600;
@@ -92,17 +84,17 @@ public class TableroView extends Window {
 	}
 	
 	private ComboBox<BaseModel> areaCombobox(){
-		RpcProxy<ArrayList<AreaDTO>> proxy = new  RpcProxy<ArrayList<AreaDTO>>(){
+		RpcProxy<ArrayList<InterfaceDTO>> proxy = new  RpcProxy<ArrayList<InterfaceDTO>>(){
 			@Override
-			protected void load(Object loadConfig, final AsyncCallback<ArrayList<AreaDTO>> callback) {
-				areaServiceAsync.getList( new AsyncCallback<ArrayList<AreaDTO>>() {
+			protected void load(Object loadConfig, final AsyncCallback<ArrayList<InterfaceDTO>> callback) {
+				diphotServiceAsync.getList(new AreaDTO(), new AsyncCallback<ArrayList<InterfaceDTO>>() {
 					@Override
 					public void onFailure(Throwable caught) {
 						callback.onFailure(caught);
 					}
 
 					@Override
-					public void onSuccess(ArrayList<AreaDTO> result) {
+					public void onSuccess(ArrayList<InterfaceDTO> result) {
 						callback.onSuccess(result);
 					}
 
@@ -124,17 +116,17 @@ public class TableroView extends Window {
 	}
 	
 	private ComboBox<BaseModel> tiposCombobox(){
-		RpcProxy<ArrayList<TipoRelevamientoDTO>> proxy = new  RpcProxy<ArrayList<TipoRelevamientoDTO>>(){
+		RpcProxy<ArrayList<InterfaceDTO>> proxy = new  RpcProxy<ArrayList<InterfaceDTO>>(){
 			@Override
-			protected void load(Object loadConfig, final AsyncCallback<ArrayList<TipoRelevamientoDTO>> callback) {
-				tipoRelevamientoServiceAsync.getList( new AsyncCallback<ArrayList<TipoRelevamientoDTO>>() {
+			protected void load(Object loadConfig, final AsyncCallback<ArrayList<InterfaceDTO>> callback) {
+				diphotServiceAsync.getList(new TipoRelevamientoDTO(), new AsyncCallback<ArrayList<InterfaceDTO>>() {
 					@Override
 					public void onFailure(Throwable caught) {
 						callback.onFailure(caught);
 					}
 
 					@Override
-					public void onSuccess(ArrayList<TipoRelevamientoDTO> result) {
+					public void onSuccess(ArrayList<InterfaceDTO> result) {
 						callback.onSuccess(result);
 					}
 
@@ -156,17 +148,17 @@ public class TableroView extends Window {
 	}
 	
 	private ComboBox<BaseModel> temasCombobox(){
-		RpcProxy<ArrayList<TemaDTO>> proxy = new  RpcProxy<ArrayList<TemaDTO>>(){
+		RpcProxy<ArrayList<InterfaceDTO>> proxy = new  RpcProxy<ArrayList<InterfaceDTO>>(){
 			@Override
-			protected void load(Object loadConfig, final AsyncCallback<ArrayList<TemaDTO>> callback) {
-				temaServiceAsync.getList( new AsyncCallback<ArrayList<TemaDTO>>() {
+			protected void load(Object loadConfig, final AsyncCallback<ArrayList<InterfaceDTO>> callback) {
+				diphotServiceAsync.getList(new TemaDTO(), new AsyncCallback<ArrayList<InterfaceDTO>>() {
 					@Override
 					public void onFailure(Throwable caught) {
 						callback.onFailure(caught);
 					}
 
 					@Override
-					public void onSuccess(ArrayList<TemaDTO> result) {
+					public void onSuccess(ArrayList<InterfaceDTO> result) {
 						callback.onSuccess(result);
 					}
 
@@ -189,16 +181,16 @@ public class TableroView extends Window {
 	
 	
 	private void initGrid(){
-		RpcProxy<ArrayList<InspeccionDTO>> proxy = new  RpcProxy<ArrayList<InspeccionDTO>>(){
+		RpcProxy<ArrayList<InterfaceDTO>> proxy = new  RpcProxy<ArrayList<InterfaceDTO>>(){
 			@Override
-			protected void load(Object loadConfig, final AsyncCallback<ArrayList<InspeccionDTO>> callback) {
-				inspeccionServiceAsync.getList( new AsyncCallback<ArrayList<InspeccionDTO>>() {
+			protected void load(Object loadConfig, final AsyncCallback<ArrayList<InterfaceDTO>> callback) {
+				diphotServiceAsync.getList(new InspeccionDTO(), new AsyncCallback<ArrayList<InterfaceDTO>>() {
 					@Override
 					public void onFailure(Throwable caught) {
 						callback.onFailure(caught);
 					}
 					@Override
-					public void onSuccess(ArrayList<InspeccionDTO> result) {
+					public void onSuccess(ArrayList<InterfaceDTO> result) {
 						callback.onSuccess(result);
 					}
 				});
@@ -256,15 +248,19 @@ public class TableroView extends Window {
 		c.setId("tema");
 		c.setHeader("Tema");
 		c.setWidth(100);
-		GridCellRenderer<BaseModel> change = new GridCellRenderer<BaseModel>() {
+		configs.add(c);
+		ColumnModel columnmodel = new ColumnModel(configs);	
+		return columnmodel;
+	}
+	
+	/*
+	 * GridCellRenderer<BaseModel> change = new GridCellRenderer<BaseModel>() {
 			@Override
 			public Object render(BaseModel model, String property, ColumnData config, int rowIndex, int colIndex, ListStore<BaseModel> store, Grid<BaseModel> grid) {
 					return (model.get(property));
 			}
 		};
 		c.setRenderer(change);
-		configs.add(c);
-		ColumnModel columnmodel = new ColumnModel(configs);	
-		return columnmodel;
-	}
+	 * 
+	 * */
 }

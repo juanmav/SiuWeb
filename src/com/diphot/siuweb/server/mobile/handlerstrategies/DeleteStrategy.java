@@ -16,7 +16,8 @@ public class DeleteStrategy implements PostStrategyInterfaceHandler{
 
   @Override
   public void execute() {
-    //CRUDController data = new CRUDController();
+	  // TODO
+	  //CRUDController data = new CRUDController();
     try {
       //data.DeleteByID(o.getId(), o);
       printWriter.print(new PostResult(PostResult.Result.OK).getToGson());

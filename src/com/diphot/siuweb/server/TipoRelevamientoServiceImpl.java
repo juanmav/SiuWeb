@@ -26,33 +26,30 @@ public class TipoRelevamientoServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public void populateINIT() {
 		AreaDAO adao = new AreaDAO();
-		TipoRelevamientoDAO tdao = new TipoRelevamientoDAO();
-		ArrayList<TipoRelevamiento> tipos = new ArrayList<TipoRelevamiento>();
-		
-		
+		adao.begin();
+			
 		// Servicios Publicos
 		Area area = adao.findById(1L);
-		tipos.add(new TipoRelevamiento(1L, "Vía Pública en General", area));
-		tipos.add(new TipoRelevamiento(2L, "Arbolado", area));
-		tipos.add(new TipoRelevamiento(3L, "Alumbrado", area));
-		tipos.add(new TipoRelevamiento(4L, "Servicio Eléctrico", area));
-		tipos.add(new TipoRelevamiento(5L, "Semáforos", area));
-		tipos.add(new TipoRelevamiento(6L, "URGENCIA", area));
+		new TipoRelevamiento(1L, "Vía Pública en General", area);
+		new TipoRelevamiento(2L, "Arbolado", area);
+		new TipoRelevamiento(3L, "Alumbrado", area);
+		new TipoRelevamiento(4L, "Servicio Eléctrico", area);
+		new TipoRelevamiento(5L, "Semáforos", area);
+		new TipoRelevamiento(6L, "URGENCIA", area);
 		
 		// Control urbano
 		area = adao.findById(2L);
-		tipos.add(new TipoRelevamiento(7L, "Vía Pública en General", area));
+		new TipoRelevamiento(7L, "Vía Pública en General", area);
 		
 		// Proteccion
 		area = adao.findById(3L);
-		tipos.add(new TipoRelevamiento(8L, "Vía Pública en General", area));
-		tipos.add(new TipoRelevamiento(9L, "Urgencia", area));
+		new TipoRelevamiento(8L, "Vía Pública en General", area);
+		new TipoRelevamiento(9L, "Urgencia", area);
 		
 		// Insercion
 		area = adao.findById(4L);
-		tipos.add(new TipoRelevamiento(10L, "Obras", area));
+		new TipoRelevamiento(10L, "Obras", area);
 		
-		tdao.massiveCreate(tipos);
-		
+		adao.end();
 	}
 }

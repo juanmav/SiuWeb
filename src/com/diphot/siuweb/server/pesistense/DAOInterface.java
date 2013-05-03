@@ -1,12 +1,15 @@
 package com.diphot.siuweb.server.pesistense;
 
 import java.util.ArrayList;
+import java.util.List;
 import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 
 public interface DAOInterface <Bussines, DTO extends InterfaceDTO> {
+	public void begin();
+	public void end();
 	public Bussines findById(Long id);
-	public ArrayList<Bussines> findAll();
+	public List<Bussines> findAll();
 	public Bussines create(Bussines entity);
 	public ArrayList<Bussines> massiveCreate (ArrayList<Bussines> list);
 	public Bussines creatFromDTO(DTO dto);

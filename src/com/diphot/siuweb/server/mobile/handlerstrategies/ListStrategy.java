@@ -23,7 +23,9 @@ public class ListStrategy implements PostStrategyInterfaceHandler {
   @Override
   public void execute() {
     DAOInterface<?, ?> dao = DAOFactory.getDAOImpl(o);
+    dao.begin();
     ArrayList<InterfaceDTO> list  = (ArrayList<InterfaceDTO>) dao.getDTOList();
+    dao.end();
        
     try {
       this.printWriter.print(this.gson.toJson(list));

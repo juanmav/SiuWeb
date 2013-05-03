@@ -11,6 +11,10 @@ public class TipoRelevamientoDTO implements IsSerializable, BeanModelTag, Interf
 	public TipoRelevamientoDTO(){
 		
 	}
+	
+	public String toString(){
+		return this.nombre;
+	}
 
 	public TipoRelevamientoDTO(Long id, String nombre, AreaDTO areaDTO){
 		this.id = id;

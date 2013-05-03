@@ -11,6 +11,10 @@ public class AreaDTO implements IsSerializable, BeanModelTag, InterfaceDTO {
 
 	}
 
+	public String toString(){
+		return nombre;
+	}
+	
 	public AreaDTO(Long id, String nombre){
 		this.id = id;
 		this.nombre = nombre;

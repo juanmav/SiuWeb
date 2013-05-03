@@ -18,7 +18,9 @@ public class PutStrategy implements PostStrategyInterfaceHandler {
 	public void execute() {
 		DAOInterface<?, InterfaceDTO> dao = DAOFactory.getDAOImpl(o);
 		try {
+			dao.begin();
 			dao.creatFromDTO(o);
+			dao.end();
 			printWriter.print(new PostResult(PostResult.Result.OK).getToGson());
 		} catch (Exception e) {
 			printWriter.print(new PostResult(PostResult.Result.FALSE).getToGson());

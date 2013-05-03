@@ -3,6 +3,7 @@ package com.diphot.siuweb.client;
 
 import com.diphot.siuweb.client.abms.ABMArea;
 import com.diphot.siuweb.client.abms.TableroView;
+import com.diphot.siuweb.client.abms.TreeView;
 import com.diphot.siuweb.client.services.AreaService;
 import com.diphot.siuweb.client.services.AreaServiceAsync;
 import com.diphot.siuweb.client.services.InspeccionService;

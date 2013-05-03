@@ -1,10 +1,11 @@
 package com.diphot.siuweb.server.business;
 
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
-
+import javax.persistence.ManyToOne;
 import com.google.appengine.datanucleus.annotations.Unowned;
 
 @PersistenceCapable
@@ -12,11 +13,19 @@ public class Tema {
 
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private Long id;
+    @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
+    private String encodedKey;
+	
+	@Persistent
+    @Extension(vendorName="datanucleus", key="gae.pk-id", value="true")
+    private Long id;
+	
 	@Persistent
 	private String nombre;
+	
 	@Persistent(defaultFetchGroup = "true")
 	@Unowned
+	@ManyToOne
 	private TipoRelevamiento tiporelevamiento;
 	
 	public Tema() {
@@ -27,6 +36,7 @@ public class Tema {
 		this.id = id;
 		this.nombre = nombre;
 		this.tiporelevamiento = tiporelevamiento;
+		this.tiporelevamiento.addTema(this);
 	}
 	
 	public Long getId() {
