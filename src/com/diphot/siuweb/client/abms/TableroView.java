@@ -79,7 +79,18 @@ public class TableroView extends Window {
 		
 		this.setBottomComponent(filtros);
 		
-		this.addButton(new Button("Filtrar"));
+		Button filtrarBTN = new Button("Filtrar");
+		
+		filtrarBTN.addListener(Events.OnClick, new Listener<BaseEvent>(){
+
+			@Override
+			public void handleEvent(BaseEvent be) {
+				// TODO Auto-generated method stub
+			}
+			
+		});
+		
+		this.addButton(filtrarBTN);
 		
 	}
 	
@@ -229,13 +240,13 @@ public class TableroView extends Window {
 		c =  new ColumnConfig();
 		c.setId("calle");
 		c.setHeader("Calle");
-		c.setWidth(100);
+		c.setWidth(150);
 		configs.add(c);
 		
 		c =  new ColumnConfig();
 		c.setId("altura");
 		c.setHeader("Altura");
-		c.setWidth(100);
+		c.setWidth(50);
 		configs.add(c);
 		
 		c =  new ColumnConfig();
@@ -247,20 +258,10 @@ public class TableroView extends Window {
 		c = new ColumnConfig();
 		c.setId("tema");
 		c.setHeader("Tema");
-		c.setWidth(100);
+		c.setWidth(200);
 		configs.add(c);
 		ColumnModel columnmodel = new ColumnModel(configs);	
 		return columnmodel;
 	}
 	
-	/*
-	 * GridCellRenderer<BaseModel> change = new GridCellRenderer<BaseModel>() {
-			@Override
-			public Object render(BaseModel model, String property, ColumnData config, int rowIndex, int colIndex, ListStore<BaseModel> store, Grid<BaseModel> grid) {
-					return (model.get(property));
-			}
-		};
-		c.setRenderer(change);
-	 * 
-	 * */
 }

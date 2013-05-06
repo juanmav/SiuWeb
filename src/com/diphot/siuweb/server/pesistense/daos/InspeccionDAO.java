@@ -28,7 +28,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		temaDAO.begin();
 		Tema tema = temaDAO.findById(temadto.getId());
 		// TODO resolver el tema de las fechas
-		Inspeccion inspeccion = new Inspeccion(null, dto.getCalle(), dto.getAltura(), new Date(), tema, dto.getLatitude(), dto.getLongitude());
+		Inspeccion inspeccion = new Inspeccion(null, dto.getCalle(), dto.getAltura(), new Date(), dto.getObservacion(), tema, dto.getLatitude(), dto.getLongitude());
 		if (dto.getImg1() != null)
 			inspeccion.addImage(new EncodedImage(dto.getImg1()));
 		if (dto.getImg2() != null)
@@ -64,7 +64,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		TemaDAO temadao = new TemaDAO();
 		for (Inspeccion i : inspecciones){
 			TemaDTO temadto = (TemaDTO) temadao.getDTO(i.getTema());
-			dtos.add(new InspeccionDTO(i.getId(), i.getCalle(), i.getAltura(), 
+			dtos.add(new InspeccionDTO(i.getId(), i.getCalle(), i.getAltura(), i.getObservacion(), 
 					temadto,i.getLatitude(), i.getLongitude(),i.getFecha().toString(),
 					getValueImage(i.getEncodedIMG1()),
 					getValueImage(i.getEncodedIMG2()),

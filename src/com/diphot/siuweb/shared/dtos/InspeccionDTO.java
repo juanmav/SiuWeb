@@ -16,6 +16,7 @@ public class InspeccionDTO implements IsSerializable, BeanModelTag, InterfaceDTO
 	private String img1;
 	private String img2;
 	private String img3;
+	private String observacion;
 	
 	public InspeccionDTO(){
 		
@@ -33,7 +34,7 @@ public class InspeccionDTO implements IsSerializable, BeanModelTag, InterfaceDTO
 		this.fecha = fecha;
 	}
 	
-	public InspeccionDTO(Long id, String calle, Integer altura, TemaDTO tema,
+	public InspeccionDTO(Long id, String calle, Integer altura, String observacion, TemaDTO tema,
 			 Double latitude, Double longitude, String fecha, String img1, String img2, String img3) {
 		super();
 		this.id = id;
@@ -46,6 +47,7 @@ public class InspeccionDTO implements IsSerializable, BeanModelTag, InterfaceDTO
 		this.img1 = img1;
 		this.img2 = img2;
 		this.img3 = img3;
+		this.observacion = observacion;
 	}
 
 	public Long getId() {
@@ -126,5 +128,13 @@ public class InspeccionDTO implements IsSerializable, BeanModelTag, InterfaceDTO
 
 	public void setImg2(String img2) {
 		this.img2 = img2;
+	}
+
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
 	}
 }

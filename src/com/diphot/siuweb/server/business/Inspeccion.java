@@ -36,8 +36,10 @@ public class Inspeccion {
 	@Persistent(defaultFetchGroup = "true")
 	@Unowned
 	private EncodedImage encodedIMG3;
-	
-	public Inspeccion (Long id, String calle, Integer altura, Date fecha, Tema tema, double latitude, double longitude){
+	@Persistent
+	private String observacion;
+
+	public Inspeccion (Long id, String calle, Integer altura, Date fecha, String observacion, Tema tema, double latitude, double longitude){
 		this.id = id;
 		this.calle = calle;
 		this.altura = altura;
@@ -45,6 +47,7 @@ public class Inspeccion {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.fecha = fecha;
+		this.observacion = observacion;
 	}
 		
 	public Inspeccion(){
@@ -133,4 +136,13 @@ public class Inspeccion {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
+	
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
+	}
+
 }
