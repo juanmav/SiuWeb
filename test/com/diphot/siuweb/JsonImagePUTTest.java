@@ -5,9 +5,9 @@ import java.io.IOException;
 import org.apache.http.client.ClientProtocolException;
 
 import com.diphot.siuweb.server.mobile.adapters.JsonAdapter;
+import com.diphot.siuweb.shared.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.EncodedImageDTO;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
-import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 
 public class JsonImagePUTTest {
 

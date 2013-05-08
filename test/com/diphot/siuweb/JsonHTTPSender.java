@@ -11,7 +11,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 import com.diphot.siuweb.server.mobile.adapters.JsonAdapter;
-import com.diphot.siuweb.shared.dtos.InterfaceDTO;
+import com.diphot.siuweb.shared.InterfaceDTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

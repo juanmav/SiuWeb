@@ -1,8 +1,8 @@
 package com.diphot.siuweb;
 
 import com.diphot.siuweb.server.mobile.adapters.JsonAdapter;
+import com.diphot.siuweb.shared.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
-import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
