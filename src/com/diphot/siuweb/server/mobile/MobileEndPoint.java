@@ -13,7 +13,7 @@ public class MobileEndPoint extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp)  throws IOException {
     resp.setContentType("text/plain");
-    resp.getWriter().print("Go away mother fucker!");
+    resp.getWriter().print("We are Alive!");
   }
 
   @Override
