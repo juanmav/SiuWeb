@@ -77,6 +77,17 @@ public class InspeccionView extends Window{
 		img3.setUrl("data:image/jpeg;base64," + iDTO.getImg3());
 		this.add(hp);
 
+		Button pdfReport = new Button("Reporte PDF");
+		
+		pdfReport.addListener(Events.OnClick, new Listener<BaseEvent>(){
+			@Override
+			public void handleEvent(BaseEvent be) {
+				// pide pdf
+			}
+		});
+		
+		this.addButton(pdfReport);
+		
 		Button close = new Button("Listo");
 		close.addListener(Events.OnClick, new Listener<BaseEvent>(){
 			@Override
