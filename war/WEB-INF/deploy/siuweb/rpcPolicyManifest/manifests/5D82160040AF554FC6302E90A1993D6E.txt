@@ -1,0 +1,2 @@
+serviceClass: com.diphot.siuweb.client.services.TemaService
+path: 6D40D28E442B34811BEE0A3FCB2208B9.gwt.rpc

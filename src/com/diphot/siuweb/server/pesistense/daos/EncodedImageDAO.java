@@ -1,8 +1,9 @@
 package com.diphot.siuweb.server.pesistense.daos;
 
 import java.util.ArrayList;
-import com.diphot.siuweb.server.business.EncodedImage;
-import com.diphot.siuweb.server.business.Inspeccion;
+
+import com.diphot.siuweb.server.business.model.EncodedImage;
+import com.diphot.siuweb.server.business.model.Inspeccion;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
 import com.diphot.siuweb.shared.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.EncodedImageDTO;

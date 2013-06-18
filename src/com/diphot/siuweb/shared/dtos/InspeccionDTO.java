@@ -1,11 +1,13 @@
 package com.diphot.siuweb.shared.dtos;
 
+import java.io.Serializable;
+
 import com.diphot.siuweb.shared.InterfaceDTO;
 import com.extjs.gxt.ui.client.data.BeanModelTag;
-import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class InspeccionDTO implements IsSerializable, BeanModelTag, InterfaceDTO {
+public class InspeccionDTO implements Serializable, BeanModelTag, InterfaceDTO {
 
+	private static final long serialVersionUID = -359471250000224506L;
 	private Long id;
 	private String calle;
 	private Integer altura;
@@ -20,6 +22,10 @@ public class InspeccionDTO implements IsSerializable, BeanModelTag, InterfaceDTO
 	
 	public InspeccionDTO(){
 		
+	}
+	
+	public InspeccionDTO(Long id){
+		this.id = id;
 	}
 	
 	public InspeccionDTO(Long id, String calle, Integer altura, TemaDTO tema,

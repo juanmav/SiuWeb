@@ -3,8 +3,8 @@ package com.diphot.siuweb.server;
 import java.util.ArrayList;
 
 import com.diphot.siuweb.client.services.TemaService;
-import com.diphot.siuweb.server.business.Tema;
-import com.diphot.siuweb.server.business.TipoRelevamiento;
+import com.diphot.siuweb.server.business.model.Tema;
+import com.diphot.siuweb.server.business.model.TipoRelevamiento;
 import com.diphot.siuweb.server.pesistense.daos.TemaDAO;
 import com.diphot.siuweb.server.pesistense.daos.TipoRelevamientoDAO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;

@@ -2,7 +2,7 @@ package com.diphot.siuweb.server;
 
 import java.util.ArrayList;
 import com.diphot.siuweb.client.services.AreaService;
-import com.diphot.siuweb.server.business.Area;
+import com.diphot.siuweb.server.business.model.Area;
 import com.diphot.siuweb.server.pesistense.daos.AreaDAO;
 import com.diphot.siuweb.shared.dtos.AreaDTO;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;

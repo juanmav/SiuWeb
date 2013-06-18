@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import com.diphot.siuweb.client.services.InspeccionService;
-import com.diphot.siuweb.server.business.EncodedImage;
-import com.diphot.siuweb.server.business.Inspeccion;
+import com.diphot.siuweb.server.business.model.EncodedImage;
+import com.diphot.siuweb.server.business.model.Inspeccion;
 import com.diphot.siuweb.server.pesistense.daos.EncodedImageDAO;
 import com.diphot.siuweb.server.pesistense.daos.InspeccionDAO;
 import com.diphot.siuweb.server.pesistense.daos.TemaDAO;

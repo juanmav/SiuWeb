@@ -1,10 +1,14 @@
 package com.diphot.siuweb.shared.dtos;
 
+import java.io.Serializable;
+
 import com.diphot.siuweb.shared.InterfaceDTO;
 import com.extjs.gxt.ui.client.data.BeanModelTag;
-import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class AreaDTO implements IsSerializable, BeanModelTag, InterfaceDTO {
+
+public class AreaDTO implements Serializable, BeanModelTag, InterfaceDTO {
+
+	private static final long serialVersionUID = 1096797938747356616L;
 	private Long id;
 	private String nombre;
 

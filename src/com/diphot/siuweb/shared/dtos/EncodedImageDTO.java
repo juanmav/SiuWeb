@@ -1,11 +1,12 @@
 package com.diphot.siuweb.shared.dtos;
 
+import java.io.Serializable;
 import com.diphot.siuweb.shared.InterfaceDTO;
 import com.extjs.gxt.ui.client.data.BeanModelTag;
-import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class EncodedImageDTO implements IsSerializable, BeanModelTag, InterfaceDTO{
+public class EncodedImageDTO implements Serializable, BeanModelTag, InterfaceDTO{
 
+	private static final long serialVersionUID = -3576037209286046260L;
 	private Long id;
 	private InspeccionDTO inspeccionDTO;
 	private String encodedImageString;

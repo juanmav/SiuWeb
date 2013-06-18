@@ -1,0 +1,2 @@
+serviceClass: com.diphot.siuweb.client.services.DiphotService
+path: 07E298AB4BA7B3F39D09707272762ACC.gwt.rpc

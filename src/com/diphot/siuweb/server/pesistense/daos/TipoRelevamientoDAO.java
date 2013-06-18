@@ -2,8 +2,9 @@ package com.diphot.siuweb.server.pesistense.daos;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.diphot.siuweb.server.business.Area;
-import com.diphot.siuweb.server.business.TipoRelevamiento;
+
+import com.diphot.siuweb.server.business.model.Area;
+import com.diphot.siuweb.server.business.model.TipoRelevamiento;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
 import com.diphot.siuweb.shared.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.AreaDTO;
