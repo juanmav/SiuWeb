@@ -27,7 +27,7 @@ public class AreaServiceImpl extends RemoteServiceServlet implements AreaService
 		areas.add(new Area(1L,"SERVICIOS PÚBLICOS Y CONSERVACIÓN DE INFRAESTRUCTURA"));
 		areas.add(new Area(2L,"CONTROL URBANO Y AMBIENTAL"));
 		areas.add(new Area(3L,"PROTECCION CIUDADANA"));
-		areas.add(new Area(4L,"INERSIÓN PÚBLICA Y PLANEAMIENTO URBANO"));
+		areas.add(new Area(4L,"INSERCIÓN PÚBLICA Y PLANEAMIENTO URBANO"));
 		AreaDAO areaDAO = new AreaDAO();
 		areaDAO.begin();
 		areaDAO.massiveCreate(areas);

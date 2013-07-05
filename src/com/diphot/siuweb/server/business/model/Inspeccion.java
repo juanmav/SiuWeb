@@ -63,6 +63,9 @@ public class Inspeccion {
 	@Persistent
 	private ArrayList<InspeccionState> states = new ArrayList<InspeccionState>();
 	
+	@Persistent // TODO
+	private InspeccionState currentState;
+	
 	public Inspeccion (Long id, String calle, Integer altura, Date fecha, String observacion, Tema tema, double latitude, double longitude){
 		this.id = id;
 		this.calle = calle;
@@ -148,52 +151,40 @@ public class Inspeccion {
 	public Date getFecha() {
 		return fecha;
 	}
-
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-
 	public EncodedImage getEncodedIMG1() {
 		return encodedIMG1;
 	}
-
 	public void setEncodedIMG1(EncodedImage encodedIMG1) {
 		this.encodedIMG1 = encodedIMG1;
 	}
-
 	public EncodedImage getEncodedIMG2() {
 		return encodedIMG2;
 	}
-
 	public void setEncodedIMG2(EncodedImage encodedIMG2) {
 		this.encodedIMG2 = encodedIMG2;
 	}
-
 	public EncodedImage getEncodedIMG3() {
 		return encodedIMG3;
 	}
-
 	public void setEncodedIMG3(EncodedImage encodedIMG3) {
 		this.encodedIMG3 = encodedIMG3;
 	}
-	
 	public void setLatLong(Double latitude, Double longitude){
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
-	
 	public String getObservacion() {
 		return observacion;
 	}
-
 	public void setObservacion(String observacion) {
 		this.observacion = observacion;
 	}
-	
 	public EncodedImage getEncodedMap() {
 		return encodedMap;
 	}
-
 	public void setEncodedMap(EncodedImage encodedMap) {
 		this.encodedMap = encodedMap;
 	}

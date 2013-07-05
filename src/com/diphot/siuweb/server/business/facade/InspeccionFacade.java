@@ -41,7 +41,12 @@ public class InspeccionFacade {
 	}
 	
 	public static void verificarPlazos(){
+		InspeccionDAO idao = new InspeccionDAO();
+		idao.begin();
 		
+		
+		
+		idao.end();
 	}
 	
 }

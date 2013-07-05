@@ -9,6 +9,7 @@ import javax.jdo.Query;
 import com.diphot.siuweb.server.business.model.EncodedImage;
 import com.diphot.siuweb.server.business.model.Inspeccion;
 import com.diphot.siuweb.server.business.model.Tema;
+import com.diphot.siuweb.server.business.model.inspeccion.status.InspeccionState;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
 import com.diphot.siuweb.server.pesistense.PMF.PMF;
 import com.diphot.siuweb.shared.InterfaceDTO;
@@ -102,7 +103,6 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 					getValueImage(i.getEncodedIMG2()),
 					getValueImage(i.getEncodedIMG3())));
 		}
-		pm.close();
 		return dtos;
 	}
 
@@ -124,5 +124,16 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 	public ArrayList<InspeccionDTO> getDTOList(FilterInterfaceDTO filter) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<Inspeccion> getByState(InspeccionState state){
+		ArrayList<Inspeccion> result;
+		
+		// TODO Verificar esto
+		Query query = pm.newQuery(Inspeccion.class);
+		query.setFilter("lastName == lastNameParam");
+		result = (ArrayList<Inspeccion>) query.execute(state.getClass());
+		return result;
 	}
 }

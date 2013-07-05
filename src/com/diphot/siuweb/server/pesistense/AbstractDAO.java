@@ -19,6 +19,7 @@ public abstract class AbstractDAO <Bussines, I extends InterfaceDTO> implements 
 	}
 	
 	public void begin(){
+		/* Este proxy me permite trabajar siempre con el mismo manager de persistencia*/
 		this.pm = PMF.get().getPersistenceManagerProxy();
 	}
 	
