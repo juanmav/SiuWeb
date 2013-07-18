@@ -29,7 +29,7 @@ public class TipoRelevamientoServiceImpl extends RemoteServiceServlet implements
 		adao.begin();
 			
 		// Servicios Publicos
-		Area area = adao.findById(1L);
+		Area area = adao.getById(1L);
 		new TipoRelevamiento(1L, "Vía Pública en General", area);
 		new TipoRelevamiento(2L, "Arbolado", area);
 		new TipoRelevamiento(3L, "Alumbrado", area);
@@ -38,16 +38,16 @@ public class TipoRelevamientoServiceImpl extends RemoteServiceServlet implements
 		new TipoRelevamiento(6L, "URGENCIA", area);
 		
 		// Control urbano
-		area = adao.findById(2L);
+		area = adao.getById(2L);
 		new TipoRelevamiento(7L, "Vía Pública en General", area);
 		
 		// Proteccion
-		area = adao.findById(3L);
+		area = adao.getById(3L);
 		new TipoRelevamiento(8L, "Vía Pública en General", area);
 		new TipoRelevamiento(9L, "Urgencia", area);
 		
 		// Insercion
-		area = adao.findById(4L);
+		area = adao.getById(4L);
 		new TipoRelevamiento(10L, "Obras", area);
 		
 		adao.end();

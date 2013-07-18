@@ -4,11 +4,13 @@ import java.util.Date;
 
 import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 import javax.persistence.ManyToOne;
 import com.google.appengine.datanucleus.annotations.Unowned;
 
+@PersistenceCapable
 public class Auditoria {
 
 	@PrimaryKey
@@ -38,20 +40,18 @@ public class Auditoria {
 	@Persistent
 	private Date fecha;
 
-	
+
 
 	public Auditoria(){
 
 	}
 
-	public Auditoria(Inspeccion inspeccion, EncodedImage img1, EncodedImage img2, EncodedImage img3, Boolean resuelto, String observaciones){
+	public Auditoria(Long id, Inspeccion inspeccion,Boolean resuelto, String observaciones){
+		this.id = id;
 		this.inspeccion = inspeccion;
-		this.inspeccion.addAuditoria(this);
-		this.encodedIMG1 = img1;
-		this.encodedIMG2 = img2;
-		this.encodedIMG3 = img3;
 		this.resuelto = resuelto;
 		this.observaciones = observaciones;
+		this.inspeccion.addAuditoria(this);
 	}
 
 	public String getEncodedKey() {
@@ -110,5 +110,17 @@ public class Auditoria {
 	}
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+
+	// TODO aca habria que poner una lista encadenada o algo por el estilo y arrojar excepciones si se pasa de tres o pisar
+	// fotos viejas.
+	public void addImage(EncodedImage img){
+		if (this.encodedIMG1 == null) {
+			this.encodedIMG1 = img;
+		} else if (this.encodedIMG2 == null){
+			this.encodedIMG2 = img;
+		} else if (this.encodedIMG3 == null){
+			this.encodedIMG3 = img;
+		}
 	}
 }

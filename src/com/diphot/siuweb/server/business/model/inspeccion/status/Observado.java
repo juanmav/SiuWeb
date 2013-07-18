@@ -11,5 +11,6 @@ public class Observado extends InspeccionState {
 
 	public Observado(Date date, Inspeccion inspeccion) {
 		super(date, inspeccion);
+		this.code = InspeccionState.OBSERVADO;
 	}
 }

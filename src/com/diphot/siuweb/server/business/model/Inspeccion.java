@@ -8,6 +8,8 @@ import javax.jdo.annotations.PrimaryKey;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
 
+import com.diphot.siuweb.server.business.model.inspeccion.status.Confirmado;
+import com.diphot.siuweb.server.business.model.inspeccion.status.Ejecutado;
 import com.diphot.siuweb.server.business.model.inspeccion.status.InspeccionState;
 import com.diphot.siuweb.server.business.model.inspeccion.status.Observado;
 import com.diphot.siuweb.server.business.model.inspeccion.status.Resuelto;
@@ -22,11 +24,9 @@ public class Inspeccion {
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
     private String encodedKey;
-	
 	@Persistent
     @Extension(vendorName="datanucleus", key="gae.pk-id", value="true")
     private Long id;
-	
 	@Persistent
 	private String calle;
 	@Persistent
@@ -40,17 +40,13 @@ public class Inspeccion {
 	private Double longitude;
 	@Persistent
 	private Date fecha;
-	@Persistent(defaultFetchGroup = "true")
-	@Unowned
+	@Persistent
 	private EncodedImage encodedIMG1;
-	@Persistent(defaultFetchGroup = "true")
-	@Unowned
+	@Persistent
 	private EncodedImage encodedIMG2;
-	@Persistent(defaultFetchGroup = "true")
-	@Unowned
+	@Persistent
 	private EncodedImage encodedIMG3;
-	@Persistent(defaultFetchGroup = "true")
-	@Unowned
+	@Persistent
 	private EncodedImage encodedMap;
 	@Persistent
 	private String observacion;
@@ -59,14 +55,26 @@ public class Inspeccion {
 	@OneToMany(mappedBy = "inspeccion", cascade = CascadeType.ALL)
 	@Unowned
 	private ArrayList<Auditoria> auditorias = new ArrayList<Auditoria>();
-
+	
+	// TODO ver como soportar relaciones polimorficas sin utilizar keys.
+	//@Persistent
+	//private ArrayList<InspeccionState> states = new ArrayList<InspeccionState>();
+	@Persistent	
+	private ArrayList<Observado> observados = new ArrayList<Observado>();
 	@Persistent
-	private ArrayList<InspeccionState> states = new ArrayList<InspeccionState>();
+	private ArrayList<Confirmado> confirmados = new ArrayList<Confirmado>();
+	@Persistent
+	private ArrayList<Ejecutado> ejecutados = new ArrayList<Ejecutado>();
+	@Persistent
+	private Resuelto resuelto;
 	
-	@Persistent // TODO
-	private InspeccionState currentState;
+	@Persistent
+	private Integer lastStateIdentifier;
 	
-	public Inspeccion (Long id, String calle, Integer altura, Date fecha, String observacion, Tema tema, double latitude, double longitude){
+	@Persistent 
+	private Integer riesgo;
+	
+	public Inspeccion (Long id, String calle, Integer altura, Date fecha, String observacion, Tema tema, double latitude, double longitude, int riesgo){
 		this.id = id;
 		this.calle = calle;
 		this.altura = altura;
@@ -75,16 +83,39 @@ public class Inspeccion {
 		this.longitude = longitude;
 		this.fecha = fecha;
 		this.observacion = observacion;
-		this.states.add(new Observado(fecha, this));
+		this.riesgo = riesgo;
+		this.observados.add(new Observado(fecha, this));
+		// Para buscar la inspeccion por el codigo de estado.
+		this.lastStateIdentifier = InspeccionState.OBSERVADO;
 	}
 		
 	public InspeccionState getState(){
-		// Solo devuelvo el ultimo estado que es el valido.
-		return states.get(states.size() - 1);
+		switch (this.lastStateIdentifier) {
+		case InspeccionState.OBSERVADO:
+			return this.observados.get(observados.size() - 1);
+		case InspeccionState.CONFIRMADO:
+			return this.confirmados.get(confirmados.size() - 1);
+		case InspeccionState.EJECUTADO:
+			return this.ejecutados.get(ejecutados.size() - 1);
+		case InspeccionState.RESUELTO:
+			return this.resuelto;
+		default:
+			return null;
+		}
 	}
 	
 	public void setState(InspeccionState state){
-		states.add(state);
+		if (state instanceof Observado){
+			this.observados.add((Observado)state);
+		} else if (state instanceof Confirmado){
+			this.confirmados.add((Confirmado)state);
+		} else if (state instanceof Ejecutado){
+			this.ejecutados.add((Ejecutado)state);
+		} else if (state instanceof Resuelto){
+			this.resuelto = (Resuelto) state;
+		}
+		// Para buscar la inspeccion por el codigo de estado.
+		this.lastStateIdentifier = state.getCode();
 	}
 	
 	public Inspeccion(){
@@ -187,5 +218,20 @@ public class Inspeccion {
 	}
 	public void setEncodedMap(EncodedImage encodedMap) {
 		this.encodedMap = encodedMap;
+	}
+	public Integer getRiesgo() {
+		return riesgo;
+	}
+	public void setRiesgo(Integer riesgo) {
+		this.riesgo = riesgo;
+	}
+	public Integer getLastStateIdentifier() {
+		return lastStateIdentifier;
+	}
+	public void setLastStateIdentifier(Integer lastStateIdentifier) {
+		this.lastStateIdentifier = lastStateIdentifier;
+	}
+	public ArrayList<Auditoria> getAuditorias() {
+		return auditorias;
 	}
 }

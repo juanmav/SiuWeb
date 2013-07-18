@@ -28,14 +28,14 @@ public abstract class AbstractDAO <Bussines, I extends InterfaceDTO> implements 
 	}
 	
 	@Override
-	public Bussines findById(Long id) {
+	public Bussines getById(Long id) {
 		Bussines a = pm.getObjectById(this.typeParameterClass,id);
 		return a;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Bussines> findAll() {
+	public List<Bussines> getList() {
 		List<Bussines> areas = (List<Bussines>) pm.newQuery(this.typeParameterClass).execute();
 		return areas;
 	}

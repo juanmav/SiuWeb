@@ -2,7 +2,6 @@ package com.diphot.siuweb.server.pesistense.daos;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.diphot.siuweb.server.business.model.Area;
 import com.diphot.siuweb.server.business.model.TipoRelevamiento;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
@@ -21,7 +20,7 @@ public class TipoRelevamientoDAO extends AbstractDAO<TipoRelevamiento, TipoRelev
 	public TipoRelevamiento creatFromDTO(TipoRelevamientoDTO dto) {
 		AreaDAO areaDAO = new AreaDAO();
 		areaDAO.begin();
-		Area area = areaDAO.findById(dto.getAreadto().getId());
+		Area area = areaDAO.getById(dto.getAreadto().getId());
 		TipoRelevamiento tiporev = new TipoRelevamiento(null, dto.getNombre(), area);
 		areaDAO.end();
 		return tiporev;
@@ -29,19 +28,20 @@ public class TipoRelevamientoDAO extends AbstractDAO<TipoRelevamiento, TipoRelev
 
 	@Override
 	public TipoRelevamiento updateFromDTO(TipoRelevamientoDTO dto) {
-		// TODO Auto-generated method stub
+		// TODO
 		return null;
 	}
 
 	@Override
 	public TipoRelevamientoDTO getDTO(Long id) {
+		// TODO
 		return null;
 	}
 
 	@Override
 	public ArrayList<TipoRelevamientoDTO> getDTOList() {
 		ArrayList<TipoRelevamientoDTO> dtos = new ArrayList<TipoRelevamientoDTO>();
-		List<TipoRelevamiento> areas = findAll();
+		List<TipoRelevamiento> areas = getList();
 		for (TipoRelevamiento a : areas){
 			dtos.add((TipoRelevamientoDTO) getDTO(a));
 		}
@@ -61,6 +61,12 @@ public class TipoRelevamientoDAO extends AbstractDAO<TipoRelevamiento, TipoRelev
 
 	@Override
 	public ArrayList<TipoRelevamientoDTO> getDTOList(FilterInterfaceDTO filter) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<TipoRelevamiento> getList(FilterInterfaceDTO filter) {
 		// TODO Auto-generated method stub
 		return null;
 	}

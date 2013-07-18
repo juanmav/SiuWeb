@@ -9,8 +9,9 @@ import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 public interface DAOInterface <Bussines, DTO extends InterfaceDTO> {
 	public void begin();
 	public void end();
-	public Bussines findById(Long id);
-	public List<Bussines> findAll();
+	public Bussines getById(Long id);
+	public List<Bussines> getList();
+	public List<Bussines> getList(FilterInterfaceDTO filter);
 	public Bussines create(Bussines entity);
 	public ArrayList<Bussines> massiveCreate (ArrayList<Bussines> list);
 	public Bussines creatFromDTO(DTO dto);

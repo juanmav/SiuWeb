@@ -1,6 +1,7 @@
 package com.diphot.siuweb.server.pesistense.daos;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.diphot.siuweb.server.business.model.EncodedImage;
 import com.diphot.siuweb.server.business.model.Inspeccion;
@@ -20,7 +21,7 @@ public class EncodedImageDAO extends AbstractDAO<EncodedImage, EncodedImageDTO>{
 		EncodedImage encodedImage = new EncodedImage(dto.getEncodedImageString());
 		InspeccionDAO inspeccionDAO = new InspeccionDAO();
 		inspeccionDAO.begin();
-		Inspeccion inspeccion = inspeccionDAO.findById(dto.getInspeccionDTO().getId());
+		Inspeccion inspeccion = inspeccionDAO.getById(dto.getInspeccionDTO().getId());
 		inspeccion.addImage(encodedImage);
 		inspeccionDAO.update(inspeccion);
 		inspeccionDAO.end();
@@ -53,6 +54,12 @@ public class EncodedImageDAO extends AbstractDAO<EncodedImage, EncodedImageDTO>{
 
 	@Override
 	public ArrayList<EncodedImageDTO> getDTOList(FilterInterfaceDTO filter) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<EncodedImage> getList(FilterInterfaceDTO filter) {
 		// TODO Auto-generated method stub
 		return null;
 	}

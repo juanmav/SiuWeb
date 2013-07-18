@@ -15,6 +15,10 @@ public class TemaDTO implements Serializable, BeanModelTag,  InterfaceDTO {
 		
 	}
 	
+	public TemaDTO(Long id){
+		this.id = id;
+	}
+	
 	public String toString(){
 		return this.nombre;
 	}

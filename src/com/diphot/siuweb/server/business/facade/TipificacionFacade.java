@@ -10,6 +10,28 @@ import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
 
 public class TipificacionFacade {
 	
+	
+	public static void createArea(AreaDTO dto){
+		AreaDAO dao = new AreaDAO();
+		dao.begin();
+		dao.creatFromDTO(dto);
+		dao.end();
+	}
+	
+	public static void createTipoRelevamiento(TipoRelevamientoDTO dto){
+		TipoRelevamientoDAO dao = new TipoRelevamientoDAO();
+		dao.begin();
+		dao.creatFromDTO(dto);
+		dao.end();
+	}
+	
+	public static void createTema(TemaDTO dto){
+		TemaDAO dao = new TemaDAO();
+		dao.begin();
+		dao.creatFromDTO(dto);
+		dao.end();
+	}
+	
 	public static ArrayList<AreaDTO> getAreasDTO(){
 		AreaDAO dao = new AreaDAO(); 
 		ArrayList<AreaDTO> result;

@@ -1,31 +1,67 @@
-package com.diphot.siuweb.server;
+package com.diphot.siu.test;
 
 import java.util.ArrayList;
 
-import com.diphot.siuweb.client.services.TemaService;
+import org.junit.After;
+import org.junit.Before;
+
+import com.diphot.siuweb.server.business.model.Area;
 import com.diphot.siuweb.server.business.model.Tema;
 import com.diphot.siuweb.server.business.model.TipoRelevamiento;
-import com.diphot.siuweb.server.pesistense.daos.TemaDAO;
+import com.diphot.siuweb.server.pesistense.daos.AreaDAO;
 import com.diphot.siuweb.server.pesistense.daos.TipoRelevamientoDAO;
-import com.diphot.siuweb.shared.dtos.TemaDTO;
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
-@SuppressWarnings("serial")
-public class TemaServiceImpl extends RemoteServiceServlet implements TemaService{
+public class AbstractSiuTest {
 
-	@Override
-	public ArrayList<TemaDTO> getList() {
-		return new TemaDAO().getDTOList();
+	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+
+	@Before
+	public void setUp() {
+		helper.setUp();
+		dbCreate();
 	}
 
-	@Override
-	public void create(TemaDTO dto) {
-		// TODO Auto-generated method stub
+	@After
+	public void tearDown() {
+		helper.tearDown();
+	}
+	
+	protected void dbCreate(){
+		ArrayList<Area> areas = new ArrayList<Area>();
+		areas.add(new Area(1L,"SERVICIOS PÚBLICOS Y CONSERVACIÓN DE INFRAESTRUCTURA"));
+		areas.add(new Area(2L,"CONTROL URBANO Y AMBIENTAL"));
+		areas.add(new Area(3L,"PROTECCION CIUDADANA"));
+		areas.add(new Area(4L,"INSERCIÓN PÚBLICA Y PLANEAMIENTO URBANO"));
+		AreaDAO areaDAO = new AreaDAO();
+		areaDAO.begin();
+		areaDAO.massiveCreate(areas);
+					
+		// Servicios Publicos
+		Area area = areaDAO.getById(1L);
+		new TipoRelevamiento(1L, "Vía Pública en General", area);
+		new TipoRelevamiento(2L, "Arbolado", area);
+		new TipoRelevamiento(3L, "Alumbrado", area);
+		new TipoRelevamiento(4L, "Servicio Eléctrico", area);
+		new TipoRelevamiento(5L, "Semáforos", area);
+		new TipoRelevamiento(6L, "URGENCIA", area);
 		
-	}
-
-	@Override
-	public void populateINIT() {
+		// Control urbano
+		area = areaDAO.getById(2L);
+		new TipoRelevamiento(7L, "Vía Pública en General", area);
+		
+		// Proteccion
+		area = areaDAO.getById(3L);
+		new TipoRelevamiento(8L, "Vía Pública en General", area);
+		new TipoRelevamiento(9L, "Urgencia", area);
+		
+		// Insercion
+		area = areaDAO.getById(4L);
+		new TipoRelevamiento(10L, "Obras", area);
+		
+		areaDAO.end();
+		
 		TipoRelevamientoDAO tipoDAO = new TipoRelevamientoDAO();
 		tipoDAO.begin();
 		
@@ -157,6 +193,6 @@ public class TemaServiceImpl extends RemoteServiceServlet implements TemaService
 		
 		//temaDAO.massiveCreate(temas);
 		tipoDAO.end();
+		
 	}
-
 }

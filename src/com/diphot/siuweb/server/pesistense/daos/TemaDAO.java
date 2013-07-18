@@ -36,7 +36,7 @@ public class TemaDAO extends AbstractDAO<Tema, TemaDTO>{
 	@Override
 	public ArrayList<TemaDTO> getDTOList() {
 		ArrayList<TemaDTO> dtos = new ArrayList<TemaDTO>();
-		List<Tema> areas = findAll();
+		List<Tema> areas = getList();
 		for (Tema a : areas){
 			dtos.add((TemaDTO) getDTO(a));
 		}
@@ -55,6 +55,12 @@ public class TemaDAO extends AbstractDAO<Tema, TemaDTO>{
 
 	@Override
 	public ArrayList<TemaDTO> getDTOList(FilterInterfaceDTO filter) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Tema> getList(FilterInterfaceDTO filter) {
 		// TODO Auto-generated method stub
 		return null;
 	}

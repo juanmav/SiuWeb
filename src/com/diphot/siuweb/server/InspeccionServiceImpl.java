@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import com.diphot.siuweb.client.services.InspeccionService;
+import com.diphot.siuweb.server.business.facade.InspeccionFacade;
 import com.diphot.siuweb.server.business.model.EncodedImage;
 import com.diphot.siuweb.server.business.model.Inspeccion;
 import com.diphot.siuweb.server.pesistense.daos.EncodedImageDAO;
 import com.diphot.siuweb.server.pesistense.daos.InspeccionDAO;
 import com.diphot.siuweb.server.pesistense.daos.TemaDAO;
+import com.diphot.siuweb.shared.SiuConstants;
 import com.diphot.siuweb.shared.dtos.EncodedImageDTO;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
+import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
@@ -33,18 +36,11 @@ public class InspeccionServiceImpl extends RemoteServiceServlet implements Inspe
 
 	@Override
 	public void examplesCreate() {
-		TemaDAO temaDAO = new TemaDAO();
-		InspeccionDAO iDAO = new InspeccionDAO();
-		Inspeccion i = new Inspeccion();
-		i.setCalle("Martin Colorado");
-		i.setAltura(1500);
-		i.setTema(temaDAO.findById(10L));
-		i.setFecha(new Date());
-		i.setLatLong(-34.42801,-58.580475);
-		i.addImage(new EncodedImage(EncodedImageExamples.img1));
-		i.addImage(new EncodedImage(EncodedImageExamples.img2));
-		i.addImage(new EncodedImage(EncodedImageExamples.img3));
-		iDAO.create(i);
+		Long inspeccionID = 10L;
+		InspeccionFacade.create(new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, "", "", "", "", SiuConstants.ALTO));
+		//InspeccionFacade.create(new InspeccionDTO(inspeccionID+1L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, "", "", "", "", SiuConstants.MEDIO));
+		//InspeccionFacade.create(new InspeccionDTO(inspeccionID+2L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, "", "", "", "", SiuConstants.MEDIO));
+		//InspeccionFacade.create(new InspeccionDTO(inspeccionID+3L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, "", "", "", "", SiuConstants.BAJO));
 	}
 	
 	

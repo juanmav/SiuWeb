@@ -1,15 +1,17 @@
 package com.diphot.siuweb.shared.dtos.filters;
 
-import com.diphot.siuweb.shared.dtos.AreaDTO;
-import com.diphot.siuweb.shared.dtos.TemaDTO;
-import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
-import com.google.gwt.user.client.rpc.IsSerializable;
+import java.io.Serializable;
+import java.util.Date;
 
-public class InspeccionFilterDTO implements FilterInterfaceDTO, IsSerializable {
+public class InspeccionFilterDTO implements FilterInterfaceDTO, Serializable {
+	private static final long serialVersionUID = -1516963583061186062L;
 	public Long id;
 	public String calle;
 	public Integer altura;
-	public AreaDTO areadto;
-	public TipoRelevamientoDTO tipodto;
-	public TemaDTO temadto;
+	public Date fecha;
+	public Long areaID;
+	public Long tipoID;
+	public Long temaID;
+	public int riesgo;
+	public int estadoID;
 }

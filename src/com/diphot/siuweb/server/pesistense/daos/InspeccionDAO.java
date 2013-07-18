@@ -1,21 +1,20 @@
 package com.diphot.siuweb.server.pesistense.daos;
-        
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-
 import com.diphot.siuweb.server.business.model.EncodedImage;
 import com.diphot.siuweb.server.business.model.Inspeccion;
 import com.diphot.siuweb.server.business.model.Tema;
 import com.diphot.siuweb.server.business.model.inspeccion.status.InspeccionState;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
 import com.diphot.siuweb.server.pesistense.PMF.PMF;
-import com.diphot.siuweb.shared.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
+import com.diphot.siuweb.shared.dtos.filters.InspeccionFilterDTO;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 import com.itextpdf.text.pdf.codec.Base64;
 
@@ -33,10 +32,11 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 	public Inspeccion creatFromDTO(InspeccionDTO dto) {
 		TemaDTO temadto = dto.getTema();
 		TemaDAO temaDAO = new TemaDAO();
+		Inspeccion result = null;
 		temaDAO.begin();
-		Tema tema = temaDAO.findById(temadto.getId());
+		Tema tema = temaDAO.getById(temadto.getId());
 		// TODO resolver el tema de las fechas
-		Inspeccion inspeccion = new Inspeccion(null, dto.getCalle(), dto.getAltura(), new Date(), dto.getObservacion(), tema, dto.getLatitude(), dto.getLongitude());
+		Inspeccion inspeccion = new Inspeccion((dto.getId() != null ? dto.getId() : null), dto.getCalle(), dto.getAltura(), new Date(), dto.getObservacion(), tema, dto.getLatitude(), dto.getLongitude(), dto.getRiesgo());
 		if (dto.getImg1() != null)
 			inspeccion.addImage(new EncodedImage(dto.getImg1()));
 		if (dto.getImg2() != null)
@@ -44,8 +44,8 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		if (dto.getImg3() != null)
 			inspeccion.addImage(new EncodedImage(dto.getImg3()));
 		// El agrego el Mapa estatico.
-		inspeccion.setEncodedMap(new EncodedImage(getStringMapImage(dto.getLatitude(), dto.getLongitude())));
-		Inspeccion result = this.create(inspeccion);
+		//inspeccion.setEncodedMap(new EncodedImage(getStringMapImage(dto.getLatitude(), dto.getLongitude())));
+		result = this.create(inspeccion);
 		temaDAO.end();
 		return result;
 	}
@@ -55,12 +55,12 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		String result = "";
 		try {
 			url = new URL("http://maps.googleapis.com/maps/api/staticmap?" +
-						 "center="+ latitude +"," +
-						 longitude +
-						 "&zoom=15&size=300x300&maptype=roadmap&" +
-						 "markers="+latitude+"," +
-						 longitude +
-						 "&sensor=false");
+					"center="+ latitude +"," +
+					longitude +
+					"&zoom=15&size=300x300&maptype=roadmap&" +
+					"markers="+latitude+"," +
+					longitude +
+					"&sensor=false");
 			byte[] b = URLFetchServiceFactory.getURLFetchService().fetch( url ).getContent();
 			result = Base64.encodeBytes(b);
 		} catch (MalformedURLException e) {
@@ -70,10 +70,10 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return result;
 	}
-	
+
 	@Override
 	public Inspeccion updateFromDTO(InspeccionDTO dto) {
 		// TODO Auto-generated method stub
@@ -94,14 +94,8 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		Query q = pm.newQuery(Inspeccion.class);
 		List<Inspeccion> inspecciones = (List<Inspeccion>) q.execute();
-		TemaDAO temadao = new TemaDAO();
 		for (Inspeccion i : inspecciones){
-			TemaDTO temadto = (TemaDTO) temadao.getDTO(i.getTema());
-			dtos.add(new InspeccionDTO(i.getId(), i.getCalle(), i.getAltura(), i.getObservacion(), 
-					temadto,i.getLatitude(), i.getLongitude(),i.getFecha().toString(),
-					getValueImage(i.getEncodedIMG1()),
-					getValueImage(i.getEncodedIMG2()),
-					getValueImage(i.getEncodedIMG3())));
+			dtos.add(getDTO(i));
 		}
 		return dtos;
 	}
@@ -113,27 +107,48 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 			return i.getEncodedImageString();
 		}
 	}
-	
+
 	@Override
-	public InterfaceDTO getDTO(Inspeccion entity) {
-		// TODO Auto-generated method stub
-		return null;
+	public InspeccionDTO getDTO(Inspeccion i) {
+		TemaDAO temadao = new TemaDAO();
+		TemaDTO temadto = (TemaDTO) temadao.getDTO(i.getTema());
+		return new InspeccionDTO(i.getId(), i.getCalle(), i.getAltura(), i.getObservacion(), 
+				temadto,i.getLatitude(), i.getLongitude(),i.getFecha().toString(),
+				getValueImage(i.getEncodedIMG1()),
+				getValueImage(i.getEncodedIMG2()),
+				getValueImage(i.getEncodedIMG3()),
+				i.getRiesgo());
 	}
 
 	@Override
 	public ArrayList<InspeccionDTO> getDTOList(FilterInterfaceDTO filter) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<InspeccionDTO> result = new ArrayList<InspeccionDTO>();
+		List<Inspeccion> iList = getList(filter);
+		for (Inspeccion i : iList){
+			result.add(getDTO(i));
+		}
+		return result;
 	}
-	
+
 	@SuppressWarnings("unchecked")
+	// TODO Verificar esto
 	public ArrayList<Inspeccion> getByState(InspeccionState state){
 		ArrayList<Inspeccion> result;
-		
-		// TODO Verificar esto
 		Query query = pm.newQuery(Inspeccion.class);
 		query.setFilter("lastName == lastNameParam");
 		result = (ArrayList<Inspeccion>) query.execute(state.getClass());
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Inspeccion> getList(FilterInterfaceDTO f) {
+		InspeccionFilterDTO filter = (InspeccionFilterDTO) f;
+		List<Inspeccion> result;
+		Query query = pm.newQuery(Inspeccion.class);
+		query.setFilter("riesgo == riesgoParam && lastStateIdentifier == lastParam");
+		query.declareParameters("int riesgoParam, Integer lastParam");
+		result = (List<Inspeccion>)query.execute(filter.riesgo, filter.estadoID);
 		return result;
 	}
 }

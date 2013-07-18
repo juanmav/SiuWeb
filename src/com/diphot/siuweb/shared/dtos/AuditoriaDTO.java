@@ -10,15 +10,29 @@ import com.extjs.gxt.ui.client.data.BeanModelTag;
 public class AuditoriaDTO implements Serializable, BeanModelTag, InterfaceDTO {
 
 	private static final long serialVersionUID = 3146877714180406714L;
-	
+
 	private Long id;
-    private Long inspeccionID;
-	private EncodedImage encodedIMG1;
-	private EncodedImage encodedIMG2;
-	private EncodedImage encodedIMG3;
+
+	private Long inspeccionID;
+	private String Img1;
+	private String Img2;
+	private String Img3;
 	private Boolean resuelto;
 	private String observaciones;
-	
+
+	public AuditoriaDTO(Long id, Long inspeccionID, String Img1,
+			String Img2, String Img3,
+			Boolean resuelto, String observaciones) {
+		this.id = id;
+		this.inspeccionID = inspeccionID;
+		this.Img1 = Img1;
+		this.Img2 = Img2;
+		this.Img3 = Img3;
+		this.resuelto = resuelto;
+		this.observaciones = observaciones;
+	}
+
+
 	public Long getInspeccionID() {
 		return inspeccionID;
 	}
@@ -26,7 +40,7 @@ public class AuditoriaDTO implements Serializable, BeanModelTag, InterfaceDTO {
 	public void setInspeccionID(Long inspeccionID) {
 		this.inspeccionID = inspeccionID;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -35,28 +49,28 @@ public class AuditoriaDTO implements Serializable, BeanModelTag, InterfaceDTO {
 		this.id = id;
 	}
 
-	public EncodedImage getEncodedIMG1() {
-		return encodedIMG1;
+	public String getImg1() {
+		return Img1;
 	}
 
-	public void setEncodedIMG1(EncodedImage encodedIMG1) {
-		this.encodedIMG1 = encodedIMG1;
+	public void setImg1(String Img1) {
+		this.Img1 = Img1;
 	}
 
-	public EncodedImage getEncodedIMG2() {
-		return encodedIMG2;
+	public String getImg2() {
+		return Img2;
 	}
 
-	public void setEncodedIMG2(EncodedImage encodedIMG2) {
-		this.encodedIMG2 = encodedIMG2;
+	public void setImg2(String Img2) {
+		this.Img2 = Img2;
 	}
 
-	public EncodedImage getEncodedIMG3() {
-		return encodedIMG3;
+	public String getImg3() {
+		return Img3;
 	}
 
-	public void setEncodedIMG3(EncodedImage encodedIMG3) {
-		this.encodedIMG3 = encodedIMG3;
+	public void setImg3(String Img3) {
+		this.Img3 = Img3;
 	}
 
 	public Boolean getResuelto() {
@@ -74,6 +88,6 @@ public class AuditoriaDTO implements Serializable, BeanModelTag, InterfaceDTO {
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
 	}
-	
-	
+
+
 }

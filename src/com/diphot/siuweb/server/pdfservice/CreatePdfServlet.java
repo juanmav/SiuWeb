@@ -20,7 +20,7 @@ public class CreatePdfServlet extends HttpServlet {
 		CustomWorker cworker= new CustomWorker();
 		InspeccionDAO idao = new InspeccionDAO();
 		idao.begin();
-		Inspeccion inspeccion = idao.findById(885L);
+		Inspeccion inspeccion = idao.getById(885L);
 		
 		// http://maps.googleapis.com/maps/api/staticmap?scale=1&center=40.702147,-74.015794&zoom=14&size=300x150&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&sensor=false
 		try {

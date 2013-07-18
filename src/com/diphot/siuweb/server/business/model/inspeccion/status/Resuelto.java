@@ -12,5 +12,6 @@ public class Resuelto extends InspeccionState{
 	public Resuelto(Date date, Inspeccion inspeccion) {
 		// TODO Auto-generated constructor stub
 		super(date, inspeccion);
+		this.code = InspeccionState.RESUELTO;
 	}
 }
