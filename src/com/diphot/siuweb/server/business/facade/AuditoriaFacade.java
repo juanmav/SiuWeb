@@ -16,16 +16,14 @@ public class AuditoriaFacade {
 		InspeccionDAO idao = new InspeccionDAO();
 		idao.begin();
 		Inspeccion inspeccion = idao.getById(dto.getInspeccionID());
-		Auditoria result = new Auditoria((dto.getId() != null ? dto.getId() : null),inspeccion,dto.getResuelto(),dto.getObservaciones());
+		Auditoria result = new Auditoria(dto.getId(),inspeccion,dto.getResuelto(),dto.getObservaciones());
 		if (dto.getImg1() != null)
 			result.addImage(new EncodedImage(dto.getImg1()));
 		if (dto.getImg2() != null)
 			result.addImage(new EncodedImage(dto.getImg2()));
 		if (dto.getImg3() != null)
 			result.addImage(new EncodedImage(dto.getImg3()));
-		
 		idao.end();
-		
 		return result;
 	}
 	

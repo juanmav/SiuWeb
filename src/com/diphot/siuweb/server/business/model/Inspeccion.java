@@ -21,12 +21,12 @@ import java.util.Date;
 @PersistenceCapable
 public class Inspeccion {
 	@PrimaryKey
-    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
-    private String encodedKey;
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	@Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
+	private String encodedKey;
 	@Persistent
-    @Extension(vendorName="datanucleus", key="gae.pk-id", value="true")
-    private Long id;
+	@Extension(vendorName="datanucleus", key="gae.pk-id", value="true")
+	private Long id;
 	@Persistent
 	private String calle;
 	@Persistent
@@ -41,21 +41,25 @@ public class Inspeccion {
 	@Persistent
 	private Date fecha;
 	@Persistent
+	@Unowned
 	private EncodedImage encodedIMG1;
 	@Persistent
+	@Unowned
 	private EncodedImage encodedIMG2;
 	@Persistent
+	@Unowned
 	private EncodedImage encodedIMG3;
 	@Persistent
+	@Unowned
 	private EncodedImage encodedMap;
 	@Persistent
 	private String observacion;
-	
+
 	@Persistent
 	@OneToMany(mappedBy = "inspeccion", cascade = CascadeType.ALL)
 	@Unowned
 	private ArrayList<Auditoria> auditorias = new ArrayList<Auditoria>();
-	
+
 	// TODO ver como soportar relaciones polimorficas sin utilizar keys.
 	//@Persistent
 	//private ArrayList<InspeccionState> states = new ArrayList<InspeccionState>();
@@ -66,14 +70,14 @@ public class Inspeccion {
 	@Persistent
 	private ArrayList<Ejecutado> ejecutados = new ArrayList<Ejecutado>();
 	@Persistent
-	private Resuelto resuelto;
-	
+	private ArrayList<Resuelto> resuelto = new ArrayList<Resuelto>();
+
 	@Persistent
 	private Integer lastStateIdentifier;
-	
+
 	@Persistent 
 	private Integer riesgo;
-	
+
 	public Inspeccion (Long id, String calle, Integer altura, Date fecha, String observacion, Tema tema, double latitude, double longitude, int riesgo){
 		this.id = id;
 		this.calle = calle;
@@ -88,7 +92,7 @@ public class Inspeccion {
 		// Para buscar la inspeccion por el codigo de estado.
 		this.lastStateIdentifier = InspeccionState.OBSERVADO;
 	}
-		
+
 	public InspeccionState getState(){
 		switch (this.lastStateIdentifier) {
 		case InspeccionState.OBSERVADO:
@@ -98,12 +102,12 @@ public class Inspeccion {
 		case InspeccionState.EJECUTADO:
 			return this.ejecutados.get(ejecutados.size() - 1);
 		case InspeccionState.RESUELTO:
-			return this.resuelto;
+			return this.resuelto.get(0);
 		default:
 			return null;
 		}
 	}
-	
+
 	public void setState(InspeccionState state){
 		if (state instanceof Observado){
 			this.observados.add((Observado)state);
@@ -112,28 +116,29 @@ public class Inspeccion {
 		} else if (state instanceof Ejecutado){
 			this.ejecutados.add((Ejecutado)state);
 		} else if (state instanceof Resuelto){
-			this.resuelto = (Resuelto) state;
+			this.resuelto.add((Resuelto) state);
 		}
 		// Para buscar la inspeccion por el codigo de estado.
 		this.lastStateIdentifier = state.getCode();
 	}
-	
+
 	public Inspeccion(){
-		
+
 	}
 	// TODO disparar una excepcion y/o alarma para cuando la cuenta de Auditorias supere las dos auditorias.
 	public void addAuditoria(Auditoria auditoria){
 		this.auditorias.add(auditoria);
-		
 		if (auditoria.getResuelto()){ // El Problema esta resuelto
 			setState(new Resuelto(auditoria.getFecha(), this));
 		} else {
 			setState(new Observado(auditoria.getFecha(), this));
 		}
-		
 	}
-	// TODO aca habria que poner una lista encadenada o algo por el estilo y arrojar excepciones si se pasa de tres o pisar
-	// fotos viejas.
+	/** TODO aca habria que poner una lista encadenada o similar, 
+	 * arrojar excepciones si se pasa de tres o pisar fotos viejas.
+	 *
+	 * @param img
+	 */
 	public void addImage(EncodedImage img){
 		if (this.encodedIMG1 == null) {
 			this.encodedIMG1 = img;
@@ -234,4 +239,13 @@ public class Inspeccion {
 	public ArrayList<Auditoria> getAuditorias() {
 		return auditorias;
 	}
+
+	public void confirmar(){
+		this.setState(new Confirmado(new Date(), this));
+	}
+
+	public void ejecutadaAuditable(){
+		this.setState(new Ejecutado(new Date(), this));
+	}
+
 }

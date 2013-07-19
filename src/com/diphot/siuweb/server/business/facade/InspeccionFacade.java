@@ -1,12 +1,7 @@
 package com.diphot.siuweb.server.business.facade;
 
 import java.util.ArrayList;
-import java.util.Date;
-
 import com.diphot.siuweb.server.business.model.Inspeccion;
-import com.diphot.siuweb.server.business.model.inspeccion.status.Confirmado;
-import com.diphot.siuweb.server.business.model.inspeccion.status.Ejecutado;
-import com.diphot.siuweb.server.business.model.inspeccion.status.Observado;
 import com.diphot.siuweb.server.pesistense.daos.InspeccionDAO;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
 import com.diphot.siuweb.shared.dtos.filters.InspeccionFilterDTO;
@@ -26,10 +21,7 @@ public class InspeccionFacade {
 		InspeccionDAO idao = new InspeccionDAO();
 		idao.begin();
 		Inspeccion result = idao.getById(id);
-		// Paso al siguiente Estado
-		if (result.getState() instanceof Observado){
-			result.setState(new Confirmado(new Date(), result));
-		}
+		result.confirmar();
 		idao.end();
 		return result;
 	}
@@ -44,10 +36,7 @@ public class InspeccionFacade {
 		InspeccionDAO idao = new InspeccionDAO();
 		idao.begin();
 		Inspeccion result = idao.getById(id);
-		// Paso al siguiente Estado
-		if (result.getState() instanceof Confirmado){
-			result.setState(new Ejecutado(new Date(), result));
-		}
+		result.ejecutadaAuditable();
 		idao.end();
 		return result;
 	}

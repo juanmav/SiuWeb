@@ -24,10 +24,10 @@ public class AreaServiceImpl extends RemoteServiceServlet implements AreaService
 	@Override
 	public void populateINIT() {
 		ArrayList<Area> areas = new ArrayList<Area>();
-		areas.add(new Area(1L,"SERVICIOS PÚBLICOS Y CONSERVACIÓN DE INFRAESTRUCTURA"));
-		areas.add(new Area(2L,"CONTROL URBANO Y AMBIENTAL"));
+		areas.add(new Area(1L,"SERVICIOS PÚBLICOS"));
+		areas.add(new Area(2L,"CONTROL URBANO"));
 		areas.add(new Area(3L,"PROTECCION CIUDADANA"));
-		areas.add(new Area(4L,"INSERCIÓN PÚBLICA Y PLANEAMIENTO URBANO"));
+		areas.add(new Area(4L,"INSERCIÓN PÚBLICA"));
 		AreaDAO areaDAO = new AreaDAO();
 		areaDAO.begin();
 		areaDAO.massiveCreate(areas);

@@ -51,6 +51,7 @@ public class Auditoria {
 		this.inspeccion = inspeccion;
 		this.resuelto = resuelto;
 		this.observaciones = observaciones;
+		this.fecha = new Date();
 		this.inspeccion.addAuditoria(this);
 	}
 

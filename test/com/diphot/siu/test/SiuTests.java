@@ -1,6 +1,7 @@
 package com.diphot.siu.test;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import junit.framework.Assert;
 
@@ -27,21 +28,21 @@ public class SiuTests extends AbstractSiuTest {
 	final private Long inspeccionID = 10L; 
 
 	private void preCreacionInspecciones(){
-		InspeccionFacade.create(new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, "", "", "", "", SiuConstants.ALTO));
-		InspeccionFacade.create(new InspeccionDTO(inspeccionID+1L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, "", "", "", "", SiuConstants.MEDIO));
-		InspeccionFacade.create(new InspeccionDTO(inspeccionID+2L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, "", "", "", "", SiuConstants.MEDIO));
-		InspeccionFacade.create(new InspeccionDTO(inspeccionID+3L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, "", "", "", "", SiuConstants.BAJO));
+		InspeccionFacade.create(new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO));
+		InspeccionFacade.create(new InspeccionDTO(inspeccionID+1L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO));
+		InspeccionFacade.create(new InspeccionDTO(inspeccionID+2L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO));
+		InspeccionFacade.create(new InspeccionDTO(inspeccionID+3L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.BAJO));
 	}
 
 	@Test
 	public void TestCreateInspeccion() {
-		Inspeccion i = InspeccionFacade.create(new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, "", "", "", "", SiuConstants.ALTO));
+		Inspeccion i = InspeccionFacade.create(new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO));
 		Assert.assertNotNull(i);
 	}
 
 	@Test
 	public void TestCreateInspeccion2() {
-		Inspeccion i = InspeccionFacade.create(new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, "", "", "", "", SiuConstants.ALTO));
+		Inspeccion i = InspeccionFacade.create(new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO));
 		Assert.assertNotNull(i);
 	}
 

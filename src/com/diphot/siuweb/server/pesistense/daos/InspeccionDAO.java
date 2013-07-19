@@ -36,7 +36,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		temaDAO.begin();
 		Tema tema = temaDAO.getById(temadto.getId());
 		// TODO resolver el tema de las fechas
-		Inspeccion inspeccion = new Inspeccion((dto.getId() != null ? dto.getId() : null), dto.getCalle(), dto.getAltura(), new Date(), dto.getObservacion(), tema, dto.getLatitude(), dto.getLongitude(), dto.getRiesgo());
+		Inspeccion inspeccion = new Inspeccion(dto.getId(), dto.getCalle(), dto.getAltura(), new Date(), dto.getObservacion(), tema, dto.getLatitude(), dto.getLongitude(), dto.getRiesgo());
 		if (dto.getImg1() != null)
 			inspeccion.addImage(new EncodedImage(dto.getImg1()));
 		if (dto.getImg2() != null)
@@ -44,7 +44,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		if (dto.getImg3() != null)
 			inspeccion.addImage(new EncodedImage(dto.getImg3()));
 		// El agrego el Mapa estatico.
-		//inspeccion.setEncodedMap(new EncodedImage(getStringMapImage(dto.getLatitude(), dto.getLongitude())));
+		inspeccion.setEncodedMap(new EncodedImage(getStringMapImage(dto.getLatitude(), dto.getLongitude())));
 		result = this.create(inspeccion);
 		temaDAO.end();
 		return result;
