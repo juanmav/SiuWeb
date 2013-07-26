@@ -37,11 +37,11 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		Tema tema = temaDAO.getById(temadto.getId());
 		// TODO resolver el tema de las fechas
 		Inspeccion inspeccion = new Inspeccion(dto.getId(), dto.getCalle(), dto.getAltura(), new Date(), dto.getObservacion(), tema, dto.getLatitude(), dto.getLongitude(), dto.getRiesgo());
-		if (dto.getImg1() != null)
+		if (dto.getImg1() != null && !dto.getImg1().equals(""))
 			inspeccion.addImage(new EncodedImage(dto.getImg1()));
-		if (dto.getImg2() != null)
+		if (dto.getImg2() != null && !dto.getImg2().equals(""))
 			inspeccion.addImage(new EncodedImage(dto.getImg2()));
-		if (dto.getImg3() != null)
+		if (dto.getImg3() != null && !dto.getImg3().equals(""))
 			inspeccion.addImage(new EncodedImage(dto.getImg3()));
 		// El agrego el Mapa estatico.
 		inspeccion.setEncodedMap(new EncodedImage(getStringMapImage(dto.getLatitude(), dto.getLongitude())));
@@ -146,9 +146,14 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		InspeccionFilterDTO filter = (InspeccionFilterDTO) f;
 		List<Inspeccion> result;
 		Query query = pm.newQuery(Inspeccion.class);
-		query.setFilter("riesgo == riesgoParam && lastStateIdentifier == lastParam");
-		query.declareParameters("int riesgoParam, Integer lastParam");
-		result = (List<Inspeccion>)query.execute(filter.riesgo, filter.estadoID);
+		if (filter != null){
+			query.setFilter("riesgo == riesgoParam && lastStateIdentifier == lastParam");
+			query.declareParameters("int riesgoParam, Integer lastParam");
+			result = (List<Inspeccion>)query.execute(filter.riesgo, filter.estadoID);
+		} else {
+			result = (List<Inspeccion>)query.execute();
+		}
+		
 		return result;
 	}
 }

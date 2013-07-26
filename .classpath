@@ -11,15 +11,15 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/xmlworker-5.4.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/itextpdf-5.4.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-codec-1.8.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/testing/appengine-api-labs.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/testing/appengine-api-stubs.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/testing/appengine-testing.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.codehaus.jackson.core.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.codehaus.jackson.mapper.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.restlet.ext.jackson.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.restlet.ext.servlet.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.restlet.ext.xml.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/org.restlet.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/testing/appengine-api-labs.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/testing/appengine-api-stubs.jar"/>
-	<classpathentry kind="lib" path="war/WEB-INF/testing/appengine-testing.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="C:/Users/JuanMa/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.8.1.1/appengine-java-sdk-1.8.1.1/lib/shared/appengine-local-runtime-shared.jar">
 		<attributes>
@@ -136,6 +136,6 @@
 			<attribute name="javadoc_location" value="file:/C:/Users/JuanMa/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.8.1.1/appengine-java-sdk-1.8.1.1/docs/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine (1)"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

@@ -1,7 +1,6 @@
 package com.diphot.siuweb.server.services.rest.interfaces;
 
 import java.util.ArrayList;
-
 import org.restlet.resource.Get;
 import org.restlet.resource.Options;
 import org.restlet.resource.Post;
@@ -10,12 +9,12 @@ import com.diphot.siuweb.shared.dtos.InspeccionDTO;
 import com.diphot.siuweb.shared.dtos.filters.InspeccionFilterDTO;
 
 public interface InspeccionRestLetInterface {
-	@Get
-    public void create(InspeccionDTO inspeccionDTO);
 	@Post
-	public void confirmar(Long id);
+    public void create(InspeccionDTO inspeccionDTO);
+	@Get
+	public ArrayList<InspeccionDTO> getList(InspeccionFilterDTO filter);
 	@Put
-	public void ejecutadaAuditable(Long id);
+	public void confirmar(Long id);
 	@Options
-	public ArrayList<InspeccionDTO> getDTOByQuery(InspeccionFilterDTO filter);
+	public void ejecutadaAuditable(Long id);
 }
