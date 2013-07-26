@@ -8,8 +8,8 @@ import javax.jdo.Query;
 import com.diphot.siuweb.server.business.model.Auditoria;
 import com.diphot.siuweb.server.business.model.Inspeccion;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
-import com.diphot.siuweb.shared.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.AuditoriaDTO;
+import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.filters.AuditoriaFilterDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 

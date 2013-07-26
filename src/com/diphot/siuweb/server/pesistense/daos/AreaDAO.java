@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.diphot.siuweb.server.business.model.Area;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
-import com.diphot.siuweb.shared.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.AreaDTO;
+import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 
 public class AreaDAO extends AbstractDAO<Area, AreaDTO>{

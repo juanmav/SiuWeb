@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.diphot.siuweb.server.business.model.Tema;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
-import com.diphot.siuweb.shared.InterfaceDTO;
+import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;

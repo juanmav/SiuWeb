@@ -4,7 +4,6 @@ package com.diphot.siuweb.shared.dtos;
 import java.io.Serializable;
 
 import com.diphot.siuweb.server.business.model.EncodedImage;
-import com.diphot.siuweb.shared.InterfaceDTO;
 import com.extjs.gxt.ui.client.data.BeanModelTag;
 
 public class AuditoriaDTO implements Serializable, BeanModelTag, InterfaceDTO {

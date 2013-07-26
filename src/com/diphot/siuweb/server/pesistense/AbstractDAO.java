@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import com.diphot.siuweb.server.pesistense.PMF.PMF;
-import com.diphot.siuweb.shared.InterfaceDTO;
+import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 
 public abstract class AbstractDAO <Bussines, I extends InterfaceDTO> implements DAOInterface<Bussines, I>{
