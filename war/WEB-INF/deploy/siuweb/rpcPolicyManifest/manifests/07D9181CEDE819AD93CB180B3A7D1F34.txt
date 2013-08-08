@@ -1,2 +1,0 @@
-serviceClass: com.diphot.siuweb.client.services.TipoRelevamientoService
-path: 1A2B4AE4D7BC20954A29990FE426035B.gwt.rpc

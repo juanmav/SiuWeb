@@ -17,8 +17,10 @@ public class InspeccionDTO implements Serializable, BeanModelTag, InterfaceDTO {
 	private String img1;
 	private String img2;
 	private String img3;
+	private String imgMap;
 	private String observacion;
 	private int riesgo;
+	private int lastStateIdentifier;
 	
 	public InspeccionDTO(){
 		
@@ -151,5 +153,21 @@ public class InspeccionDTO implements Serializable, BeanModelTag, InterfaceDTO {
 
 	public void setRiesgo(int riesgo) {
 		this.riesgo = riesgo;
+	}
+
+	public int getLastStateIdentifier() {
+		return lastStateIdentifier;
+	}
+
+	public void setLastStateIdentifier(int estado) {
+		this.lastStateIdentifier = estado;
+	}
+
+	public String getImgMap() {
+		return imgMap;
+	}
+
+	public void setImgMap(String imgMap) {
+		this.imgMap = imgMap;
 	}
 }

@@ -3,6 +3,8 @@ package com.diphot.siuweb.server.services.rest;
 import org.restlet.Application;
 import org.restlet.Restlet;
 import org.restlet.routing.Router;
+
+import com.diphot.siuweb.server.services.rest.impl.AuditoriaRestLetImpl;
 import com.diphot.siuweb.server.services.rest.impl.InspeccionRestLetImpl;
 import com.diphot.siuweb.server.services.rest.impl.TipificacionRestLetImpl;
 
@@ -16,6 +18,8 @@ public class RestApi extends Application {
 		Router router = new Router(getContext());
 		router.attach("/inspecciones", InspeccionRestLetImpl.class);
 		router.attach("/tipificacion", TipificacionRestLetImpl.class);
+		router.attach("/auditorias", AuditoriaRestLetImpl.class);
+		
 		return router;
 	}
 }

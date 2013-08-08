@@ -2,9 +2,6 @@ package com.diphot.siuweb.server.pesistense.daos;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.jdo.Query;
-
 import com.diphot.siuweb.server.business.model.Auditoria;
 import com.diphot.siuweb.server.business.model.Inspeccion;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
@@ -58,6 +55,7 @@ public class AuditoriaDAO extends AbstractDAO<Auditoria, AuditoriaDTO>{
 				a.getEncodedIMG1().getEncodedImageString(), 
 				a.getResuelto(), 
 				a.getObservaciones());
+		dto.setFecha(a.getFecha().toString());
 		return dto;
 	}
 

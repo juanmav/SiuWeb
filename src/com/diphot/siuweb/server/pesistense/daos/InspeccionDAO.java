@@ -57,7 +57,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 			url = new URL("http://maps.googleapis.com/maps/api/staticmap?" +
 					"center="+ latitude +"," +
 					longitude +
-					"&zoom=15&size=300x300&maptype=roadmap&" +
+					"&zoom=17&size=300x300&maptype=roadmap&" +
 					"markers="+latitude+"," +
 					longitude +
 					"&sensor=false");
@@ -112,12 +112,15 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 	public InspeccionDTO getDTO(Inspeccion i) {
 		TemaDAO temadao = new TemaDAO();
 		TemaDTO temadto = (TemaDTO) temadao.getDTO(i.getTema());
-		return new InspeccionDTO(i.getId(), i.getCalle(), i.getAltura(), i.getObservacion(), 
+		InspeccionDTO idto = new InspeccionDTO(i.getId(), i.getCalle(), i.getAltura(), i.getObservacion(), 
 				temadto,i.getLatitude(), i.getLongitude(),i.getFecha().toString(),
 				getValueImage(i.getEncodedIMG1()),
 				getValueImage(i.getEncodedIMG2()),
 				getValueImage(i.getEncodedIMG3()),
 				i.getRiesgo());
+		idto.setLastStateIdentifier(i.getLastStateIdentifier());
+		idto.setImgMap(getValueImage(i.getEncodedMap()));
+		return idto;
 	}
 
 	@Override
@@ -153,7 +156,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		} else {
 			result = (List<Inspeccion>)query.execute();
 		}
-		
+
 		return result;
 	}
 }

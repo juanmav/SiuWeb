@@ -1,2 +1,0 @@
-serviceClass: com.diphot.siuweb.client.services.GreetingService
-path: CDF2E6D5E61FCE2F6EC3211CFA029200.gwt.rpc

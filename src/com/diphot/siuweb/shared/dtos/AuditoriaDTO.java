@@ -18,6 +18,7 @@ public class AuditoriaDTO implements Serializable, BeanModelTag, InterfaceDTO {
 	private String Img3;
 	private Boolean resuelto;
 	private String observaciones;
+	private String fecha;
 
 	public AuditoriaDTO(Long id, Long inspeccionID, String Img1,
 			String Img2, String Img3,
@@ -86,6 +87,16 @@ public class AuditoriaDTO implements Serializable, BeanModelTag, InterfaceDTO {
 
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
+	}
+
+
+	public String getFecha() {
+		return fecha;
+	}
+
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
 	}
 
 
