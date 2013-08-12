@@ -68,9 +68,9 @@ public abstract class AbstractDAO <Bussines, I extends InterfaceDTO> implements 
 	@Override
 	public abstract Bussines updateFromDTO(I dto);
 	@Override
-	public abstract InterfaceDTO getDTO(Long id);
+	public abstract I getDTO(Long id);
 	@Override
-	public abstract InterfaceDTO getDTO(Bussines entity);
+	public abstract I getDTO(Bussines entity);
 	@Override
 	public abstract ArrayList<I> getDTOList();
 	@Override

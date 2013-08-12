@@ -6,7 +6,6 @@ import com.diphot.siuweb.server.business.model.Auditoria;
 import com.diphot.siuweb.server.business.model.Inspeccion;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
 import com.diphot.siuweb.shared.dtos.AuditoriaDTO;
-import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.filters.AuditoriaFilterDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 
@@ -42,7 +41,7 @@ public class AuditoriaDAO extends AbstractDAO<Auditoria, AuditoriaDTO>{
 	}
 
 	@Override
-	public InterfaceDTO getDTO(Long id) {
+	public AuditoriaDTO getDTO(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

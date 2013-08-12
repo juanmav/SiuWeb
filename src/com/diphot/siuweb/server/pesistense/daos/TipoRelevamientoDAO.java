@@ -6,7 +6,6 @@ import com.diphot.siuweb.server.business.model.Area;
 import com.diphot.siuweb.server.business.model.TipoRelevamiento;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
 import com.diphot.siuweb.shared.dtos.AreaDTO;
-import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 
@@ -50,7 +49,7 @@ public class TipoRelevamientoDAO extends AbstractDAO<TipoRelevamiento, TipoRelev
 	}
 
 	@Override
-	public InterfaceDTO getDTO(TipoRelevamiento entity) {
+	public TipoRelevamientoDTO getDTO(TipoRelevamiento entity) {
 		TipoRelevamientoDTO dto = new TipoRelevamientoDTO();
 		dto.setId(entity.getId());
 		dto.setNombre(entity.getNombre());

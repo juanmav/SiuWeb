@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.diphot.siuweb.server.business.model.Tema;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
-import com.diphot.siuweb.shared.dtos.InterfaceDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
@@ -44,7 +43,7 @@ public class TemaDAO extends AbstractDAO<Tema, TemaDTO>{
 	}
 	
 	@Override
-	public InterfaceDTO getDTO(Tema entity) {
+	public TemaDTO getDTO(Tema entity) {
 		TemaDTO dto = new TemaDTO();
 		dto.setId(entity.getId());
 		dto.setNombre(entity.getNombre());
