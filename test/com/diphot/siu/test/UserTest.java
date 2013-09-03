@@ -4,22 +4,29 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.diphot.siuweb.server.business.facade.UserFacade;
+import com.diphot.siuweb.server.business.facade.impl.UserFacade;
+import com.diphot.siuweb.server.business.facade.proxy.UserFacadeProxy;
 import com.diphot.siuweb.server.business.model.User;
+import com.diphot.siuweb.server.pesistense.daos.UserDAO;
+import com.diphot.siuweb.shared.SiuConstants;
+import com.diphot.siuweb.shared.dtos.RoleDTO;
 import com.diphot.siuweb.shared.dtos.UserDTO;
 
 public class UserTest  extends AbstractSiuTest {
 
-
 	@Before
 	public void setUp() {
 		super.setUp();
-		UserFacade.createUser(new UserDTO(1L,"admin", "admin"));
+		UserFacade.getInstance().createUser(new UserDTO(1L,"admin", "admin"));
+		UserFacade.getInstance().createRole(new RoleDTO(1L, SiuConstants.ROLES.ADMIN));
+		UserFacade.getInstance().createRole(new RoleDTO(2L, SiuConstants.ROLES.SUPERVISOR));
+		UserFacade.getInstance().createRole(new RoleDTO(3L, SiuConstants.ROLES.INSPECTOR));
+		UserFacade.getInstance().createRole(new RoleDTO(4L, SiuConstants.ROLES.SECRETARIA));
 	}
 	
 	@Test
 	public void testPasswordDigest(){
-		User u = new User("admin", "password");
+		User u = new User(1L,"admin", "password");
 		// Chequeo el password y me da OK
 		Assert.assertTrue(u.checkPassword("password"));
 		// Si comparo el password directo con el hash da false
@@ -27,16 +34,33 @@ public class UserTest  extends AbstractSiuTest {
 	}
 	
 	@Test
-	public void testToken(){
-		UserDTO udto = UserFacade.login("admin", "admin");
-		udto.getToken();
-		Assert.assertTrue(UserFacade.checkToken(udto));
+	public void testTokenLogin(){
+		UserDTO udto = UserFacadeProxy.getInstance().login("admin", "admin");
+		Assert.assertNotNull(udto.getToken());
+		Assert.assertTrue(UserFacadeProxy.getInstance().checkLogin(udto.getToken()));
 	}
 	
 	@Test
 	public void testRole(){
-		
-		
+		UserFacade.getInstance().assingRole(1L, 1L);
+		UserDAO udao = new UserDAO();
+		udao.begin();
+		User u = udao.getById(1L);
+		System.out.println(u.getRoles().size());
+		Assert.assertTrue(u.getRoles().size() > 0);
+		udao.end();
 	}
 
+	@Test
+	public void testRoleDTO(){
+		UserFacade.getInstance().assingRole(1L, 1L);
+		UserDTO u = UserFacade.getInstance().login("admin", "admin");
+		Assert.assertNotNull(u.getRolesDTO().get(0));
+	}
+	
+	@Test
+	public void failLogin(){
+		UserDTO u = UserFacade.getInstance().login("admin", "asdasddas");
+		Assert.assertNull(u);
+	}
 }

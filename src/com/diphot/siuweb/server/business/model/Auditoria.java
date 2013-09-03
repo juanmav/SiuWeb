@@ -39,8 +39,10 @@ public class Auditoria {
 	private String observaciones;
 	@Persistent
 	private Date fecha;
-
-
+	
+	@Persistent
+	@Unowned
+	private User owner;
 
 	public Auditoria(){
 
@@ -113,6 +115,14 @@ public class Auditoria {
 		this.fecha = fecha;
 	}
 
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+	
 	// TODO aca habria que poner una lista encadenada o algo por el estilo y arrojar excepciones si se pasa de tres o pisar
 	// fotos viejas.
 	public void addImage(EncodedImage img){

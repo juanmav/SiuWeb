@@ -77,7 +77,11 @@ public class Inspeccion {
 
 	@Persistent 
 	private Integer riesgo;
-
+	
+	@Persistent
+	@Unowned
+	private User owner;
+	
 	public Inspeccion (Long id, String calle, Integer altura, Date fecha, String observacion, Tema tema, double latitude, double longitude, int riesgo){
 		this.id = id;
 		this.calle = calle;
@@ -247,5 +251,10 @@ public class Inspeccion {
 	public void ejecutadaAuditable(){
 		this.setState(new Ejecutado(new Date(), this));
 	}
-
+	public User getOwner() {
+		return owner;
+	}
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
 }

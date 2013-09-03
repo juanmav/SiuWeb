@@ -1,11 +1,13 @@
 package com.diphot.siuweb.server.business.model;
 
+import java.util.HashSet;
 import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 import com.diphot.siuweb.server.services.utils.PasswordUtils;
+import com.google.appengine.datanucleus.annotations.Unowned;
 /**
  * Tener cuidado con la creación de las password, siempre utilizar el metodo setPassword, por mas que 
  * se este dentro de la clase. Recordar concepto de doble encapsulamiento.
@@ -26,9 +28,20 @@ public class User {
 	@Persistent
 	private String password;
 
+	@Persistent
+	@Unowned
+	// Para que esto funcione se sobreescribieron los metodos equals y hashcode de java.lang.Object
+	private HashSet<Role> roles = new HashSet<Role>();
+		
 	public User(){
 		
 	}
+	public User(Long id, String username, String password){
+		this.id = id;
+		this.username = username;
+		setPassword(password);
+	}
+	
 	public User(String username, String password){
 		this.username = username;
 		setPassword(password);
@@ -54,4 +67,16 @@ public class User {
 	public boolean checkPassword(String password){
 		return this.password.equalsIgnoreCase(PasswordUtils.saltHashMD5(password));
 	}
+	
+	public HashSet<Role> getRoles() {
+		return roles;
+	}
+	public void setRole(HashSet<Role> roles) {
+		this.roles = roles;
+	}
+	
+	public void addRole(Role role){
+		this.roles.add(role);
+	}
+	
 }

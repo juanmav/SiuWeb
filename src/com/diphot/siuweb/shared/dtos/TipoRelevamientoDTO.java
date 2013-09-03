@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.extjs.gxt.ui.client.data.BeanModelTag;
 
-public class TipoRelevamientoDTO implements Serializable, BeanModelTag, InterfaceDTO{
+public class TipoRelevamientoDTO implements Serializable, BeanModelTag, InterfaceDTO {
 
 	private static final long serialVersionUID = -8947341252532490026L;
 	private Long id;

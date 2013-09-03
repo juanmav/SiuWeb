@@ -3,10 +3,7 @@ package com.diphot.siuweb.shared.dtos;
 
 import java.io.Serializable;
 
-import com.diphot.siuweb.server.business.model.EncodedImage;
-import com.extjs.gxt.ui.client.data.BeanModelTag;
-
-public class AuditoriaDTO implements Serializable, BeanModelTag, InterfaceDTO {
+public class AuditoriaDTO implements Serializable, InterfaceDTO {
 
 	private static final long serialVersionUID = 3146877714180406714L;
 
@@ -19,7 +16,13 @@ public class AuditoriaDTO implements Serializable, BeanModelTag, InterfaceDTO {
 	private Boolean resuelto;
 	private String observaciones;
 	private String fecha;
+	public String token;
 
+	public AuditoriaDTO(){
+		
+	}
+	
+	
 	public AuditoriaDTO(Long id, Long inspeccionID, String Img1,
 			String Img2, String Img3,
 			Boolean resuelto, String observaciones) {
@@ -98,6 +101,5 @@ public class AuditoriaDTO implements Serializable, BeanModelTag, InterfaceDTO {
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
-
 
 }

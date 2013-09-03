@@ -7,8 +7,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.diphot.siuweb.server.business.facade.AuditoriaFacade;
-import com.diphot.siuweb.server.business.facade.InspeccionFacade;
+import com.diphot.siuweb.server.business.facade.impl.AuditoriaFacade;
+import com.diphot.siuweb.server.business.facade.impl.InspeccionFacade;
 import com.diphot.siuweb.server.business.model.Auditoria;
 import com.diphot.siuweb.server.business.model.Inspeccion;
 import com.diphot.siuweb.server.business.model.inspeccion.status.Confirmado;
@@ -28,44 +28,44 @@ public class SiuTests extends AbstractSiuTest {
 	final private Long inspeccionID = 10L; 
 
 	private void preCreacionInspecciones(){
-		InspeccionFacade.create(new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO));
-		InspeccionFacade.create(new InspeccionDTO(inspeccionID+1L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO));
-		InspeccionFacade.create(new InspeccionDTO(inspeccionID+2L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO));
-		InspeccionFacade.create(new InspeccionDTO(inspeccionID+3L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.BAJO));
+		InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO),null);
+		InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+1L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO),null);
+		InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+2L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO),null);
+		InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+3L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.BAJO),null);
 	}
 
 	@Test
 	public void TestCreateInspeccion() {
-		Inspeccion i = InspeccionFacade.create(new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO));
+		Inspeccion i = InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO),null);
 		Assert.assertNotNull(i);
 	}
 
 	@Test
 	public void TestCreateInspeccion2() {
-		Inspeccion i = InspeccionFacade.create(new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO));
+		Inspeccion i = InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO),null);
 		Assert.assertNotNull(i);
 	}
 
 	@Test
 	public void confirma(){
 		preCreacionInspecciones();
-		Inspeccion i = InspeccionFacade.confirmar(inspeccionID);
+		Inspeccion i = InspeccionFacade.getInstance().confirmar(inspeccionID,null);
 		Assert.assertNotNull(i);
 		Assert.assertTrue(i.getState() instanceof Confirmado);
 	}
 	@Test
 	public void ejecutada(){
 		preCreacionInspecciones();
-		Inspeccion i = InspeccionFacade.confirmar(inspeccionID);
+		Inspeccion i = InspeccionFacade.getInstance().confirmar(inspeccionID,null);
 		Assert.assertNotNull(i);
-		i = InspeccionFacade.ejecutadaAuditable(inspeccionID);
+		i = InspeccionFacade.getInstance().ejecutadaAuditable(inspeccionID,null);
 		Assert.assertNotNull(i);
 		Assert.assertTrue(i.getState() instanceof Ejecutado);
 	}
 	@Test
 	public void createAuditoriaResuelta(){
 		preCreacionInspecciones();
-		Auditoria a = AuditoriaFacade.create(new AuditoriaDTO(1L, inspeccionID,null,null,null,true,""));
+		Auditoria a = AuditoriaFacade.getInstance().create(new AuditoriaDTO(1L, inspeccionID,null,null,null,true,""),null);
 		Assert.assertNotNull(a);
 		Inspeccion i = a.getInspeccion();
 		Resuelto r = (Resuelto)i.getState();
@@ -76,11 +76,11 @@ public class SiuTests extends AbstractSiuTest {
 	@Test
 	public void getAuditorias(){
 		preCreacionInspecciones();
-		Auditoria a = AuditoriaFacade.create(new AuditoriaDTO(1L, inspeccionID,null,null,null,true,""));
+		Auditoria a = AuditoriaFacade.getInstance().create(new AuditoriaDTO(1L, inspeccionID,null,null,null,true,""),null);
 		Assert.assertNotNull(a);
 		AuditoriaFilterDTO filter = new AuditoriaFilterDTO();
 		filter.inspeccionID = inspeccionID;
-		ArrayList<AuditoriaDTO> aus = AuditoriaFacade.getDTOList(filter);
+		ArrayList<AuditoriaDTO> aus = AuditoriaFacade.getInstance().getDTOList(filter);
 		Assert.assertNotNull(aus);
 		if ( aus != null)
 			Assert.assertTrue(aus.size() > 0);
@@ -89,7 +89,7 @@ public class SiuTests extends AbstractSiuTest {
 	@Test
 	public void createAuditoriaNOResuelta(){
 		preCreacionInspecciones();
-		Auditoria a = AuditoriaFacade.create(new AuditoriaDTO(1L, inspeccionID,null,null,null,false,""));
+		Auditoria a = AuditoriaFacade.getInstance().create(new AuditoriaDTO(1L, inspeccionID,null,null,null,false,""),null);
 		Assert.assertNotNull(a);
 		Inspeccion i = a.getInspeccion();
 		Observado r = (Observado)i.getState();
@@ -103,7 +103,7 @@ public class SiuTests extends AbstractSiuTest {
 		InspeccionFilterDTO filter = new InspeccionFilterDTO();
 		filter.estadoID = InspeccionState.OBSERVADO;
 		filter.riesgo = SiuConstants.ALTO; 
-		ArrayList<InspeccionDTO> list = InspeccionFacade.getDTOList(filter);
+		ArrayList<InspeccionDTO> list = InspeccionFacade.getInstance().getDTOList(filter);
 		Assert.assertNotNull(list);
 		// Este resultado depende del preCreate()
 		Assert.assertEquals(list.size(), 1);
@@ -115,8 +115,8 @@ public class SiuTests extends AbstractSiuTest {
 		InspeccionFilterDTO filter = new InspeccionFilterDTO();
 		filter.estadoID = InspeccionState.CONFIRMADO;
 		filter.riesgo = SiuConstants.MEDIO;
-		InspeccionFacade.confirmar(11L);
-		ArrayList<InspeccionDTO> list = InspeccionFacade.getDTOList(filter);
+		InspeccionFacade.getInstance().confirmar(11L,null);
+		ArrayList<InspeccionDTO> list = InspeccionFacade.getInstance().getDTOList(filter);
 		Assert.assertNotNull(list);
 		// Este resultado depende del preCreate()
 		Assert.assertEquals(list.size(), 1);

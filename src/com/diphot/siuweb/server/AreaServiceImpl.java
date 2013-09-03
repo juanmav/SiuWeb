@@ -2,14 +2,18 @@ package com.diphot.siuweb.server;
 
 import java.util.ArrayList;
 import com.diphot.siuweb.client.services.AreaService;
+import com.diphot.siuweb.server.business.facade.impl.UserFacade;
 import com.diphot.siuweb.server.business.model.Area;
 import com.diphot.siuweb.server.business.model.Tema;
 import com.diphot.siuweb.server.business.model.TipoRelevamiento;
 import com.diphot.siuweb.server.pesistense.daos.AreaDAO;
 import com.diphot.siuweb.server.pesistense.daos.TipoRelevamientoDAO;
+import com.diphot.siuweb.shared.SiuConstants;
 import com.diphot.siuweb.shared.dtos.AreaDTO;
+import com.diphot.siuweb.shared.dtos.RoleDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
+import com.diphot.siuweb.shared.dtos.UserDTO;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
@@ -258,5 +262,17 @@ public class AreaServiceImpl extends RemoteServiceServlet implements AreaService
 		areaDAO.end(); tipoRelevamientoDAO.end();
 
 
+		UserFacade.getInstance().createUser(new UserDTO(1L, "juanma", "asdf69"));
+		UserFacade.getInstance().createUser(new UserDTO(2L,"vsaldana", "v1ct0r"));
+		UserFacade.getInstance().createUser(new UserDTO(3L,"crubiera", "c4rl0s"));
+		
+		UserFacade.getInstance().createRole(new RoleDTO(1L, SiuConstants.ROLES.ADMIN));
+		UserFacade.getInstance().createRole(new RoleDTO(2L, SiuConstants.ROLES.SUPERVISOR));
+		UserFacade.getInstance().createRole(new RoleDTO(3L, SiuConstants.ROLES.INSPECTOR));
+		UserFacade.getInstance().createRole(new RoleDTO(4L, SiuConstants.ROLES.SECRETARIA));
+		
+		UserFacade.getInstance().assingRole(1L, 1L);
+		UserFacade.getInstance().assingRole(2L, 2L);
+		UserFacade.getInstance().assingRole(3L, 3L);
 	}
 }

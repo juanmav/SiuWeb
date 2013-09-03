@@ -2,7 +2,6 @@ package com.diphot.siuweb.server.pesistense.daos;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.diphot.siuweb.server.business.model.Role;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
 import com.diphot.siuweb.shared.dtos.RoleDTO;
@@ -23,7 +22,7 @@ public class RoleDAO extends AbstractDAO<Role, RoleDTO>{
 	@Override
 	public Role creatFromDTO(RoleDTO dto) {
 		Role r = new Role(dto.getId(), dto.getName());
-		return null;
+		return this.create(r);
 	}
 
 	@Override
@@ -34,14 +33,14 @@ public class RoleDAO extends AbstractDAO<Role, RoleDTO>{
 
 	@Override
 	public RoleDTO getDTO(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Role r = this.getById(id);
+		return getDTO(r);
 	}
 
 	@Override
 	public RoleDTO getDTO(Role entity) {
-		// TODO Auto-generated method stub
-		return null;
+		RoleDTO dto = new RoleDTO(entity.getId(), entity.getName());
+		return dto;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.diphot.siuweb.shared;
 
+
 public interface SiuConstants {
 	
 	// Riesgos
@@ -7,9 +8,12 @@ public interface SiuConstants {
 	public static final int MEDIO = 2;
 	public static final int BAJO = 1;
 	
-	// Roles
-	public static final String ADMIN = "ADMIN";
-	public static final String SUPERVISOR = "SUPERVISOR";
-	public static final String SECRETARIA = "SECRETARIA";
-	public static final String INSPECTOR = "INSPECTOR";
+	public interface ROLES {
+		// Roles
+		public static final String ADMIN = "ADMIN";
+		public static final String SUPERVISOR = "SUPERVISOR";
+		public static final String SECRETARIA = "SECRETARIA";
+		public static final String INSPECTOR = "INSPECTOR";
+		
+	}
 }

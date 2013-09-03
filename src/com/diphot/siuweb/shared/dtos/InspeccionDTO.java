@@ -21,6 +21,7 @@ public class InspeccionDTO implements Serializable, BeanModelTag, InterfaceDTO {
 	private String observacion;
 	private int riesgo;
 	private int lastStateIdentifier;
+	public String token;
 	
 	public InspeccionDTO(){
 		

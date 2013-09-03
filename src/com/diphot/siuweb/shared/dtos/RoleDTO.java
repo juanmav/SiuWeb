@@ -1,8 +1,11 @@
 package com.diphot.siuweb.shared.dtos;
 
+import java.io.Serializable;
 
-public class RoleDTO implements InterfaceDTO{
 
+public class RoleDTO implements InterfaceDTO, Serializable{
+	
+	private static final long serialVersionUID = 6258380099167902318L;
 	private Long id;
 	private String name;
 	
@@ -10,6 +13,11 @@ public class RoleDTO implements InterfaceDTO{
 		this.setId(id);
 		this.setName(name);
 	}
+	
+	public RoleDTO(String name){
+		this.name = name;
+	}
+	
 	@Override
 	public Long getId() {
 		return id;
@@ -22,5 +30,15 @@ public class RoleDTO implements InterfaceDTO{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		RoleDTO other = (RoleDTO)o;
+		return this.getName().equalsIgnoreCase(other.getName());
+	}
+	
+	public int hashCode(){
+		return this.id.intValue();
 	}
 }

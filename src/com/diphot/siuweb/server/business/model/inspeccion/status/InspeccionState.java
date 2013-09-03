@@ -11,12 +11,12 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.diphot.siuweb.server.business.model.Inspeccion;
+import com.diphot.siuweb.server.business.model.User;
 import com.google.appengine.datanucleus.annotations.Unowned;
 
 @PersistenceCapable
 @Inheritance(strategy = InheritanceStrategy.SUBCLASS_TABLE)
 public abstract class InspeccionState {
-	
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     @Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
@@ -25,6 +25,10 @@ public abstract class InspeccionState {
     @Extension(vendorName="datanucleus", key="gae.pk-id", value="true")
     private Long id;
 	
+	@Persistent
+	@Unowned
+	private User owner;
+
 	//Listado de Estados para identificarlos en la base.
 	final public static int OBSERVADO = 1;
 	final public static int CONFIRMADO = 2;
@@ -52,5 +56,13 @@ public abstract class InspeccionState {
 
 	public void setCode(Integer identifier) {
 		this.code = identifier;
+	}
+	
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 }

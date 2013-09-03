@@ -1,14 +1,28 @@
-package com.diphot.siuweb.server.business.facade;
+package com.diphot.siuweb.server.business.facade.impl;
 
 import java.util.ArrayList;
 import com.diphot.siuweb.server.business.model.Inspeccion;
 import com.diphot.siuweb.server.pesistense.daos.InspeccionDAO;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
+import com.diphot.siuweb.shared.dtos.UserDTO;
 import com.diphot.siuweb.shared.dtos.filters.InspeccionFilterDTO;
 
 public class InspeccionFacade {
 
-	public static Inspeccion create(InspeccionDTO iDTO){
+	private static InspeccionFacade instance;
+	
+	public static InspeccionFacade getInstance() {
+		if (instance == null){
+			instance = new InspeccionFacade();
+		}
+		return instance;
+	}
+	
+	private InspeccionFacade(){
+		
+	}
+	
+	public Inspeccion create(InspeccionDTO iDTO, UserDTO userdto){
 		Inspeccion result;
 		InspeccionDAO idao = new InspeccionDAO();
 		idao.begin();
@@ -17,7 +31,7 @@ public class InspeccionFacade {
 		return result;
 	}
 
-	public static Inspeccion confirmar(Long id){
+	public Inspeccion confirmar(Long id, UserDTO userdto){
 		InspeccionDAO idao = new InspeccionDAO();
 		idao.begin();
 		Inspeccion result = idao.getById(id);
@@ -26,13 +40,14 @@ public class InspeccionFacade {
 		return result;
 	}
 
+	
 	/*
 	 * Este metodo es llamado cuando la secretaria pone como ejecutada la Inspeccion
 	 * o Cuando se dispara la revision de plazos.
 	 * 
 	 * */
 	
-	public static Inspeccion ejecutadaAuditable(Long id){
+	public Inspeccion ejecutadaAuditable(Long id,UserDTO userdto){
 		InspeccionDAO idao = new InspeccionDAO();
 		idao.begin();
 		Inspeccion result = idao.getById(id);
@@ -41,7 +56,7 @@ public class InspeccionFacade {
 		return result;
 	}
 
-	public static void verificarPlazos(){
+	public void verificarPlazos(){
 		InspeccionDAO idao = new InspeccionDAO();
 		idao.begin();
 
@@ -49,7 +64,7 @@ public class InspeccionFacade {
 		idao.end();
 	}
 
-	public static ArrayList<InspeccionDTO> getDTOList(){
+	public ArrayList<InspeccionDTO> getDTOList(){
 		ArrayList<InspeccionDTO> result;
 		InspeccionDAO idao = new InspeccionDAO();
 		idao.begin();
@@ -57,10 +72,11 @@ public class InspeccionFacade {
 		idao.end();
 		return result;
 	}
+	
 	/**
 	 * Solo acepta Estado y Riesgo por el momento
 	 * */
-	public static ArrayList<InspeccionDTO> getDTOList(InspeccionFilterDTO filter){
+	public ArrayList<InspeccionDTO> getDTOList(InspeccionFilterDTO filter){
 		ArrayList<InspeccionDTO> result = new ArrayList<InspeccionDTO>();
 		InspeccionDAO idao = new InspeccionDAO();
 		idao.begin();
@@ -69,7 +85,7 @@ public class InspeccionFacade {
 		return result;
 	}
 	
-	public static Inspeccion getById(Long id){
+	public Inspeccion getById(Long id){
 		InspeccionDAO idao = new InspeccionDAO();
 		Inspeccion result;
 		idao.begin();
@@ -78,7 +94,7 @@ public class InspeccionFacade {
 		return result;
 	}
 	
-	public static InspeccionDTO getDTOById(Long id){
+	public InspeccionDTO getDTOById(Long id){
 		InspeccionDAO idao = new InspeccionDAO();
 		InspeccionDTO result;
 		idao.begin();

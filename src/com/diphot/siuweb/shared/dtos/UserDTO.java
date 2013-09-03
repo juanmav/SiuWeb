@@ -1,17 +1,16 @@
 package com.diphot.siuweb.shared.dtos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-import com.extjs.gxt.ui.client.data.BeanModelTag;
-
-public class UserDTO implements Serializable, BeanModelTag, InterfaceDTO {
+public class UserDTO implements Serializable, InterfaceDTO {
 
 	private static final long serialVersionUID = 7669063489261772143L;
 	private Long id;
 	private String username;
 	private String password;
 	private String token;
-	private RoleDTO roleDTO;
+	private ArrayList<RoleDTO> rolesDTO = new ArrayList<RoleDTO>();
 	
 	
 	public UserDTO(){
@@ -64,11 +63,15 @@ public class UserDTO implements Serializable, BeanModelTag, InterfaceDTO {
 		this.id = id;
 	}
 
-	public RoleDTO getRoleDTO() {
-		return roleDTO;
+	public ArrayList<RoleDTO> getRolesDTO() {
+		return rolesDTO;
 	}
 
-	public void setRoleDTO(RoleDTO roleDTO) {
-		this.roleDTO = roleDTO;
+	public void setRoleDTO(ArrayList<RoleDTO> roleDTO) {
+		this.rolesDTO = roleDTO;
+	}
+	
+	public void addRoleDTO(RoleDTO roleDTO){
+		this.rolesDTO.add(roleDTO);
 	}
 }

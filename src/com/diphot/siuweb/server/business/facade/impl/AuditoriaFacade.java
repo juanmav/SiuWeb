@@ -1,18 +1,34 @@
-package com.diphot.siuweb.server.business.facade;
+package com.diphot.siuweb.server.business.facade.impl;
 
 import java.util.ArrayList;
 
+import com.diphot.siuweb.server.business.facade.AuditoriaFacadeInterface;
 import com.diphot.siuweb.server.business.model.Auditoria;
 import com.diphot.siuweb.server.business.model.EncodedImage;
 import com.diphot.siuweb.server.business.model.Inspeccion;
 import com.diphot.siuweb.server.pesistense.daos.AuditoriaDAO;
 import com.diphot.siuweb.server.pesistense.daos.InspeccionDAO;
 import com.diphot.siuweb.shared.dtos.AuditoriaDTO;
+import com.diphot.siuweb.shared.dtos.UserDTO;
 import com.diphot.siuweb.shared.dtos.filters.AuditoriaFilterDTO;
 
 public class AuditoriaFacade {
 
-	public static Auditoria create(AuditoriaDTO dto){
+	private static AuditoriaFacade instance;
+	
+	public static AuditoriaFacade getInstance() {
+		if (instance == null){
+			instance = new AuditoriaFacade();
+		}
+		return instance;
+	}
+	
+	private AuditoriaFacade(){
+		
+	}
+	
+	
+	public Auditoria create(AuditoriaDTO dto, UserDTO userdto){
 		InspeccionDAO idao = new InspeccionDAO();
 		idao.begin();
 		Inspeccion inspeccion = idao.getById(dto.getInspeccionID());
@@ -27,7 +43,7 @@ public class AuditoriaFacade {
 		return result;
 	}
 	
-	public static ArrayList<AuditoriaDTO> getDTOList(AuditoriaFilterDTO filter){
+	public ArrayList<AuditoriaDTO> getDTOList(AuditoriaFilterDTO filter){
 		AuditoriaDAO adao = new AuditoriaDAO();
 		ArrayList<AuditoriaDTO> result;
 		adao.begin();
@@ -35,4 +51,6 @@ public class AuditoriaFacade {
 		adao.end();
 		return result;
 	}
+
+	
 }
