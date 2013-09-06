@@ -8,7 +8,8 @@ import com.diphot.siuweb.shared.dtos.UserDTO;
 public class UserRestLetInterfaceImpl extends ServerResource implements UserRestLetInterface {
 	@Override
 	public UserDTO login(UserDTO userDTO) {
-		UserDTO result = UserFacadeProxy.getInstance().login(userDTO.getUsername(), userDTO.getPassword());
+		UserFacadeProxy proxy = UserFacadeProxy.getInstance();
+		UserDTO result = proxy.login(userDTO.getUsername(), userDTO.getPassword());
 		return result;
 	}
 }

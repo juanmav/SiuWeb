@@ -69,7 +69,7 @@ public class InspeccionFacadeProxy implements InspeccionFacadeInterface{
 	public ArrayList<InspeccionDTO> getDTOList(InspeccionFilterDTO filter) {
 		ArrayList<InspeccionDTO> lista = null;
 		if (userproxy.checkLogin(filter.token)){
-			lista = impl.getDTOList();
+			lista = impl.getDTOList(filter);
 		}
 		return lista;
 	}

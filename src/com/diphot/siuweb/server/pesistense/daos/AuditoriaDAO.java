@@ -49,9 +49,9 @@ public class AuditoriaDAO extends AbstractDAO<Auditoria, AuditoriaDTO>{
 	@Override
 	public AuditoriaDTO getDTO(Auditoria a) {
 		AuditoriaDTO dto = new AuditoriaDTO(a.getId(), a.getInspeccion().getId(), 
-				a.getEncodedIMG1().getEncodedImageString(), 
-				a.getEncodedIMG1().getEncodedImageString(), 
-				a.getEncodedIMG1().getEncodedImageString(), 
+				(( a.getEncodedIMG1() != null ) ? a.getEncodedIMG1().getEncodedImageString() : null), 
+				(( a.getEncodedIMG2() != null ) ? a.getEncodedIMG2().getEncodedImageString() : null), 
+				(( a.getEncodedIMG3() != null ) ? a.getEncodedIMG3().getEncodedImageString() : null), 
 				a.getResuelto(), 
 				a.getObservaciones());
 		dto.setFecha(a.getFecha().toString());
@@ -64,12 +64,24 @@ public class AuditoriaDAO extends AbstractDAO<Auditoria, AuditoriaDTO>{
 		return null;
 	}
 
+	
+	/*
+	 * Se Utiliza directamente el InspeccionDAO aca sin usar el this.getlist para evitar el cierre
+	 * de la transaccion y poder armar los DTO's correctamente.
+	 * */
 	@Override
 	public ArrayList<AuditoriaDTO> getDTOList(FilterInterfaceDTO filter) {
 		ArrayList<AuditoriaDTO> result = new ArrayList<AuditoriaDTO>();
-		for (Auditoria a : this.getList(filter)){
+		ArrayList<Auditoria> list;
+		AuditoriaFilterDTO f = (AuditoriaFilterDTO) filter;
+		InspeccionDAO idao = new InspeccionDAO();
+		idao.begin();
+		Inspeccion i = idao.getById(f.inspeccionID);
+		list = i.getAuditorias();
+		for (Auditoria a : list){
 			result.add(getDTO(a));
 		}
+		idao.end();
 		return result;
 	}
 }

@@ -5,7 +5,6 @@ import org.restlet.resource.ServerResource;
 import com.diphot.siuweb.server.business.facade.proxy.InspeccionFacadeProxy;
 import com.diphot.siuweb.server.services.rest.interfaces.InspeccionRestLetInterface;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
-import com.diphot.siuweb.shared.dtos.UserDTO;
 import com.diphot.siuweb.shared.dtos.filters.InspeccionFilterDTO;
 
 public class InspeccionRestLetImpl extends ServerResource implements InspeccionRestLetInterface{
