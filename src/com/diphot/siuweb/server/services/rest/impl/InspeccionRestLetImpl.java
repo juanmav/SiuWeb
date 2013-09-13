@@ -19,14 +19,7 @@ public class InspeccionRestLetImpl extends ServerResource implements InspeccionR
 		System.out.println("Devolviendo " + result);
 		return result;
 	}
-	@Override
-	public void confirmar(InspeccionDTO inspeccionDTO) {
-		InspeccionFacadeProxy.getInstance().confirmar(inspeccionDTO);
-	}
-	@Override
-	public void ejecutadaAuditable(InspeccionDTO inspeccionDTO) {
-		InspeccionFacadeProxy.getInstance().ejecutadaAuditable(inspeccionDTO);
-	}
+	
 
 	
 }

@@ -36,7 +36,8 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		temaDAO.begin();
 		Tema tema = temaDAO.getById(temadto.getId());
 		// TODO resolver el tema de las fechas
-		Inspeccion inspeccion = new Inspeccion(dto.getId(), dto.getCalle(), dto.getAltura(), new Date(), dto.getObservacion(), tema, dto.getLatitude(), dto.getLongitude(), dto.getRiesgo());
+		// Poner el id en null asi la DB lo crea!
+		Inspeccion inspeccion = new Inspeccion(null, dto.getCalle(), dto.getAltura(), new Date(), dto.getObservacion(), tema, dto.getLatitude(), dto.getLongitude(), dto.getRiesgo());
 		if (dto.getImg1() != null && !dto.getImg1().equals(""))
 			inspeccion.addImage(new EncodedImage(dto.getImg1()));
 		if (dto.getImg2() != null && !dto.getImg2().equals(""))

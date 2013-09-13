@@ -6,6 +6,7 @@ import org.restlet.routing.Router;
 
 import com.diphot.siuweb.server.services.rest.impl.AuditoriaRestLetImpl;
 import com.diphot.siuweb.server.services.rest.impl.InspeccionRestLetImpl;
+import com.diphot.siuweb.server.services.rest.impl.InspeccionRestLetTwoImpl;
 import com.diphot.siuweb.server.services.rest.impl.TipificacionRestLetImpl;
 import com.diphot.siuweb.server.services.rest.impl.UserRestLetInterfaceImpl;
 
@@ -18,6 +19,7 @@ public class RestApi extends Application {
 	public Restlet createInboundRoot() {
 		Router router = new Router(getContext());
 		router.attach("/inspecciones", InspeccionRestLetImpl.class);
+		router.attach("/inspeccionesdos", InspeccionRestLetTwoImpl.class);
 		router.attach("/tipificacion", TipificacionRestLetImpl.class);
 		router.attach("/auditorias", AuditoriaRestLetImpl.class);
 		router.attach("/user",UserRestLetInterfaceImpl.class);
