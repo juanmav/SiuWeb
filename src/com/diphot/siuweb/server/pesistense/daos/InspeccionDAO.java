@@ -46,6 +46,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 			inspeccion.addImage(new EncodedImage(dto.getImg3()));
 		// El agrego el Mapa estatico.
 		inspeccion.setEncodedMap(new EncodedImage(getStringMapImage(dto.getLatitude(), dto.getLongitude())));
+		inspeccion.setUuid(dto.UUID);
 		result = this.create(inspeccion);
 		temaDAO.end();
 		return result;
@@ -160,4 +161,17 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 
 		return result;
 	}
+	
+	public Inspeccion getByUUID(String uuid){
+		Inspeccion result = null;
+		Query query = pm.newQuery(Inspeccion.class);
+		query.setFilter("uuid == uuidParam");
+		query.declareParameters("String uuidParam");
+		List<Inspeccion> lista =(List<Inspeccion>)query.execute(uuid); 
+		if (lista.size() > 0){
+			result = lista.get(0);
+		}
+		return result;
+	}
+	
 }

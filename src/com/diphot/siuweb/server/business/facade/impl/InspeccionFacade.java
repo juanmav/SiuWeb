@@ -23,10 +23,13 @@ public class InspeccionFacade {
 	}
 	
 	public Inspeccion create(InspeccionDTO iDTO, UserDTO userdto){
-		Inspeccion result;
+		Inspeccion result = null;
 		InspeccionDAO idao = new InspeccionDAO();
 		idao.begin();
-		result = idao.creatFromDTO(iDTO);
+		Inspeccion esta = idao.getByUUID(iDTO.UUID);
+		if (esta == null){
+			result = idao.creatFromDTO(iDTO);
+		} 
 		idao.end();
 		return result;
 	}

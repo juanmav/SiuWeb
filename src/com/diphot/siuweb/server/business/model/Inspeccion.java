@@ -82,6 +82,9 @@ public class Inspeccion {
 	@Unowned
 	private User owner;
 	
+	@Persistent
+	private String uuid;
+	
 	public Inspeccion (Long id, String calle, Integer altura, Date fecha, String observacion, Tema tema, double latitude, double longitude, int riesgo){
 		this.id = id;
 		this.calle = calle;
@@ -256,5 +259,13 @@ public class Inspeccion {
 	}
 	public void setOwner(User owner) {
 		this.owner = owner;
+	}
+	
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 }
