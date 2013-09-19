@@ -35,7 +35,7 @@ public class InspeccionFacadeProxy implements InspeccionFacadeInterface{
 	@Override
 	public Inspeccion confirmar(InspeccionDTO iDTO) {
 		Inspeccion result = null;
-		if (userproxy.checkLoginAndRole(iDTO.token, SiuConstants.ROLES.INSPECTOR)){
+		if (userproxy.checkLoginAndRole(iDTO.token, SiuConstants.ROLES.SUPERVISOR)){
 			result = impl.confirmar(iDTO.getId(), userproxy.getUserDTOByToken(iDTO.token));
 		}
 		return result;

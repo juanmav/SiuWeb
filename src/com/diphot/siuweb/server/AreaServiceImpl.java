@@ -11,7 +11,6 @@ import com.diphot.siuweb.server.pesistense.daos.TipoRelevamientoDAO;
 import com.diphot.siuweb.shared.SiuConstants;
 import com.diphot.siuweb.shared.dtos.AreaDTO;
 import com.diphot.siuweb.shared.dtos.RoleDTO;
-import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
 import com.diphot.siuweb.shared.dtos.UserDTO;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
@@ -265,6 +264,7 @@ public class AreaServiceImpl extends RemoteServiceServlet implements AreaService
 		UserFacade.getInstance().createUser(new UserDTO(1L, "juanma", "asdf69"));
 		UserFacade.getInstance().createUser(new UserDTO(2L,"vsaldana", "v1ct0r"));
 		UserFacade.getInstance().createUser(new UserDTO(3L,"crubiera", "c4rl0s"));
+		UserFacade.getInstance().createUser(new UserDTO(4L,"tsecretaria", "s3cr3tar1a"));
 		
 		UserFacade.getInstance().createRole(new RoleDTO(1L, SiuConstants.ROLES.ADMIN));
 		UserFacade.getInstance().createRole(new RoleDTO(2L, SiuConstants.ROLES.SUPERVISOR));
@@ -274,5 +274,6 @@ public class AreaServiceImpl extends RemoteServiceServlet implements AreaService
 		UserFacade.getInstance().assingRole(1L, 1L);
 		UserFacade.getInstance().assingRole(2L, 2L);
 		UserFacade.getInstance().assingRole(3L, 3L);
+		UserFacade.getInstance().assingRole(4L, 4L);
 	}
 }
