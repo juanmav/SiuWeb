@@ -75,11 +75,11 @@ public class AreaServiceImpl extends RemoteServiceServlet implements AreaService
 		new TipoRelevamiento(5L, "Veredas y Aceras",area);
 		new TipoRelevamiento(6L, "Limpieza e Higiene",area);
 		new TipoRelevamiento(7L, "Redes Privadas",area);
-		new TipoRelevamiento(8L, "Cartelería y Señalización",area);
-		new TipoRelevamiento(9L, "Refugios de colectivos",area);
-
+		
 		//Protección Ciudadana
 		area =  areaDAO.getById(2L);
+		new TipoRelevamiento(8L, "Cartelería y Señalización",area);
+		new TipoRelevamiento(9L, "Refugios de colectivos",area);
 		new TipoRelevamiento(10L, "Calles",area);
 		new TipoRelevamiento(11L, "Veredas y Aceras",area);
 		new TipoRelevamiento(12L, "Cartelería y Señalización",area);
@@ -265,6 +265,9 @@ public class AreaServiceImpl extends RemoteServiceServlet implements AreaService
 		UserFacade.getInstance().createUser(new UserDTO(2L,"vsaldana", "v1ct0r"));
 		UserFacade.getInstance().createUser(new UserDTO(3L,"crubiera", "c4rl0s"));
 		UserFacade.getInstance().createUser(new UserDTO(4L,"tsecretaria", "s3cr3tar1a"));
+		UserFacade.getInstance().createUser(new UserDTO(5L,"aamoruso", "4l3j4ndr0"));
+		UserFacade.getInstance().createUser(new UserDTO(6L,"etaboada", "3du4rd0"));
+		
 		
 		UserFacade.getInstance().createRole(new RoleDTO(1L, SiuConstants.ROLES.ADMIN));
 		UserFacade.getInstance().createRole(new RoleDTO(2L, SiuConstants.ROLES.SUPERVISOR));
@@ -275,5 +278,7 @@ public class AreaServiceImpl extends RemoteServiceServlet implements AreaService
 		UserFacade.getInstance().assingRole(2L, 2L);
 		UserFacade.getInstance().assingRole(3L, 3L);
 		UserFacade.getInstance().assingRole(4L, 4L);
+		UserFacade.getInstance().assingRole(5L, 4L);
+		UserFacade.getInstance().assingRole(6L, 4L);
 	}
 }
