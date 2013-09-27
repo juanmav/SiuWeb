@@ -11,6 +11,7 @@ import com.diphot.siuweb.server.business.model.Tema;
 import com.diphot.siuweb.server.business.model.inspeccion.status.InspeccionState;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
 import com.diphot.siuweb.server.pesistense.PMF.PMF;
+import com.diphot.siuweb.server.services.utils.ConversionUtil;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
@@ -115,7 +116,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		TemaDAO temadao = new TemaDAO();
 		TemaDTO temadto = (TemaDTO) temadao.getDTO(i.getTema());
 		InspeccionDTO idto = new InspeccionDTO(i.getId(), i.getCalle(), i.getAltura(), i.getObservacion(), 
-				temadto,i.getLatitude(), i.getLongitude(),i.getFecha().toString(),
+				temadto,i.getLatitude(), i.getLongitude(),ConversionUtil.getSimpleDate(i.getFecha().toString()).toString(),
 				getValueImage(i.getEncodedIMG1()),
 				getValueImage(i.getEncodedIMG2()),
 				getValueImage(i.getEncodedIMG3()),
