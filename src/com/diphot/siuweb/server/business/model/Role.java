@@ -1,10 +1,16 @@
 package com.diphot.siuweb.server.business.model;
 
+import java.util.HashSet;
+
 import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToMany;
+
+import com.google.appengine.datanucleus.annotations.Unowned;
 
 @PersistenceCapable
 public class Role {
@@ -20,6 +26,12 @@ public class Role {
 
 	@Persistent
 	private String name;
+
+	@Persistent
+	@Unowned
+	@ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
+	// Para que esto funcione se sobreescribieron los metodos equals y hashcode de java.lang.Object
+	private HashSet<User> members = new HashSet<User>();
 
 	public Role(){
 
@@ -57,5 +69,14 @@ public class Role {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public HashSet<User> getMembers() {
+		return members;
+	}
+	public void setMembers(HashSet<User> members) {
+		this.members = members;
+	}
+	public void addMember(User user){
+		this.members.add(user);
 	}
 }

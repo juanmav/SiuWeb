@@ -9,6 +9,7 @@ public class UserDTO implements Serializable, InterfaceDTO {
 	private Long id;
 	private String username;
 	private String password;
+	private String email;
 	private String token;
 	private ArrayList<RoleDTO> rolesDTO = new ArrayList<RoleDTO>();
 	
@@ -23,11 +24,12 @@ public class UserDTO implements Serializable, InterfaceDTO {
 		this.username = username;
 	}
 	
-	public UserDTO(Long id, String username, String password) {
+	public UserDTO(Long id, String username, String password, String email) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
+		this.email = email;
 	}
 
 	@Override
@@ -73,5 +75,13 @@ public class UserDTO implements Serializable, InterfaceDTO {
 	
 	public void addRoleDTO(RoleDTO roleDTO){
 		this.rolesDTO.add(roleDTO);
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

@@ -14,6 +14,13 @@ public interface SiuConstants {
 		public static final String SUPERVISOR = "SUPERVISOR";
 		public static final String SECRETARIA = "SECRETARIA";
 		public static final String INSPECTOR = "INSPECTOR";
-		
+	}
+	
+	public interface ACTION {
+		// Acciones
+		public static final int OBSERVADO = 1;
+		public static final int CONFIRMADO = 2;
+		public static final int EJECUTADO = 3;
+		public static final int RESUELTO = 4;
 	}
 }

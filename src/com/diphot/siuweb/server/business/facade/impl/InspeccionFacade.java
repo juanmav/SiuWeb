@@ -2,7 +2,9 @@ package com.diphot.siuweb.server.business.facade.impl;
 
 import java.util.ArrayList;
 import com.diphot.siuweb.server.business.model.Inspeccion;
+import com.diphot.siuweb.server.mailer.InspeccionMailer;
 import com.diphot.siuweb.server.pesistense.daos.InspeccionDAO;
+import com.diphot.siuweb.shared.SiuConstants;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
 import com.diphot.siuweb.shared.dtos.UserDTO;
 import com.diphot.siuweb.shared.dtos.filters.InspeccionFilterDTO;
@@ -30,6 +32,7 @@ public class InspeccionFacade {
 		if (esta == null){
 			result = idao.creatFromDTO(iDTO);
 		} 
+		InspeccionMailer.notifyChange(result, SiuConstants.ACTION.OBSERVADO);
 		idao.end();
 		return result;
 	}
@@ -39,6 +42,7 @@ public class InspeccionFacade {
 		idao.begin();
 		Inspeccion result = idao.getById(id);
 		result.confirmar();
+		InspeccionMailer.notifyChange(result, SiuConstants.ACTION.CONFIRMADO);
 		idao.end();
 		return result;
 	}
@@ -50,11 +54,12 @@ public class InspeccionFacade {
 	 * 
 	 * */
 	
-	public Inspeccion ejecutadaAuditable(Long id,UserDTO userdto){
+	public Inspeccion ejecutadaAuditable(Long id, UserDTO userdto){
 		InspeccionDAO idao = new InspeccionDAO();
 		idao.begin();
 		Inspeccion result = idao.getById(id);
 		result.ejecutadaAuditable();
+		InspeccionMailer.notifyChange(result, SiuConstants.ACTION.EJECUTADO);
 		idao.end();
 		return result;
 	}
@@ -62,8 +67,7 @@ public class InspeccionFacade {
 	public void verificarPlazos(){
 		InspeccionDAO idao = new InspeccionDAO();
 		idao.begin();
-
-
+		// TODO hacer la verificación de plazos.
 		idao.end();
 	}
 

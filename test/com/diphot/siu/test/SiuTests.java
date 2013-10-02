@@ -25,13 +25,13 @@ import com.diphot.siuweb.shared.dtos.filters.InspeccionFilterDTO;
 
 public class SiuTests extends AbstractSiuTest {
 
-	final private Long inspeccionID = 10L; 
+	private Long inspeccionID = 10L; 
 
 	private void preCreacionInspecciones(){
 		InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO),null);
-		InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+1L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO),null);
-		InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+2L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO),null);
-		InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+3L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.BAJO),null);
+		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+1L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO),null);
+		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+2L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO),null);
+		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+3L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.BAJO),null);
 	}
 
 	@Test

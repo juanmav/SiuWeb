@@ -2,9 +2,12 @@ package com.diphot.siuweb.server.business.facade.impl;
 
 import java.util.ArrayList;
 import com.diphot.siuweb.server.business.facade.TipificacionFacadeInterface;
+import com.diphot.siuweb.server.business.model.Area;
+import com.diphot.siuweb.server.business.model.User;
 import com.diphot.siuweb.server.pesistense.daos.AreaDAO;
 import com.diphot.siuweb.server.pesistense.daos.TemaDAO;
 import com.diphot.siuweb.server.pesistense.daos.TipoRelevamientoDAO;
+import com.diphot.siuweb.server.pesistense.daos.UserDAO;
 import com.diphot.siuweb.shared.dtos.AreaDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
@@ -76,5 +79,16 @@ public class TipificacionFacade {
 		result = dao.getDTOList();
 		dao.end();
 		return result;
+	}
+	
+	public void addAreaOwner(Long userID, Long areaID){
+		UserDAO udao = new UserDAO();
+		AreaDAO adao = new AreaDAO();
+		udao.begin(); adao.begin();
+		User u = udao.getById(userID);
+		Area a = adao.getById(areaID);
+		a.addOwner(u);
+		udao.end(); adao.end();
+		
 	}
 }

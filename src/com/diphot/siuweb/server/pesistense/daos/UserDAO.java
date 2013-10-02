@@ -26,7 +26,7 @@ public class UserDAO extends AbstractDAO<User, UserDTO>{
 
 	@Override
 	public User creatFromDTO(UserDTO dto) {
-		User u = new User(dto.getId(),dto.getUsername(),dto.getPassword());
+		User u = new User(dto.getId(),dto.getUsername(),dto.getPassword(), dto.getEmail());
 		this.create(u);
 		return u;
 	}
@@ -45,7 +45,7 @@ public class UserDAO extends AbstractDAO<User, UserDTO>{
 
 	@Override
 	public UserDTO getDTO(User entity) {
-		UserDTO udto = new UserDTO(entity.getId(), entity.getUsername());
+		UserDTO udto = new UserDTO(entity.getId(), entity.getUsername(), "", entity.getEmail());
 		Iterator<Role> roles = entity.getRoles().iterator();
 		while (roles.hasNext()){
 			Role r = roles.next();

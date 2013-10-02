@@ -2,7 +2,11 @@ package com.diphot.siuweb.server.pesistense.daos;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.jdo.Query;
+
 import com.diphot.siuweb.server.business.model.Role;
+import com.diphot.siuweb.server.business.model.User;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
 import com.diphot.siuweb.shared.dtos.RoleDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
@@ -53,6 +57,15 @@ public class RoleDAO extends AbstractDAO<Role, RoleDTO>{
 	public ArrayList<RoleDTO> getDTOList(FilterInterfaceDTO filter) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public Role getRoleByName(String role) {
+		Query query = pm.newQuery(Role.class);
+		query.setFilter("name == nameParam");
+		query.declareParameters("String nameParam");
+		Role result = ((List<Role>)query.execute(role)).get(0);
+		return result;
 	}
 
 
