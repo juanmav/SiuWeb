@@ -85,6 +85,10 @@ public class Inspeccion {
 	@Persistent
 	private String uuid;
 	
+	@Persistent
+	@Unowned
+	private Localidad localidad;
+	
 	public Inspeccion (Long id, String calle, Integer altura, Date fecha, String observacion, Tema tema, double latitude, double longitude, int riesgo){
 		this.id = id;
 		this.calle = calle;
@@ -267,5 +271,13 @@ public class Inspeccion {
 
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
+	}
+
+	public Localidad getLocalidad() {
+		return localidad;
+	}
+
+	public void setLocalidad(Localidad localidad) {
+		this.localidad = localidad;
 	}
 }

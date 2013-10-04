@@ -19,12 +19,12 @@ public class InspeccionMailer {
 		Session session = Session.getDefaultInstance(props, null);
 		try {
 			Message msg = new MimeMessage(session);
-			msg.setFrom(new InternetAddress("jmvicente@diphot.com", "Juan Manuel Vicente"));
+			msg.setFrom(new InternetAddress("juanma.v82@gmail.com", "Juan Manuel Vicente"));
 			// Segun el tipo de accion que se ejecuto cambian los destinatarios.
 			InspeccionMailStrategy strategy = new ObservadoStrategy().getStrategy(action);
 			strategy.exec(inspeccion, msg);
-			msg.setSubject("Your Example.com account has been activated");
-			msg.setText(InspeccionHMTL.getInspeccionHTML(inspeccion));
+			msg.setSubject("Detalle de inspeccion n°: " + inspeccion.getId() + " estado:" + inspeccion.getState().toString());
+			msg.setContent(InspeccionHMTL.getInspeccionHTML(inspeccion),"text/html");
 			Transport.send(msg);
 		} catch (AddressException e) {
 			// TODO Auto-generated catch block

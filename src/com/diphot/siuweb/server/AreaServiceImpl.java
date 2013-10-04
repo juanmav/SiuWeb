@@ -1,6 +1,9 @@
 package com.diphot.siuweb.server;
 
 import java.util.ArrayList;
+
+import org.junit.Assert;
+
 import com.diphot.siuweb.client.services.AreaService;
 import com.diphot.siuweb.server.business.facade.impl.TipificacionFacade;
 import com.diphot.siuweb.server.business.facade.impl.UserFacade;
@@ -8,9 +11,11 @@ import com.diphot.siuweb.server.business.model.Area;
 import com.diphot.siuweb.server.business.model.Tema;
 import com.diphot.siuweb.server.business.model.TipoRelevamiento;
 import com.diphot.siuweb.server.pesistense.daos.AreaDAO;
+import com.diphot.siuweb.server.pesistense.daos.LocalidadDAO;
 import com.diphot.siuweb.server.pesistense.daos.TipoRelevamientoDAO;
 import com.diphot.siuweb.shared.SiuConstants;
 import com.diphot.siuweb.shared.dtos.AreaDTO;
+import com.diphot.siuweb.shared.dtos.LocalidadDTO;
 import com.diphot.siuweb.shared.dtos.RoleDTO;
 import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
 import com.diphot.siuweb.shared.dtos.UserDTO;
@@ -283,5 +288,21 @@ public class AreaServiceImpl extends RemoteServiceServlet implements AreaService
 		
 		TipificacionFacade.getInstance().addAreaOwner(5L, 1L);
 		TipificacionFacade.getInstance().addAreaOwner(6L, 1L);
+		
+		// Creacion de Localidades.
+		LocalidadDAO ldao = new LocalidadDAO();
+		ldao.begin();
+		ldao.creatFromDTO(new LocalidadDTO(1L, "Benavídez"));
+		ldao.creatFromDTO(new LocalidadDTO(2L, "Delta de Tigre"));
+		ldao.creatFromDTO(new LocalidadDTO(3L, "Dique Luján"));
+		ldao.creatFromDTO(new LocalidadDTO(4L, "Don Torcuato"));
+		ldao.creatFromDTO(new LocalidadDTO(5L, "El Talar"));
+		ldao.creatFromDTO(new LocalidadDTO(6L, "General Pacheco"));
+		ldao.creatFromDTO(new LocalidadDTO(7L, "Nordelta"));
+		ldao.creatFromDTO(new LocalidadDTO(8L, "Ricardo Rojas"));
+		ldao.creatFromDTO(new LocalidadDTO(9L, "Rincón de Milberg"));
+		ldao.creatFromDTO(new LocalidadDTO(10L, "Tigre"));
+		ldao.creatFromDTO(new LocalidadDTO(11L, "Troncos del Talar"));
+		ldao.end();
 	}
 }

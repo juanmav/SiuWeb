@@ -7,6 +7,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import com.diphot.siuweb.server.business.model.EncodedImage;
 import com.diphot.siuweb.server.business.model.Inspeccion;
+import com.diphot.siuweb.server.business.model.Localidad;
 import com.diphot.siuweb.server.business.model.Tema;
 import com.diphot.siuweb.server.business.model.inspeccion.status.InspeccionState;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
@@ -33,8 +34,9 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 	public Inspeccion creatFromDTO(InspeccionDTO dto) {
 		TemaDTO temadto = dto.getTema();
 		TemaDAO temaDAO = new TemaDAO();
+		LocalidadDAO localidadDAO = new LocalidadDAO();
 		Inspeccion result = null;
-		temaDAO.begin();
+		temaDAO.begin(); localidadDAO.begin();
 		Tema tema = temaDAO.getById(temadto.getId());
 		// TODO resolver el tema de las fechas
 		// Poner el id en null asi la DB lo crea!
@@ -48,8 +50,12 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		// El agrego el Mapa estatico.
 		inspeccion.setEncodedMap(new EncodedImage(getStringMapImage(dto.getLatitude(), dto.getLongitude())));
 		inspeccion.setUuid(dto.UUID);
+		
+		Localidad localidad = localidadDAO.getById(dto.getLocalidad().getId());
+		inspeccion.setLocalidad(localidad);
+		
 		result = this.create(inspeccion);
-		temaDAO.end();
+		temaDAO.end(); localidadDAO.end();
 		return result;
 	}
 
