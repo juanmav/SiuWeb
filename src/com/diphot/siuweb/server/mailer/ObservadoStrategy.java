@@ -2,7 +2,6 @@ package com.diphot.siuweb.server.mailer;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
-import java.util.List;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -12,7 +11,6 @@ import com.diphot.siuweb.server.business.model.Inspeccion;
 import com.diphot.siuweb.server.business.model.Role;
 import com.diphot.siuweb.server.business.model.User;
 import com.diphot.siuweb.server.pesistense.daos.RoleDAO;
-import com.diphot.siuweb.server.pesistense.daos.UserDAO;
 import com.diphot.siuweb.shared.SiuConstants;
 
 

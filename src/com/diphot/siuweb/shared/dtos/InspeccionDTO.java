@@ -2,9 +2,7 @@ package com.diphot.siuweb.shared.dtos;
 
 import java.io.Serializable;
 
-import com.extjs.gxt.ui.client.data.BeanModelTag;
-
-public class InspeccionDTO implements Serializable, BeanModelTag, InterfaceDTO {
+public class InspeccionDTO implements Serializable, InterfaceDTO {
 
 	private static final long serialVersionUID = -359471250000224506L;
 	private Long id;

@@ -19,7 +19,5 @@ public class InspeccionRestLetImpl extends ServerResource implements InspeccionR
 		System.out.println("Devolviendo " + result);
 		return result;
 	}
-	
 
-	
 }

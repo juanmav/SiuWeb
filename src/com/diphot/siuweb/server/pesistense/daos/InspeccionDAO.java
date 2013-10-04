@@ -14,6 +14,7 @@ import com.diphot.siuweb.server.pesistense.AbstractDAO;
 import com.diphot.siuweb.server.pesistense.PMF.PMF;
 import com.diphot.siuweb.server.services.utils.ConversionUtil;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
+import com.diphot.siuweb.shared.dtos.LocalidadDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 import com.diphot.siuweb.shared.dtos.filters.InspeccionFilterDTO;
@@ -129,6 +130,8 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 				i.getRiesgo());
 		idto.setLastStateIdentifier(i.getLastStateIdentifier());
 		idto.setImgMap(getValueImage(i.getEncodedMap()));
+		Localidad localidad = i.getLocalidad();
+		idto.setLocalidad(new LocalidadDTO(localidad.getId(), localidad.getNombre()));
 		return idto;
 	}
 

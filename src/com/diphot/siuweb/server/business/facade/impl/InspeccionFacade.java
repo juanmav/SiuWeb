@@ -30,9 +30,10 @@ public class InspeccionFacade {
 		idao.begin();
 		Inspeccion esta = idao.getByUUID(iDTO.UUID);
 		if (esta == null){
+			System.out.println("Creando Inspeccion");
 			result = idao.creatFromDTO(iDTO);
+			InspeccionMailer.notifyChange(result, SiuConstants.ACTION.OBSERVADO);
 		} 
-		InspeccionMailer.notifyChange(result, SiuConstants.ACTION.OBSERVADO);
 		idao.end();
 		return result;
 	}
