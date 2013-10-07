@@ -22,6 +22,8 @@ public class InspeccionDTO implements Serializable, InterfaceDTO {
 	public String token;
 	public String UUID;
 	private LocalidadDTO localidad;
+	private String entreCalleUno;
+	private String entreCalleDos;
 	
 	public InspeccionDTO(){
 		
@@ -176,5 +178,17 @@ public class InspeccionDTO implements Serializable, InterfaceDTO {
 	}
 	public void setLocalidad(LocalidadDTO localidad) {
 		this.localidad = localidad;
+	}
+	public String getEntreCalleUno() {
+		return entreCalleUno;
+	}
+	public void setEntreCalleUno(String entreCalleUno) {
+		this.entreCalleUno = entreCalleUno;
+	}
+	public String getEntreCalleDos() {
+		return entreCalleDos;
+	}
+	public void setEntreCalleDos(String entreCalleDos) {
+		this.entreCalleDos = entreCalleDos;
 	}
 }

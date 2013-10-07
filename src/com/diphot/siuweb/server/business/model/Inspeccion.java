@@ -89,6 +89,12 @@ public class Inspeccion {
 	@Unowned
 	private Localidad localidad;
 	
+	@Persistent
+	private String entreCalleUno;
+	
+	@Persistent
+	private String entreCalleDos;
+	
 	public Inspeccion (Long id, String calle, Integer altura, Date fecha, String observacion, Tema tema, double latitude, double longitude, int riesgo){
 		this.id = id;
 		this.calle = calle;
@@ -279,5 +285,20 @@ public class Inspeccion {
 
 	public void setLocalidad(Localidad localidad) {
 		this.localidad = localidad;
+	}
+	public String getEntreCalleUno() {
+		return entreCalleUno;
+	}
+
+	public void setEntreCalleUno(String entreCalleUno) {
+		this.entreCalleUno = entreCalleUno;
+	}
+
+	public String getEntreCalleDos() {
+		return entreCalleDos;
+	}
+	
+	public void setEntreCalleDos(String entreCalleDos) {
+		this.entreCalleDos = entreCalleDos;
 	}
 }

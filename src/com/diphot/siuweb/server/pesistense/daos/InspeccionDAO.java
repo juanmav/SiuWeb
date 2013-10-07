@@ -55,6 +55,9 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		Localidad localidad = localidadDAO.getById(dto.getLocalidad().getId());
 		inspeccion.setLocalidad(localidad);
 		
+		inspeccion.setEntreCalleUno(dto.getEntreCalleUno());
+		inspeccion.setEntreCalleDos(dto.getEntreCalleDos());
+		
 		result = this.create(inspeccion);
 		temaDAO.end(); localidadDAO.end();
 		return result;
@@ -132,6 +135,8 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		idto.setImgMap(getValueImage(i.getEncodedMap()));
 		Localidad localidad = i.getLocalidad();
 		idto.setLocalidad(new LocalidadDTO(localidad.getId(), localidad.getNombre()));
+		idto.setEntreCalleUno(i.getEntreCalleUno());
+		idto.setEntreCalleDos(i.getEntreCalleDos());
 		return idto;
 	}
 

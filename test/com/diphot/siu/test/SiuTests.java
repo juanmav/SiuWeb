@@ -16,9 +16,11 @@ import com.diphot.siuweb.server.business.model.inspeccion.status.Ejecutado;
 import com.diphot.siuweb.server.business.model.inspeccion.status.InspeccionState;
 import com.diphot.siuweb.server.business.model.inspeccion.status.Observado;
 import com.diphot.siuweb.server.business.model.inspeccion.status.Resuelto;
+import com.diphot.siuweb.server.pesistense.daos.InspeccionDAO;
 import com.diphot.siuweb.shared.SiuConstants;
 import com.diphot.siuweb.shared.dtos.AuditoriaDTO;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
+import com.diphot.siuweb.shared.dtos.LocalidadDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.filters.AuditoriaFilterDTO;
 import com.diphot.siuweb.shared.dtos.filters.InspeccionFilterDTO;
@@ -28,7 +30,11 @@ public class SiuTests extends AbstractSiuTest {
 	private Long inspeccionID = 10L; 
 
 	private void preCreacionInspecciones(){
-		InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO),null);
+		InspeccionDTO idto = new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO);
+		idto.setLocalidad(new LocalidadDTO(2L,""));
+		idto.setEntreCalleUno("Calle1");
+		idto.setEntreCalleDos("Calle2");
+		InspeccionFacade.getInstance().create(idto,null);
 		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+1L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO),null);
 		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+2L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO),null);
 		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+3L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.BAJO),null);
@@ -36,13 +42,21 @@ public class SiuTests extends AbstractSiuTest {
 
 	@Test
 	public void TestCreateInspeccion() {
-		Inspeccion i = InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO),null);
+		InspeccionDTO idto = new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO);
+		idto.setLocalidad(new LocalidadDTO(2L,""));
+		idto.setEntreCalleUno("Calle1");
+		idto.setEntreCalleUno("Calle2");
+		Inspeccion i = InspeccionFacade.getInstance().create(idto,null);
 		Assert.assertNotNull(i);
 	}
 
 	@Test
 	public void TestCreateInspeccion2() {
-		Inspeccion i = InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO),null);
+		InspeccionDTO idto = new InspeccionDTO(inspeccionID+1,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.BAJO);
+		idto.setLocalidad(new LocalidadDTO(2L,""));
+		idto.setEntreCalleUno("Calle1");
+		idto.setEntreCalleUno("Calle2");
+		Inspeccion i = InspeccionFacade.getInstance().create(idto,null);
 		Assert.assertNotNull(i);
 	}
 
@@ -122,4 +136,16 @@ public class SiuTests extends AbstractSiuTest {
 		Assert.assertEquals(list.size(), 1);
 	}
 
+	@Test
+	public void testEntreCalle(){
+		preCreacionInspecciones();
+		InspeccionDAO idao = new InspeccionDAO();
+		idao.begin();
+		ArrayList<InspeccionDTO> ilist = idao.getDTOList();
+		for (InspeccionDTO idto : ilist){
+			Assert.assertNotNull(idto.getEntreCalleUno());
+			Assert.assertNotNull(idto.getEntreCalleDos());
+		}
+		idao.end();
+	}
 }
