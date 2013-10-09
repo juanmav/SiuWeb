@@ -6,7 +6,7 @@ public class InspeccionHMTL {
 	public static String getInspeccionHTML(Inspeccion inspeccion){
 		String html = "<html>\r\n" + 
 				"<head></head>\r\n" + 
-				"<body style=\"width: 697; height: 1026px; background-color: #231f20; padding: 0px; margin: 0px;\">\r\n" + 
+				"<body style=\"width: 697; height: 1026px; background-color: #acacac; padding: 0px; margin: 0px;\">\r\n" + 
 				"	<table style=\"width: 697px; margin-right: auto; margin-left: auto;\">\r\n" + 
 				"		<tr style=\"background-color: #c42126; height: 87px;\">\r\n" + 
 				"			<td>\r\n" + 
@@ -19,7 +19,7 @@ public class InspeccionHMTL {
 				"					<tr>  \r\n" + 
 				"						<td>\r\n" + 
 				"							<p style=\"height: 37px; width: 660px; padding-top: 9px; margin-left: 18px; border-top-width: 1px; border-bottom-width: 1px; border-top-style: solid; border-bottom-style: solid; border-top-color: #bababc; border-bottom-color: #bababc; float: left;\">\r\n" + 
-				"							<strong style=\"margin-left: 18px;\"> Informe de Inspeccion: 55 </strong></p>\r\n" + 
+				"							<strong style=\"margin-left: 18px;\"> Informe de Inspecci&oacute;n: " + inspeccion.getId() + "</strong></p>\r\n" + 
 				"						</td><!-- fin titulo -->\r\n" + 
 				"					</tr>\r\n" + 
 				"					<tr>\r\n" + 
@@ -44,12 +44,16 @@ public class InspeccionHMTL {
 				" <!-- height: 88px;-->							<table style=\"margin-top: 7px; margin-left: 18px; margin-bottom: 15px;\">\r\n" + 
 				"								<tr>\r\n" + 
 				"									<td style=\"width: 327px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; 	border-right-style: solid; 	border-bottom-style: solid; 	border-left-style: solid; 	border-right-color: #CCC; 	border-bottom-color: #CCC; 	border-left-color: #CCC; 	-webkit-border-bottom-right-radius: 2px; 	-webkit-border-bottom-left-radius: 2px; 	-moz-border-radius-bottomright: 2px; 	-moz-border-radius-bottomleft: 2px; 	border-bottom-right-radius: 2px; 	border-bottom-left-radius: 2px;\">\r\n" + 
-				"										<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>id: </strong>959595</p>\r\n" + 
-				"										<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Calle: </strong>Principal</p>\r\n" + 
-				"										<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Altura: </strong>1090</p>\r\n" + 
-				"										<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Tema: </strong>Bache</p>\r\n" + 
-				"										<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Descripción: </strong>Aca va los detalles del problema<br />\r\n" + 
-				"										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam feugiat ligula ac nunc ornare at consectetur nisi dapibus. Nam ut nunc at nunc mollis placerat non at libero.</p>\r\n" + 
+				"										<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>id: </strong>"+ inspeccion.getId() + "</p>\r\n" + 
+				"										<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Fecha: </strong>"+ ConversionUtil.getSimpleDate(inspeccion.getFecha().toString()) +"</p>\r\n" + 
+				"										<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Riesgo: </strong>"+ inspeccion.getRiesgo() +"</p>\r\n" +
+				"										<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Calle: </strong>"+ inspeccion.getCalle() +"</p>\r\n" +
+				"										<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Altura: </strong>"+ inspeccion.getAltura() +"</p>\r\n" +
+				"										<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Localidad: </strong>"+ inspeccion.getLocalidad().getNombre() +"</p>\r\n" +
+				"										<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Entre Calles: </strong>"+ inspeccion.getEntreCalleUno() +"</p>\r\n" +
+				"										<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Entre Calles: </strong>"+ inspeccion.getEntreCalleDos() +"</p>\r\n" +
+				"										<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Tema: </strong>"+ inspeccion.getTema().getNombre() +"</p>\r\n" + 
+				"										<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Observaci&oacute;n: </strong>" + inspeccion.getObservacion()	+"</p>\r\n" + 
 				"									</td><!-- fin col_izq -->\r\n" + 
 				"									<td style=\"float: right; \">\r\n" + 
 				getEncondedImage(4,inspeccion)+ 
@@ -61,7 +65,7 @@ public class InspeccionHMTL {
 				"				</table>\r\n" + 
 				"			</td>\r\n" + 
 				"		</tr>\r\n" + 
-				"		<tr style=\"height: 97px; width: 697px; background-color: #3a3a3a; float: left;\">\r\n" + 
+				"		<tr style=\"height: 97px; width: 697px; background-color: #ebebeb; float: left;\">\r\n" + 
 				"			<td></td>\r\n" + 
 				"		</tr><!-- fin footer -->\r\n" + 
 				"	</table><!-- fin content -->\r\n" + 

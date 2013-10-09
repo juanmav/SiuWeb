@@ -24,7 +24,7 @@ import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 public class AbstractSiuTest {
 
-	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig().setDefaultHighRepJobPolicyUnappliedJobPercentage(100));
 
 	@Before
 	public void setUp() {

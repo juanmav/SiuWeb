@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import com.diphot.siuweb.shared.SiuConstants;
+
 public class ConversionUtil {
 
 	@SuppressWarnings("deprecation")
@@ -19,11 +21,24 @@ public class ConversionUtil {
 		}
 		
 		String dia = date.getDate() <= 9 ? "0" +(date.getDate()) : "" + (date.getDate());
-		String mes = date.getMonth() <= 9 ? "0" +(date.getMonth() + 1) : "" + (date.getMonth() + 1);
+		String mes = date.getMonth() <= 8 ? "0" +(date.getMonth() + 1) : "" + (date.getMonth() + 1);
 		String año = ("" + (date.getYear() + 1900));
 		
 		result = (dia+ "/" + mes + "/"+ año);
 		return result;
+	}
+	
+	public static String getRiesgoString(Integer i){
+		switch (i) {
+		case SiuConstants.BAJO:
+			return "BAJO";
+		case SiuConstants.MEDIO:
+			return "MEDIO";
+		case SiuConstants.ALTO:
+			return "ALTO";
+		default:
+			return "ALTO";
+		}
 	}
 
 }

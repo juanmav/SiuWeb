@@ -1,12 +1,11 @@
 package com.diphot.siuweb.server.mailer;
 
-import javax.mail.Message;
-
 import com.diphot.siuweb.server.business.model.Inspeccion;
 import com.diphot.siuweb.shared.SiuConstants;
+import com.google.appengine.api.mail.MailService;
 
 public abstract class  InspeccionMailStrategy {
-	public abstract void exec(Inspeccion inspeccion, Message msg);
+	public abstract void exec(Inspeccion inspeccion, MailService.Message msg);
 	public InspeccionMailStrategy getStrategy(Integer action){
 		switch (action) {
 		case SiuConstants.ACTION.OBSERVADO:

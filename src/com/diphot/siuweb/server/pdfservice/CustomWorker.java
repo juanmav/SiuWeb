@@ -1,6 +1,7 @@
 package com.diphot.siuweb.server.pdfservice;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.StringReader;
 
 import javax.servlet.ServletOutputStream;
@@ -27,7 +28,7 @@ public class CustomWorker {
 
 	}
 
-	public void exec(ServletOutputStream output, StringReader StringReaderHTML) throws DocumentException, IOException{
+	public void exec(OutputStream output, StringReader StringReaderHTML) throws DocumentException, IOException{
 
 		Document document = new Document();
 		

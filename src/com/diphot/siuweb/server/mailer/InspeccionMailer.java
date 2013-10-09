@@ -1,41 +1,51 @@
 package com.diphot.siuweb.server.mailer;
 
 import com.diphot.siuweb.server.business.model.Inspeccion;
+import com.diphot.siuweb.server.pdfservice.CustomWorker;
 import com.diphot.siuweb.server.services.utils.InspeccionHMTL;
+import com.google.appengine.api.mail.MailService;
+import com.google.appengine.api.mail.MailService.Attachment;
+import com.google.appengine.api.mail.MailServiceFactory;
+import com.itextpdf.text.DocumentException;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 public class InspeccionMailer {
-
 	public static void notifyChange(Inspeccion inspeccion, Integer action){
-		Properties props = new Properties();
-		Session session = Session.getDefaultInstance(props, null);
 		try {
-			Message msg = new MimeMessage(session);
-			msg.setFrom(new InternetAddress("juanma.v82@gmail.com", "Juan Manuel Vicente"));
+			MailService service = MailServiceFactory.getMailService(); 
+			MailService.Message msg = new MailService.Message(); 
+
+			msg.setSender("juanma.v82@gmail.com");
 			// Segun el tipo de accion que se ejecuto cambian los destinatarios.
 			InspeccionMailStrategy strategy = new ObservadoStrategy().getStrategy(action);
 			strategy.exec(inspeccion, msg);
 			msg.setSubject("Detalle de inspeccion n°: " + inspeccion.getId() + " estado:" + inspeccion.getState().toString());
-			msg.setContent(InspeccionHMTL.getInspeccionHTML(inspeccion),"text/html");
-			Transport.send(msg);
-		} catch (AddressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//msg.setContent(InspeccionHMTL.getInspeccionHTML(inspeccion),"text/html");
+			//http://127.0.0.1:8888/createpdfservlet
+
+			CustomWorker cworker= new CustomWorker();
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			try {
+				cworker.exec(bos, new StringReader(InspeccionHMTL.getInspeccionHTML(inspeccion)));
+			} catch (DocumentException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			msg.setTextBody("Detalle de inspeccion Adjunto en formato PDF");
+			Attachment a = new Attachment("reporte.pdf", bos.toByteArray());
+			msg.setAttachments(a);
+			service.send(msg);
 		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 }

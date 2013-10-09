@@ -10,10 +10,11 @@ import com.diphot.siuweb.server.business.model.Role;
 import com.diphot.siuweb.server.business.model.User;
 import com.diphot.siuweb.server.pesistense.daos.RoleDAO;
 import com.diphot.siuweb.shared.SiuConstants;
+import com.google.appengine.api.mail.MailService;
 
 public class ResueltoStrategy extends InspeccionMailStrategy{
 	@Override
-	public void exec(Inspeccion inspeccion, Message msg) {
+	public void exec(Inspeccion inspeccion, MailService.Message msg) {
 		// Enviar mail a Secretario y Supervisor.
 		RoleDAO rdao = new RoleDAO();
 		rdao.begin();
@@ -23,18 +24,11 @@ public class ResueltoStrategy extends InspeccionMailStrategy{
 		HashSet<User> users = secr.getMembers();
 		// agregos a los supervisores.
 		users.addAll(supr.getMembers());
-		try {
-			for (User u : users){
-				System.out.println(u.getUsername());
-				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(u.getEmail(), u.getUsername()));
-			}
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		for (User u : users){
+			System.out.println(u.getUsername());
+			msg.setTo(u.getEmail());
 		}
+
 		rdao.end();
 	}
 }
