@@ -27,16 +27,18 @@ import com.diphot.siuweb.shared.dtos.filters.InspeccionFilterDTO;
 
 public class SiuTests extends AbstractSiuTest {
 
-	private Long inspeccionID = 10L; 
+	private Long inspeccionID = null; 
 
 	private void preCreacionInspecciones(){
-		InspeccionDTO idto = new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO);
+		InspeccionDTO idto = new InspeccionDTO(null,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO);
 		idto.setLocalidad(new LocalidadDTO(2L,""));
 		idto.setEntreCalleUno("Calle1");
 		idto.setEntreCalleDos("Calle2");
-		InspeccionFacade.getInstance().create(idto,null);
+		Inspeccion i = InspeccionFacade.getInstance().create(idto,null);
+		inspeccionID = i.getId();
+		
+		
 		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+1L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO),null);
-		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+2L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO),null);
 		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+3L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.BAJO),null);
 	}
 
@@ -52,7 +54,7 @@ public class SiuTests extends AbstractSiuTest {
 
 	@Test
 	public void TestCreateInspeccion2() {
-		InspeccionDTO idto = new InspeccionDTO(inspeccionID+1,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.BAJO);
+		InspeccionDTO idto = new InspeccionDTO(null,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.BAJO);
 		idto.setLocalidad(new LocalidadDTO(2L,""));
 		idto.setEntreCalleUno("Calle1");
 		idto.setEntreCalleUno("Calle2");
@@ -128,8 +130,8 @@ public class SiuTests extends AbstractSiuTest {
 		preCreacionInspecciones();
 		InspeccionFilterDTO filter = new InspeccionFilterDTO();
 		filter.estadoID = InspeccionState.CONFIRMADO;
-		filter.riesgo = SiuConstants.MEDIO;
-		InspeccionFacade.getInstance().confirmar(11L,null);
+		filter.riesgo = SiuConstants.ALTO;
+		InspeccionFacade.getInstance().confirmar(inspeccionID,null);
 		ArrayList<InspeccionDTO> list = InspeccionFacade.getInstance().getDTOList(filter);
 		Assert.assertNotNull(list);
 		// Este resultado depende del preCreate()
