@@ -59,6 +59,10 @@ public class InspeccionFacade {
 		InspeccionDAO idao = new InspeccionDAO();
 		idao.begin();
 		Inspeccion result = idao.getById(id);
+		// Damn lazy feach
+		// TODO ver como corregir esto. Queda Acomplado.
+		result.getLocalidad();
+		result.getTema();
 		result.ejecutadaAuditable();
 		InspeccionMailer.notifyChange(result, SiuConstants.ACTION.EJECUTADO);
 		idao.end();
