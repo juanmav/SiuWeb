@@ -13,6 +13,7 @@ import com.diphot.siuweb.server.business.model.inspeccion.status.Ejecutado;
 import com.diphot.siuweb.server.business.model.inspeccion.status.InspeccionState;
 import com.diphot.siuweb.server.business.model.inspeccion.status.Observado;
 import com.diphot.siuweb.server.business.model.inspeccion.status.Resuelto;
+import com.diphot.siuweb.server.pesistense.PrimaryKeyCalculator;
 import com.google.appengine.datanucleus.annotations.Unowned;
 
 import java.util.ArrayList;
@@ -166,7 +167,7 @@ public class Inspeccion {
 		}
 	}
 	public Long getId() {
-		return id;
+		return PrimaryKeyCalculator.getIDFromEKSIfIDIsNull(id,encodedKey);
 	}
 	public void setId(Long id) {
 		this.id = id;
