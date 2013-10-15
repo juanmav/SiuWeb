@@ -36,8 +36,6 @@ public class SiuTests extends AbstractSiuTest {
 		idto.setEntreCalleDos("Calle2");
 		Inspeccion i = InspeccionFacade.getInstance().create(idto,null);
 		inspeccionID = i.getId();
-		
-		
 		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+1L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO),null);
 		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+3L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.BAJO),null);
 	}
