@@ -15,11 +15,9 @@ public class InspeccionRestLetImpl extends ServerResource implements InspeccionR
 	@Override
 	public ArrayList<InspeccionDTO> getList(InspeccionFilterDTO filter) {
 		ArrayList<InspeccionDTO> result = InspeccionFacadeProxy.getInstance().getDTOList(filter);
-		System.out.println("Devolviendo " + result.size() + " resultados.");
+		System.out.println("Devolviendo " + result.size() + " inspecciones de resultados.");
 		System.out.println("Devolviendo " + result);
 		return result;
 	}
-	
 
-	
 }

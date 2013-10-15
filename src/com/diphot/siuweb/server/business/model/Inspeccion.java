@@ -13,6 +13,7 @@ import com.diphot.siuweb.server.business.model.inspeccion.status.Ejecutado;
 import com.diphot.siuweb.server.business.model.inspeccion.status.InspeccionState;
 import com.diphot.siuweb.server.business.model.inspeccion.status.Observado;
 import com.diphot.siuweb.server.business.model.inspeccion.status.Resuelto;
+import com.diphot.siuweb.server.pesistense.PrimaryKeyCalculator;
 import com.google.appengine.datanucleus.annotations.Unowned;
 
 import java.util.ArrayList;
@@ -85,6 +86,16 @@ public class Inspeccion {
 	@Persistent
 	private String uuid;
 	
+	@Persistent
+	@Unowned
+	private Localidad localidad;
+	
+	@Persistent
+	private String entreCalleUno;
+	
+	@Persistent
+	private String entreCalleDos;
+	
 	public Inspeccion (Long id, String calle, Integer altura, Date fecha, String observacion, Tema tema, double latitude, double longitude, int riesgo){
 		this.id = id;
 		this.calle = calle;
@@ -156,7 +167,7 @@ public class Inspeccion {
 		}
 	}
 	public Long getId() {
-		return id;
+		return PrimaryKeyCalculator.getIDFromEKSIfIDIsNull(id,encodedKey);
 	}
 	public void setId(Long id) {
 		this.id = id;
@@ -267,5 +278,28 @@ public class Inspeccion {
 
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
+	}
+
+	public Localidad getLocalidad() {
+		return localidad;
+	}
+
+	public void setLocalidad(Localidad localidad) {
+		this.localidad = localidad;
+	}
+	public String getEntreCalleUno() {
+		return entreCalleUno;
+	}
+
+	public void setEntreCalleUno(String entreCalleUno) {
+		this.entreCalleUno = entreCalleUno;
+	}
+
+	public String getEntreCalleDos() {
+		return entreCalleDos;
+	}
+	
+	public void setEntreCalleDos(String entreCalleDos) {
+		this.entreCalleDos = entreCalleDos;
 	}
 }

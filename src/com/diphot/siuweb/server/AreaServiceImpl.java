@@ -1,15 +1,21 @@
 package com.diphot.siuweb.server;
 
 import java.util.ArrayList;
+
+import org.junit.Assert;
+
 import com.diphot.siuweb.client.services.AreaService;
+import com.diphot.siuweb.server.business.facade.impl.TipificacionFacade;
 import com.diphot.siuweb.server.business.facade.impl.UserFacade;
 import com.diphot.siuweb.server.business.model.Area;
 import com.diphot.siuweb.server.business.model.Tema;
 import com.diphot.siuweb.server.business.model.TipoRelevamiento;
 import com.diphot.siuweb.server.pesistense.daos.AreaDAO;
+import com.diphot.siuweb.server.pesistense.daos.LocalidadDAO;
 import com.diphot.siuweb.server.pesistense.daos.TipoRelevamientoDAO;
 import com.diphot.siuweb.shared.SiuConstants;
 import com.diphot.siuweb.shared.dtos.AreaDTO;
+import com.diphot.siuweb.shared.dtos.LocalidadDTO;
 import com.diphot.siuweb.shared.dtos.RoleDTO;
 import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
 import com.diphot.siuweb.shared.dtos.UserDTO;
@@ -260,14 +266,13 @@ public class AreaServiceImpl extends RemoteServiceServlet implements AreaService
 
 		areaDAO.end(); tipoRelevamientoDAO.end();
 
-
-		UserFacade.getInstance().createUser(new UserDTO(1L, "juanma", "asdf69"));
-		UserFacade.getInstance().createUser(new UserDTO(2L,"vsaldana", "v1ct0r"));
-		UserFacade.getInstance().createUser(new UserDTO(3L,"crubiera", "c4rl0s"));
-		UserFacade.getInstance().createUser(new UserDTO(4L,"tsecretaria", "s3cr3tar1a"));
-		UserFacade.getInstance().createUser(new UserDTO(5L,"aamoruso", "4l3j4ndr0"));
-		UserFacade.getInstance().createUser(new UserDTO(6L,"etaboada", "3du4rd0"));
-		
+		// TODO Modificar emails!
+		UserFacade.getInstance().createUser(new UserDTO(1L, "juanma", "asdf69", "jmvicente@diphot.com"));
+		UserFacade.getInstance().createUser(new UserDTO(2L,"vsaldana", "v1ct0r", "jmvicente@diphot.com"));
+		UserFacade.getInstance().createUser(new UserDTO(3L,"crubiera", "c4rl0s", "jmvicente@diphot.com"));
+		UserFacade.getInstance().createUser(new UserDTO(4L,"tsecretaria", "s3cr3tar1a", "jmvicente@diphot.com"));
+		UserFacade.getInstance().createUser(new UserDTO(5L,"aamoruso", "4l3j4ndr0", "jmvicente@diphot.com"));
+		UserFacade.getInstance().createUser(new UserDTO(6L,"etaboada", "3du4rd0", "jmvicente@diphot.com"));
 		
 		UserFacade.getInstance().createRole(new RoleDTO(1L, SiuConstants.ROLES.ADMIN));
 		UserFacade.getInstance().createRole(new RoleDTO(2L, SiuConstants.ROLES.SUPERVISOR));
@@ -280,5 +285,24 @@ public class AreaServiceImpl extends RemoteServiceServlet implements AreaService
 		UserFacade.getInstance().assingRole(4L, 4L);
 		UserFacade.getInstance().assingRole(5L, 4L);
 		UserFacade.getInstance().assingRole(6L, 4L);
+		
+		TipificacionFacade.getInstance().addAreaOwner(5L, 1L);
+		TipificacionFacade.getInstance().addAreaOwner(6L, 1L);
+		
+		// Creacion de Localidades.
+		LocalidadDAO ldao = new LocalidadDAO();
+		ldao.begin();
+		ldao.creatFromDTO(new LocalidadDTO(1L, "Benavídez"));
+		ldao.creatFromDTO(new LocalidadDTO(2L, "Delta de Tigre"));
+		ldao.creatFromDTO(new LocalidadDTO(3L, "Dique Luján"));
+		ldao.creatFromDTO(new LocalidadDTO(4L, "Don Torcuato"));
+		ldao.creatFromDTO(new LocalidadDTO(5L, "El Talar"));
+		ldao.creatFromDTO(new LocalidadDTO(6L, "General Pacheco"));
+		ldao.creatFromDTO(new LocalidadDTO(7L, "Nordelta"));
+		ldao.creatFromDTO(new LocalidadDTO(8L, "Ricardo Rojas"));
+		ldao.creatFromDTO(new LocalidadDTO(9L, "Rincón de Milberg"));
+		ldao.creatFromDTO(new LocalidadDTO(10L, "Tigre"));
+		ldao.creatFromDTO(new LocalidadDTO(11L, "Troncos del Talar"));
+		ldao.end();
 	}
 }

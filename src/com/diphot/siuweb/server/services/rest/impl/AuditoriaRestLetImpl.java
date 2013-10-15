@@ -18,6 +18,10 @@ public class AuditoriaRestLetImpl extends ServerResource implements AuditoriaRes
 	@Override
 	@Post
 	public ArrayList<AuditoriaDTO> getByID(AuditoriaFilterDTO filter) {
-		return AuditoriaFacadeProxy.getInstance().getDTOList(filter);
+		ArrayList<AuditoriaDTO> result =AuditoriaFacadeProxy.getInstance().getDTOList(filter); 
+		
+		System.out.println("Devolviendo " + result.size() + " auditorias de resultados.");
+		System.out.println("Devolviendo " + result);
+		return result;
 	}
 }

@@ -6,6 +6,9 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToMany;
+
 import com.diphot.siuweb.server.services.utils.PasswordUtils;
 import com.google.appengine.datanucleus.annotations.Unowned;
 /**
@@ -18,7 +21,7 @@ public class User {
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	@Extension(vendorName="datanucleus", key="gae.encoded-pk", value="true")
 	private String encodedKey;
-
+	
 	@Persistent
 	@Extension(vendorName="datanucleus", key="gae.pk-id", value="true")
 	private Long id;
@@ -27,19 +30,23 @@ public class User {
 	private String username;
 	@Persistent
 	private String password;
+	@Persistent
+	private String email;
 
 	@Persistent
 	@Unowned
+	@ManyToMany(mappedBy = "member", cascade = CascadeType.ALL)
 	// Para que esto funcione se sobreescribieron los metodos equals y hashcode de java.lang.Object
 	private HashSet<Role> roles = new HashSet<Role>();
 		
 	public User(){
 		
 	}
-	public User(Long id, String username, String password){
+	public User(Long id, String username, String password, String email){
 		this.id = id;
 		this.username = username;
 		setPassword(password);
+		this.email = email;
 	}
 	
 	public User(String username, String password){
@@ -76,7 +83,14 @@ public class User {
 	}
 	
 	public void addRole(Role role){
+		role.addMember(this);
 		this.roles.add(role);
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }

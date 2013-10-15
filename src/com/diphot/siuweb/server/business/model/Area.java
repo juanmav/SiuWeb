@@ -31,6 +31,10 @@ public class Area {
 	@OneToMany(mappedBy = "area", cascade = CascadeType.ALL)
 	@Unowned
 	private ArrayList<TipoRelevamiento> tipos = new ArrayList<TipoRelevamiento>();
+	
+	@Persistent
+	@Unowned
+	private ArrayList<User> owners = new ArrayList<User>();
 
 	public ArrayList<TipoRelevamiento> getTipos() {
 		return tipos;
@@ -63,5 +67,14 @@ public class Area {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	public void addOwner(User user){
+		this.owners.add(user);
+	}
+	public ArrayList<User> getOwners() {
+		return owners;
+	}
+	public void setOwners(ArrayList<User> owners) {
+		this.owners = owners;
 	}
 }

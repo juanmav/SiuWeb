@@ -9,10 +9,12 @@ import com.diphot.siuweb.server.business.model.Inspeccion;
 @PersistenceCapable
 public class Confirmado extends InspeccionState {
 	
-	
-	
 	public Confirmado(Date date, Inspeccion inspeccion) {
 		super(date, inspeccion);
 		this.code = InspeccionState.CONFIRMADO;
+	}
+	
+	public String toString(){
+		return "CONFIRMADO";
 	}
 }

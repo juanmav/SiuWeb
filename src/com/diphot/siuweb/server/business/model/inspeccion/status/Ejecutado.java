@@ -12,4 +12,8 @@ public class Ejecutado extends InspeccionState {
 		super(date, inspeccion);
 		this.code = InspeccionState.EJECUTADO;
 	}
+	
+	public String toString(){
+		return "EJECUTADO";
+	}
 }

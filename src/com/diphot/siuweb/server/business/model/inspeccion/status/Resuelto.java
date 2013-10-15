@@ -14,4 +14,7 @@ public class Resuelto extends InspeccionState{
 		super(date, inspeccion);
 		this.code = InspeccionState.RESUELTO;
 	}
+	public String toString(){
+		return "RESUELTO";
+	}
 }
