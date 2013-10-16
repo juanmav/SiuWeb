@@ -27,19 +27,6 @@ import com.diphot.siuweb.shared.dtos.filters.InspeccionFilterDTO;
 
 public class SiuTests extends AbstractSiuTest {
 
-	private Long inspeccionID = null; 
-
-	private void preCreacionInspecciones(){
-		InspeccionDTO idto = new InspeccionDTO(null,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO);
-		idto.setLocalidad(new LocalidadDTO(2L,""));
-		idto.setEntreCalleUno("Calle1");
-		idto.setEntreCalleDos("Calle2");
-		Inspeccion i = InspeccionFacade.getInstance().create(idto,null);
-		inspeccionID = i.getId();
-		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+1L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO),null);
-		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+3L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.BAJO),null);
-	}
-
 	@Test
 	public void TestCreateInspeccion() {
 		InspeccionDTO idto = new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO);

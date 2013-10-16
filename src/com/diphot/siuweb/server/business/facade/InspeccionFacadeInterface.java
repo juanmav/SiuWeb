@@ -15,6 +15,6 @@ public interface InspeccionFacadeInterface {
 	public  void verificarPlazos();
 	public  ArrayList<InspeccionDTO> getDTOList(UserDTO userDTO);
 	public  ArrayList<InspeccionDTO> getDTOList(InspeccionFilterDTO filter);
-	public  InspeccionDTO getDTOById(Long id, UserDTO userDTO);
+	public  InspeccionDTO getDTOById(InspeccionFilterDTO filter);
 
 }

@@ -75,10 +75,10 @@ public class InspeccionFacadeProxy implements InspeccionFacadeInterface{
 	}
 
 	@Override
-	public InspeccionDTO getDTOById(Long id, UserDTO userDTO) {
+	public InspeccionDTO getDTOById(InspeccionFilterDTO filter) {
 		InspeccionDTO result = null;
-		if (userproxy.checkLogin(userDTO.getToken())){
-			result = impl.getDTOById(id);
+		if (userproxy.checkLogin(filter.token)){
+			result = impl.getDTOById(filter.inspeccionID);
 		}
 		return result;
 	}

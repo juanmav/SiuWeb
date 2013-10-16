@@ -18,6 +18,7 @@ import com.diphot.siuweb.shared.dtos.LocalidadDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 import com.diphot.siuweb.shared.dtos.filters.InspeccionFilterDTO;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 import com.itextpdf.text.pdf.codec.Base64;
 
@@ -51,13 +52,13 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		// El agrego el Mapa estatico.
 		inspeccion.setEncodedMap(new EncodedImage(getStringMapImage(dto.getLatitude(), dto.getLongitude())));
 		inspeccion.setUuid(dto.UUID);
-		
+
 		Localidad localidad = localidadDAO.getById(dto.getLocalidad().getId());
 		inspeccion.setLocalidad(localidad);
-		
+
 		inspeccion.setEntreCalleUno(dto.getEntreCalleUno());
 		inspeccion.setEntreCalleDos(dto.getEntreCalleDos());
-		
+
 		result = this.create(inspeccion);
 		temaDAO.end(); localidadDAO.end();
 		return result;
@@ -93,11 +94,10 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		return null;
 	}
 
-
 	@Override
 	public InspeccionDTO getDTO(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Inspeccion i = pm.getObjectById(Inspeccion.class, KeyFactory.createKey(Inspeccion.class.getSimpleName(), id));
+		return getDTOWithImage(i);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -121,8 +121,29 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		}
 	}
 
+	/*
+	 * 
+	 * */
 	@Override
 	public InspeccionDTO getDTO(Inspeccion i) {
+		TemaDAO temadao = new TemaDAO();
+		TemaDTO temadto = (TemaDTO) temadao.getDTO(i.getTema());
+		InspeccionDTO idto = new InspeccionDTO(i.getId(), i.getCalle(), i.getAltura(), i.getObservacion(), 
+				temadto,i.getLatitude(), i.getLongitude(),ConversionUtil.getSimpleDate(i.getFecha().toString()).toString(),
+				"",
+				"",
+				"",
+				i.getRiesgo());
+		idto.setLastStateIdentifier(i.getLastStateIdentifier());
+		idto.setImgMap("");
+		Localidad localidad = i.getLocalidad();
+		idto.setLocalidad(new LocalidadDTO(localidad.getId(), localidad.getNombre()));
+		idto.setEntreCalleUno(i.getEntreCalleUno());
+		idto.setEntreCalleDos(i.getEntreCalleDos());
+		return idto;
+	}
+
+	public InspeccionDTO getDTOWithImage(Inspeccion i){
 		TemaDAO temadao = new TemaDAO();
 		TemaDTO temadto = (TemaDTO) temadao.getDTO(i.getTema());
 		InspeccionDTO idto = new InspeccionDTO(i.getId(), i.getCalle(), i.getAltura(), i.getObservacion(), 
@@ -176,7 +197,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 
 		return result;
 	}
-	
+
 	public Inspeccion getByUUID(String uuid){
 		Inspeccion result = null;
 		Query query = pm.newQuery(Inspeccion.class);
@@ -188,5 +209,5 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		}
 		return result;
 	}
-	
+
 }
