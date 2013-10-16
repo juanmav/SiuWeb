@@ -140,6 +140,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		idto.setLocalidad(new LocalidadDTO(localidad.getId(), localidad.getNombre()));
 		idto.setEntreCalleUno(i.getEntreCalleUno());
 		idto.setEntreCalleDos(i.getEntreCalleDos());
+		idto.setAuditoriaCant(i.getAuditorias().size());
 		return idto;
 	}
 
@@ -158,6 +159,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		idto.setLocalidad(new LocalidadDTO(localidad.getId(), localidad.getNombre()));
 		idto.setEntreCalleUno(i.getEntreCalleUno());
 		idto.setEntreCalleDos(i.getEntreCalleDos());
+		idto.setAuditoriaCant(i.getAuditorias().size());
 		return idto;
 	}
 
