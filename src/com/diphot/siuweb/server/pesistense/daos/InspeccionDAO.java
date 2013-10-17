@@ -13,6 +13,7 @@ import com.diphot.siuweb.server.business.model.inspeccion.status.InspeccionState
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
 import com.diphot.siuweb.server.pesistense.PMF.PMF;
 import com.diphot.siuweb.server.services.utils.ConversionUtil;
+import com.diphot.siuweb.shared.SiuConstants;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
 import com.diphot.siuweb.shared.dtos.LocalidadDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
@@ -190,9 +191,15 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		List<Inspeccion> result;
 		Query query = pm.newQuery(Inspeccion.class);
 		if (filter != null){
-			query.setFilter("riesgo == riesgoParam && lastStateIdentifier == lastParam");
-			query.declareParameters("int riesgoParam, Integer lastParam");
+			if (filter.riesgo != SiuConstants.TODOS){
+				query.setFilter("riesgo == riesgoParam && lastStateIdentifier == lastParam");
+				query.declareParameters("int riesgoParam, Integer lastParam");
+			} else { // TODOS 
+				query.setFilter("lastStateIdentifier == lastParam");
+				query.declareParameters("int riesgoParam, Integer lastParam");
+			}
 			result = (List<Inspeccion>)query.execute(filter.riesgo, filter.estadoID);
+			
 		} else {
 			result = (List<Inspeccion>)query.execute();
 		}
