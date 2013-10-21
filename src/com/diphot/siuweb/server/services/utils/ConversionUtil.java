@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
 import com.diphot.siuweb.shared.SiuConstants;
 
 public class ConversionUtil {
@@ -26,6 +25,17 @@ public class ConversionUtil {
 		
 		result = (dia+ "/" + mes + "/"+ año);
 		return result;
+	}
+	
+	public static Date getDateFromString(String stringDate){
+		Date date = null;
+		try {
+			date = new SimpleDateFormat("dd/MM/yyyy",Locale.US).parse(stringDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return date;
 	}
 	
 	public static String getRiesgoString(Integer i){

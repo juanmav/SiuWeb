@@ -17,6 +17,7 @@ import com.diphot.siuweb.server.pesistense.daos.AreaDAO;
 import com.diphot.siuweb.server.pesistense.daos.LocalidadDAO;
 import com.diphot.siuweb.server.pesistense.daos.TipoRelevamientoDAO;
 import com.diphot.siuweb.server.pesistense.daos.UserDAO;
+import com.diphot.siuweb.server.services.utils.ConversionUtil;
 import com.diphot.siuweb.shared.SiuConstants;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
 import com.diphot.siuweb.shared.dtos.LocalidadDTO;
@@ -46,7 +47,7 @@ public class AbstractSiuTest {
 	// Metodo para crear inspecciones.
 	protected Long inspeccionID = null; 
 	protected void preCreacionInspecciones(){
-		InspeccionDTO idto = new InspeccionDTO(null,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO);
+		InspeccionDTO idto = new InspeccionDTO(null,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, "11/10/2013", "", "", "", SiuConstants.ALTO);
 		idto.setLocalidad(new LocalidadDTO(2L,""));
 		idto.setEntreCalleUno("Calle1");
 		idto.setEntreCalleDos("Calle2");
@@ -54,6 +55,7 @@ public class AbstractSiuTest {
 		idto.setImg2("aaaaaaa");
 		idto.setImg3("aaaaaaa");
 		idto.setImgMap("aaaaaaa");*/
+		idto.setFecha("11/10/2013");
 		Inspeccion i = InspeccionFacade.getInstance().create(idto,null);
 		inspeccionID = i.getId();
 		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+1L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO),null);

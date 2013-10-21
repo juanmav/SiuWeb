@@ -43,7 +43,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		Tema tema = temaDAO.getById(temadto.getId());
 		// TODO resolver el tema de las fechas
 		// Poner el id en null asi la DB lo crea!
-		Inspeccion inspeccion = new Inspeccion(null, dto.getCalle(), dto.getAltura(), new Date(), dto.getObservacion(), tema, dto.getLatitude(), dto.getLongitude(), dto.getRiesgo());
+		Inspeccion inspeccion = new Inspeccion(null, dto.getCalle(), dto.getAltura(), ConversionUtil.getDateFromString(dto.getFecha()), dto.getObservacion(), tema, dto.getLatitude(), dto.getLongitude(), dto.getRiesgo());
 		if (dto.getImg1() != null && !dto.getImg1().equals(""))
 			inspeccion.addImage(new EncodedImage(dto.getImg1()));
 		if (dto.getImg2() != null && !dto.getImg2().equals(""))
@@ -187,25 +187,65 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Inspeccion> getList(FilterInterfaceDTO f) {
+		// TODO agregar fecha desde hasta, y localidad.
 		InspeccionFilterDTO filter = (InspeccionFilterDTO) f;
 		List<Inspeccion> result;
 		Query query = pm.newQuery(Inspeccion.class);
+
 		if (filter != null){
+			ArrayList<Object> parameters = new ArrayList<Object>();
+			String stringFilter = "lastStateIdentifier == lastParam ";
+			String stringDeclared = "Integer lastParam";
+			parameters.add(filter.estadoID);
+			
+			// lastStateIndentifier siempre va.
 			if (filter.riesgo != SiuConstants.TODOS){
+				stringFilter = stringFilter +  " && riesgo == riesgoParam";
+				stringDeclared = stringDeclared + ", int riesgoParam";
+				parameters.add(filter.riesgo);
+			}
+			if (filter.desde != null && filter.hasta !=null){
+				Date dateDesde = ConversionUtil.getDateFromString(filter.desde);
+				Date dateHasta = ConversionUtil.getDateFromString(filter.hasta);
+				stringFilter = stringFilter + " && fecha >= desdeParam && fecha <= hastaParam";
+				stringDeclared =  stringDeclared + ", java.util.Date desdeParam, java.util.Date hastaParam";
+				parameters.add(dateDesde);
+				parameters.add(dateHasta);
+			}
+			if (filter.localidadID != null && filter.localidadID != -1){
+				stringFilter = stringFilter + " && localidad == localidadParam";
+				LocalidadDAO ldao = new LocalidadDAO();
+				Localidad l;
+				ldao.begin();
+				l = ldao.getById(filter.localidadID);
+				//ldao.end();
+				stringDeclared = stringDeclared + ", Localidad localidadParam";
+				parameters.add(l);
+			}
+			System.out.println("Filtros: " + stringFilter);
+			System.out.println("Parametros: " + stringDeclared);
+			for (Object o : parameters){
+				System.out.print("Valor: " + o.toString() + " ");
+			}
+			System.out.println("");
+			query.setFilter(stringFilter);
+			query.declareParameters(stringDeclared);
+			result = (List<Inspeccion>)query.executeWithArray(parameters.toArray());
+		} else {
+			result = (List<Inspeccion>)query.execute();
+		}
+		return result;
+	}
+	
+	/*
+	 * if (filter.riesgo != SiuConstants.TODOS){
 				query.setFilter("riesgo == riesgoParam && lastStateIdentifier == lastParam");
 				query.declareParameters("int riesgoParam, Integer lastParam");
 			} else { // TODOS 
 				query.setFilter("lastStateIdentifier == lastParam");
 				query.declareParameters("int riesgoParam, Integer lastParam");
 			}
-			result = (List<Inspeccion>)query.execute(filter.riesgo, filter.estadoID);
-			
-		} else {
-			result = (List<Inspeccion>)query.execute();
-		}
-
-		return result;
-	}
+	 * */
 
 	public Inspeccion getByUUID(String uuid){
 		Inspeccion result = null;
