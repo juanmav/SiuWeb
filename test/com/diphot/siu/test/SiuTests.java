@@ -1,8 +1,6 @@
 package com.diphot.siu.test;
 
 import java.util.ArrayList;
-import java.util.Date;
-
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -27,22 +25,26 @@ import com.diphot.siuweb.shared.dtos.filters.InspeccionFilterDTO;
 
 public class SiuTests extends AbstractSiuTest {
 
-	private Long inspeccionID = null; 
-
-	private void preCreacionInspecciones(){
-		InspeccionDTO idto = new InspeccionDTO(null,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO);
-		idto.setLocalidad(new LocalidadDTO(2L,""));
-		idto.setEntreCalleUno("Calle1");
-		idto.setEntreCalleDos("Calle2");
-		Inspeccion i = InspeccionFacade.getInstance().create(idto,null);
-		inspeccionID = i.getId();
-		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+1L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO),null);
-		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+3L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.BAJO),null);
+	@Test
+	public void testComplexFilter(){
+		preCreacionInspecciones();
+		InspeccionFilterDTO filter = new InspeccionFilterDTO();
+		filter.estadoID = InspeccionState.CONFIRMADO;
+		filter.riesgo = SiuConstants.ALTO;
+		filter.localidadID = 1L;
+		filter.desde = "10/10/2013";
+		filter.hasta = "12/10/2013";
+		InspeccionFacade.getInstance().confirmar(inspeccionID,null);
+		ArrayList<InspeccionDTO> list = InspeccionFacade.getInstance().getDTOList(filter);
+		Assert.assertNotNull(list);
+		// Este resultado depende del preCreate()
+		Assert.assertEquals(list.size(), 1);
+		Assert.assertEquals(list.get(0).getLocalidad().getId(), filter.localidadID);
 	}
-
+	
 	@Test
 	public void TestCreateInspeccion() {
-		InspeccionDTO idto = new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.ALTO);
+		InspeccionDTO idto = new InspeccionDTO(inspeccionID,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, "11/10/2013", "", "", "", SiuConstants.ALTO);
 		idto.setLocalidad(new LocalidadDTO(2L,""));
 		idto.setEntreCalleUno("Calle1");
 		idto.setEntreCalleUno("Calle2");
@@ -52,7 +54,7 @@ public class SiuTests extends AbstractSiuTest {
 
 	@Test
 	public void TestCreateInspeccion2() {
-		InspeccionDTO idto = new InspeccionDTO(null,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.BAJO);
+		InspeccionDTO idto = new InspeccionDTO(null,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, "11/10/2013", "", "", "", SiuConstants.BAJO);
 		idto.setLocalidad(new LocalidadDTO(2L,""));
 		idto.setEntreCalleUno("Calle1");
 		idto.setEntreCalleUno("Calle2");
@@ -148,4 +150,6 @@ public class SiuTests extends AbstractSiuTest {
 		}
 		idao.end();
 	}
+	
+	
 }

@@ -13,11 +13,13 @@ import com.diphot.siuweb.server.business.model.inspeccion.status.InspeccionState
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
 import com.diphot.siuweb.server.pesistense.PMF.PMF;
 import com.diphot.siuweb.server.services.utils.ConversionUtil;
+import com.diphot.siuweb.shared.SiuConstants;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
 import com.diphot.siuweb.shared.dtos.LocalidadDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 import com.diphot.siuweb.shared.dtos.filters.InspeccionFilterDTO;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.urlfetch.URLFetchServiceFactory;
 import com.itextpdf.text.pdf.codec.Base64;
 
@@ -41,7 +43,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		Tema tema = temaDAO.getById(temadto.getId());
 		// TODO resolver el tema de las fechas
 		// Poner el id en null asi la DB lo crea!
-		Inspeccion inspeccion = new Inspeccion(null, dto.getCalle(), dto.getAltura(), new Date(), dto.getObservacion(), tema, dto.getLatitude(), dto.getLongitude(), dto.getRiesgo());
+		Inspeccion inspeccion = new Inspeccion(null, dto.getCalle(), dto.getAltura(), ConversionUtil.getDateFromString(dto.getFecha()), dto.getObservacion(), tema, dto.getLatitude(), dto.getLongitude(), dto.getRiesgo());
 		if (dto.getImg1() != null && !dto.getImg1().equals(""))
 			inspeccion.addImage(new EncodedImage(dto.getImg1()));
 		if (dto.getImg2() != null && !dto.getImg2().equals(""))
@@ -51,13 +53,13 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		// El agrego el Mapa estatico.
 		inspeccion.setEncodedMap(new EncodedImage(getStringMapImage(dto.getLatitude(), dto.getLongitude())));
 		inspeccion.setUuid(dto.UUID);
-		
+
 		Localidad localidad = localidadDAO.getById(dto.getLocalidad().getId());
 		inspeccion.setLocalidad(localidad);
-		
+
 		inspeccion.setEntreCalleUno(dto.getEntreCalleUno());
 		inspeccion.setEntreCalleDos(dto.getEntreCalleDos());
-		
+
 		result = this.create(inspeccion);
 		temaDAO.end(); localidadDAO.end();
 		return result;
@@ -93,11 +95,10 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		return null;
 	}
 
-
 	@Override
 	public InspeccionDTO getDTO(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Inspeccion i = pm.getObjectById(Inspeccion.class, KeyFactory.createKey(Inspeccion.class.getSimpleName(), id));
+		return getDTOWithImage(i);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -121,8 +122,30 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		}
 	}
 
+	/*
+	 * 
+	 * */
 	@Override
 	public InspeccionDTO getDTO(Inspeccion i) {
+		TemaDAO temadao = new TemaDAO();
+		TemaDTO temadto = (TemaDTO) temadao.getDTO(i.getTema());
+		InspeccionDTO idto = new InspeccionDTO(i.getId(), i.getCalle(), i.getAltura(), i.getObservacion(), 
+				temadto,i.getLatitude(), i.getLongitude(),ConversionUtil.getSimpleDate(i.getFecha().toString()).toString(),
+				"",
+				"",
+				"",
+				i.getRiesgo());
+		idto.setLastStateIdentifier(i.getLastStateIdentifier());
+		idto.setImgMap("");
+		Localidad localidad = i.getLocalidad();
+		idto.setLocalidad(new LocalidadDTO(localidad.getId(), localidad.getNombre()));
+		idto.setEntreCalleUno(i.getEntreCalleUno());
+		idto.setEntreCalleDos(i.getEntreCalleDos());
+		idto.setAuditoriaCant(i.getAuditorias().size());
+		return idto;
+	}
+
+	public InspeccionDTO getDTOWithImage(Inspeccion i){
 		TemaDAO temadao = new TemaDAO();
 		TemaDTO temadto = (TemaDTO) temadao.getDTO(i.getTema());
 		InspeccionDTO idto = new InspeccionDTO(i.getId(), i.getCalle(), i.getAltura(), i.getObservacion(), 
@@ -137,6 +160,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		idto.setLocalidad(new LocalidadDTO(localidad.getId(), localidad.getNombre()));
 		idto.setEntreCalleUno(i.getEntreCalleUno());
 		idto.setEntreCalleDos(i.getEntreCalleDos());
+		idto.setAuditoriaCant(i.getAuditorias().size());
 		return idto;
 	}
 
@@ -163,20 +187,66 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Inspeccion> getList(FilterInterfaceDTO f) {
+		// TODO agregar fecha desde hasta, y localidad.
 		InspeccionFilterDTO filter = (InspeccionFilterDTO) f;
 		List<Inspeccion> result;
 		Query query = pm.newQuery(Inspeccion.class);
+
 		if (filter != null){
-			query.setFilter("riesgo == riesgoParam && lastStateIdentifier == lastParam");
-			query.declareParameters("int riesgoParam, Integer lastParam");
-			result = (List<Inspeccion>)query.execute(filter.riesgo, filter.estadoID);
+			ArrayList<Object> parameters = new ArrayList<Object>();
+			String stringFilter = "lastStateIdentifier == lastParam ";
+			String stringDeclared = "Integer lastParam";
+			parameters.add(filter.estadoID);
+			
+			// lastStateIndentifier siempre va.
+			if (filter.riesgo != SiuConstants.TODOS){
+				stringFilter = stringFilter +  " && riesgo == riesgoParam";
+				stringDeclared = stringDeclared + ", int riesgoParam";
+				parameters.add(filter.riesgo);
+			}
+			if (filter.desde != null && filter.hasta !=null){
+				Date dateDesde = ConversionUtil.getDateFromString(filter.desde);
+				Date dateHasta = ConversionUtil.getDateFromString(filter.hasta);
+				stringFilter = stringFilter + " && fecha >= desdeParam && fecha <= hastaParam";
+				stringDeclared =  stringDeclared + ", java.util.Date desdeParam, java.util.Date hastaParam";
+				parameters.add(dateDesde);
+				parameters.add(dateHasta);
+			}
+			if (filter.localidadID != null && filter.localidadID != -1){
+				stringFilter = stringFilter + " && localidad == localidadParam";
+				LocalidadDAO ldao = new LocalidadDAO();
+				Localidad l;
+				ldao.begin();
+				l = ldao.getById(filter.localidadID);
+				//ldao.end();
+				stringDeclared = stringDeclared + ", Localidad localidadParam";
+				parameters.add(l);
+			}
+			System.out.println("Filtros: " + stringFilter);
+			System.out.println("Parametros: " + stringDeclared);
+			for (Object o : parameters){
+				System.out.print("Valor: " + o.toString() + " ");
+			}
+			System.out.println("");
+			query.setFilter(stringFilter);
+			query.declareParameters(stringDeclared);
+			result = (List<Inspeccion>)query.executeWithArray(parameters.toArray());
 		} else {
 			result = (List<Inspeccion>)query.execute();
 		}
-
 		return result;
 	}
 	
+	/*
+	 * if (filter.riesgo != SiuConstants.TODOS){
+				query.setFilter("riesgo == riesgoParam && lastStateIdentifier == lastParam");
+				query.declareParameters("int riesgoParam, Integer lastParam");
+			} else { // TODOS 
+				query.setFilter("lastStateIdentifier == lastParam");
+				query.declareParameters("int riesgoParam, Integer lastParam");
+			}
+	 * */
+
 	public Inspeccion getByUUID(String uuid){
 		Inspeccion result = null;
 		Query query = pm.newQuery(Inspeccion.class);
@@ -188,5 +258,5 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		}
 		return result;
 	}
-	
+
 }

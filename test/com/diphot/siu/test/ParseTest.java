@@ -18,6 +18,23 @@ public class ParseTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.print( (date.getDay() +1 )+ "/" + (date.getMonth() +1 ) + "/"+ (date.getYear()+ 1900));
+		System.out.println( (date.getDay() +1 )+ "/" + (date.getMonth() +1 ) + "/"+ (date.getYear()+ 1900));
 	}
+
+	@Test
+	public void parseTest2(){
+		Date date = null;
+		
+		try {
+			date = new SimpleDateFormat("dd/MM/yyyy",Locale.US).parse("12/12/2013");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(date.toString());
+	}
+
 }
+
+

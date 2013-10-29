@@ -1,22 +1,28 @@
 package com.diphot.siu.test;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
 
+import com.diphot.siuweb.server.business.facade.impl.InspeccionFacade;
 import com.diphot.siuweb.server.business.facade.impl.TipificacionFacade;
 import com.diphot.siuweb.server.business.facade.impl.UserFacade;
 import com.diphot.siuweb.server.business.model.Area;
+import com.diphot.siuweb.server.business.model.Inspeccion;
 import com.diphot.siuweb.server.business.model.Tema;
 import com.diphot.siuweb.server.business.model.TipoRelevamiento;
 import com.diphot.siuweb.server.pesistense.daos.AreaDAO;
 import com.diphot.siuweb.server.pesistense.daos.LocalidadDAO;
 import com.diphot.siuweb.server.pesistense.daos.TipoRelevamientoDAO;
 import com.diphot.siuweb.server.pesistense.daos.UserDAO;
+import com.diphot.siuweb.server.services.utils.ConversionUtil;
 import com.diphot.siuweb.shared.SiuConstants;
+import com.diphot.siuweb.shared.dtos.InspeccionDTO;
 import com.diphot.siuweb.shared.dtos.LocalidadDTO;
 import com.diphot.siuweb.shared.dtos.RoleDTO;
+import com.diphot.siuweb.shared.dtos.TemaDTO;
 import com.diphot.siuweb.shared.dtos.TipoRelevamientoDTO;
 import com.diphot.siuweb.shared.dtos.UserDTO;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
@@ -38,6 +44,24 @@ public class AbstractSiuTest {
 		helper.tearDown();
 	}
 
+	// Metodo para crear inspecciones.
+	protected Long inspeccionID = null; 
+	protected void preCreacionInspecciones(){
+		InspeccionDTO idto = new InspeccionDTO(null,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, "11/10/2013", "", "", "", SiuConstants.ALTO);
+		idto.setLocalidad(new LocalidadDTO(2L,""));
+		idto.setEntreCalleUno("Calle1");
+		idto.setEntreCalleDos("Calle2");
+		/*idto.setImg1("aaaaaaa");
+		idto.setImg2("aaaaaaa");
+		idto.setImg3("aaaaaaa");
+		idto.setImgMap("aaaaaaa");*/
+		idto.setFecha("11/10/2013");
+		Inspeccion i = InspeccionFacade.getInstance().create(idto,null);
+		inspeccionID = i.getId();
+		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+1L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.MEDIO),null);
+		//InspeccionFacade.getInstance().create(new InspeccionDTO(inspeccionID+3L,"Quintino",100,"Observacion", new TemaDTO(10L), 0.0, 0.0, new Date().toString(), "", "", "", SiuConstants.BAJO),null);
+	}
+	
 	protected void dbUserCreate(){
 		UserFacade.getInstance().createUser(new UserDTO(1L, "juanma", "asdf69", "jmvicente@diphot.com"));
 		UserFacade.getInstance().createUser(new UserDTO(2L,"vsaldana", "v1ct0r", "jmvicente@diphot.com"));
