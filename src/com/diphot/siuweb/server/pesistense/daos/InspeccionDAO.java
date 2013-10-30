@@ -201,7 +201,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 			// lastStateIndentifier siempre va.
 			if (filter.riesgo != SiuConstants.TODOS){
 				stringFilter = stringFilter +  " && riesgo == riesgoParam";
-				stringDeclared = stringDeclared + ", int riesgoParam";
+				stringDeclared = stringDeclared + ", Integer riesgoParam";
 				parameters.add(filter.riesgo);
 			}
 			if (filter.desde != null && filter.hasta !=null){
@@ -210,7 +210,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 				stringFilter = stringFilter + " && fecha >= desdeParam && fecha <= hastaParam";
 				stringDeclared =  stringDeclared + ", java.util.Date desdeParam, java.util.Date hastaParam";
 				parameters.add(dateDesde);
-				parameters.add(dateHasta);
+				parameters.add(new Date(dateHasta.getTime() + 1000 * 60 * 60 * 24 - 1 ));
 			}
 			if (filter.localidadID != null && filter.localidadID != -1){
 				stringFilter = stringFilter + " && localidad == localidadParam";
