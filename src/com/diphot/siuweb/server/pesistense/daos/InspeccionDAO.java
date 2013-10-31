@@ -219,7 +219,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 				ldao.begin();
 				l = ldao.getById(filter.localidadID);
 				//ldao.end();
-				stringDeclared = stringDeclared + ", Localidad localidadParam";
+				stringDeclared = stringDeclared + ", com.diphot.siuweb.server.business.model.Localidad localidadParam";
 				parameters.add(l);
 			}
 			System.out.println("Filtros: " + stringFilter);
