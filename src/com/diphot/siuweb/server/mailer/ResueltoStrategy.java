@@ -1,10 +1,6 @@
 package com.diphot.siuweb.server.mailer;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
 import com.diphot.siuweb.server.business.model.Inspeccion;
 import com.diphot.siuweb.server.business.model.Role;
 import com.diphot.siuweb.server.business.model.User;

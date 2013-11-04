@@ -75,7 +75,7 @@ public class InspeccionHMTL {
 		return html;
 	}
 
-	private static String getEncondedImage(Integer number, Inspeccion inspeccion){
+	public static String getEncondedImage(Integer number, Inspeccion inspeccion){
 		switch (number) {
 		case 1:
 			if (inspeccion.getEncodedIMG1() != null) {  

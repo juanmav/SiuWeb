@@ -31,10 +31,10 @@ public class SiuTests extends AbstractSiuTest {
 		InspeccionFilterDTO filter = new InspeccionFilterDTO();
 		filter.estadoID = InspeccionState.CONFIRMADO;
 		filter.riesgo = SiuConstants.ALTO;
-		filter.localidadID = 1L;
+		filter.localidadID = 2L;
 		filter.desde = "10/10/2013";
 		filter.hasta = "12/10/2013";
-		InspeccionFacade.getInstance().confirmar(inspeccionID,null);
+		Inspeccion i = InspeccionFacade.getInstance().confirmar(inspeccionID,null);
 		ArrayList<InspeccionDTO> list = InspeccionFacade.getInstance().getDTOList(filter);
 		Assert.assertNotNull(list);
 		// Este resultado depende del preCreate()

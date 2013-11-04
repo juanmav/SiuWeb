@@ -8,6 +8,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 import javax.persistence.ManyToOne;
+
+import com.diphot.siuweb.server.pesistense.PrimaryKeyCalculator;
 import com.google.appengine.datanucleus.annotations.Unowned;
 
 @PersistenceCapable
@@ -66,7 +68,7 @@ public class Auditoria {
 	}
 
 	public Long getId() {
-		return id;
+		return PrimaryKeyCalculator.getIDFromEKSIfIDIsNull(id,encodedKey);
 	}
 
 	public void setId(Long id) {
