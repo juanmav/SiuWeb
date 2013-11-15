@@ -72,4 +72,9 @@ public class TipoRelevamiento {
 	public void setArea(Area area) {
 		this.area = area;
 	}
+	
+	public String toString(){
+		return this.nombre;
+	}
+	
 }
