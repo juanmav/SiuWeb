@@ -80,6 +80,17 @@
 		<url-pattern>/createpdfservlet</url-pattern>
 	</servlet-mapping>
 
+	<!-- CustomReporterCSV Service -->
+	<servlet>
+		<servlet-name>customreporterservlet</servlet-name>
+		<servlet-class>com.diphot.siuweb.server.reporter.CustomReporterCSV</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>customreporterservlet</servlet-name>
+		<url-pattern>/customreporterservlet</url-pattern>
+	</servlet-mapping>
+
 
 	<!-- Configuracion Rest -->
 	<context-param>
