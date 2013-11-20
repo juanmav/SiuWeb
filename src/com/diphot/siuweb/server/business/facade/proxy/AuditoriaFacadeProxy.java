@@ -7,6 +7,7 @@ import com.diphot.siuweb.server.business.facade.impl.AuditoriaFacade;
 import com.diphot.siuweb.server.business.model.Auditoria;
 import com.diphot.siuweb.shared.SiuConstants;
 import com.diphot.siuweb.shared.dtos.AuditoriaDTO;
+import com.diphot.siuweb.shared.dtos.InspeccionDTO;
 import com.diphot.siuweb.shared.dtos.filters.AuditoriaFilterDTO;
 
 public class AuditoriaFacadeProxy implements AuditoriaFacadeInterface{
@@ -39,5 +40,11 @@ public class AuditoriaFacadeProxy implements AuditoriaFacadeInterface{
 			lista = impl.getDTOList(filter);
 		}
 		return lista;
+	}
+
+	public void createAuditTask(InspeccionDTO inspeccionDTO) {
+		if (userproxy.checkLoginAndRole(inspeccionDTO.token, SiuConstants.ROLES.SUPERVISOR)){
+			impl.createAuditTask(inspeccionDTO.getId());
+		}	
 	}
 }
