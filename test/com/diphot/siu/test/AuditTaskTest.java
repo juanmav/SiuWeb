@@ -46,7 +46,6 @@ public class AuditTaskTest extends AbstractSiuTest {
 	@Test
 	public void testFind(){
 		preCreacionInspecciones();
-		
 		AuditTask at = AuditoriaFacade.getInstance().createAuditTask(inspeccionID);
 		Long id = at.getId();
 		AuditTaskDAO atdao = new AuditTaskDAO();

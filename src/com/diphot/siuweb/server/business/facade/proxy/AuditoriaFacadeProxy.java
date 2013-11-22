@@ -47,4 +47,13 @@ public class AuditoriaFacadeProxy implements AuditoriaFacadeInterface{
 			impl.createAuditTask(inspeccionDTO.getId());
 		}	
 	}
+	
+	public ArrayList<InspeccionDTO> getInspeccionesToAuditar(InspeccionDTO inspeccionDTO){
+		ArrayList<InspeccionDTO> result = null;
+		if (userproxy.checkLoginAndRole(inspeccionDTO.token, SiuConstants.ROLES.SUPERVISOR) || 
+			userproxy.checkLoginAndRole(inspeccionDTO.token, SiuConstants.ROLES.INSPECTOR) ){
+			result = impl.getInspeccionesParaAuditar();
+		}
+		return result;
+	}
 }

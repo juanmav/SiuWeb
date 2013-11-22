@@ -5,6 +5,7 @@ import org.restlet.Restlet;
 import org.restlet.routing.Router;
 
 import com.diphot.siuweb.server.services.rest.impl.AuditoriaRestLetImpl;
+import com.diphot.siuweb.server.services.rest.impl.AuditoriaRestLetTwoImpl;
 import com.diphot.siuweb.server.services.rest.impl.InspeccionRestLetImpl;
 import com.diphot.siuweb.server.services.rest.impl.InspeccionRestLetTwoImpl;
 import com.diphot.siuweb.server.services.rest.impl.TipificacionRestLetImpl;
@@ -22,6 +23,7 @@ public class RestApi extends Application {
 		router.attach("/inspeccionesdos", InspeccionRestLetTwoImpl.class);
 		router.attach("/tipificacion", TipificacionRestLetImpl.class);
 		router.attach("/auditorias", AuditoriaRestLetImpl.class);
+		router.attach("/auditoriasdos", AuditoriaRestLetTwoImpl.class);
 		router.attach("/user",UserRestLetInterfaceImpl.class);
 		return router;
 	}
