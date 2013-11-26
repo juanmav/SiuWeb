@@ -12,10 +12,10 @@ import com.diphot.siuweb.server.pesistense.daos.AuditTaskDAO;
 import com.diphot.siuweb.server.pesistense.daos.AuditoriaDAO;
 import com.diphot.siuweb.server.pesistense.daos.InspeccionDAO;
 import com.diphot.siuweb.shared.SiuConstants;
-import com.diphot.siuweb.shared.dtos.AuditTaskDTO;
 import com.diphot.siuweb.shared.dtos.AuditoriaDTO;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
 import com.diphot.siuweb.shared.dtos.UserDTO;
+import com.diphot.siuweb.shared.dtos.filters.AuditTaskFilterDTO;
 import com.diphot.siuweb.shared.dtos.filters.AuditoriaFilterDTO;
 
 public class AuditoriaFacade {
@@ -58,6 +58,14 @@ public class AuditoriaFacade {
 		result.getInspeccion().getEncodedMap();
 		AuditoriaMailer.notifyChange(result, SiuConstants.ACTION.RESUELTO);	
 		idao.end();
+		
+		AuditTaskDAO autdao = new AuditTaskDAO();
+		autdao.begin();
+		List<AuditTask> l = autdao.getList(new AuditTaskFilterDTO());
+		AuditTask auTask = l.get(0);
+		auTask.setRealizada(true);
+		autdao.end();
+		
 		return result;
 	}
 

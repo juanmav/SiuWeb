@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.Query;
-
 import com.diphot.siuweb.server.business.model.AuditTask;
+import com.diphot.siuweb.server.business.model.Inspeccion;
 import com.diphot.siuweb.server.pesistense.AbstractDAO;
 import com.diphot.siuweb.shared.dtos.AuditTaskDTO;
+import com.diphot.siuweb.shared.dtos.filters.AuditTaskFilterDTO;
 import com.diphot.siuweb.shared.dtos.filters.FilterInterfaceDTO;
 
 public class AuditTaskDAO extends AbstractDAO<AuditTask, AuditTaskDTO>{
@@ -16,10 +17,28 @@ public class AuditTaskDAO extends AbstractDAO<AuditTask, AuditTaskDTO>{
 		super(AuditTask.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<AuditTask> getList(FilterInterfaceDTO filter) {
-		// TODO Auto-generated method stub
-		return null;
+		AuditTaskFilterDTO auFilter = (AuditTaskFilterDTO)filter;
+		List<AuditTask> result = null;
+		InspeccionDAO idao = new InspeccionDAO();
+		idao.begin();
+		Inspeccion i = idao.getById(auFilter.inspeccionID);
+		// Se cierra sola la transaccion cuando cierra el DAO de AuditTaskDAO
+		//idao.end
+						
+		ArrayList<Object> parameters = new ArrayList<Object>();
+		String stringFilter = "inspeccion == inspeccionParam ";
+		String stringDeclared = "com.diphot.siuweb.server.business.model lastParam";
+		parameters.add(i);
+		
+		Query query = pm.newQuery(AuditTask.class);
+		query.setFilter(stringFilter);
+		query.declareParameters(stringDeclared);
+		result = (List<AuditTask>)query.executeWithArray(parameters.toArray());
+		
+		return result;
 	}
 
 	@Override

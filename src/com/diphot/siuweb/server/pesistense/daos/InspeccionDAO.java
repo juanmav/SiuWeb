@@ -219,6 +219,7 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 				ldao.begin();
 				l = ldao.getById(filter.localidadID);
 				//ldao.end();
+				// Se cierra la transacion sola al finalizar el DAO de Inspeccion.
 				stringDeclared = stringDeclared + ", com.diphot.siuweb.server.business.model.Localidad localidadParam";
 				parameters.add(l);
 			}
