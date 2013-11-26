@@ -13,6 +13,7 @@ import com.diphot.siuweb.shared.dtos.AuditoriaDTO;
 import com.diphot.siuweb.shared.dtos.EncodedImageDTO;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
 import com.diphot.siuweb.shared.dtos.TemaDTO;
+import com.diphot.siuweb.shared.dtos.filters.InspeccionFilterDTO;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 @SuppressWarnings("serial")
@@ -45,5 +46,8 @@ public class InspeccionServiceImpl extends RemoteServiceServlet implements Inspe
 		AuditoriaFacade.getInstance().create(new AuditoriaDTO(1L, 10L,null,null,null,true,""),null);
 	}
 	
-	
+	@Override
+	public ArrayList<InspeccionDTO> getInspeccionesDTO(InspeccionFilterDTO filter){
+		return InspeccionFacade.getInstance().getDTOList(filter);
+	}
 }

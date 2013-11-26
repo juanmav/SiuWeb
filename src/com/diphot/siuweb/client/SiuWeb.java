@@ -17,12 +17,14 @@ public class SiuWeb implements EntryPoint {
 		Runnable onLoad = new Runnable() {
 			@Override
 			public void run() {
-
+				//RootPanel.get().add(new MainScreen());
+				RootPanel.get().add(new ControlMap());
 			}
 		};
 		/* Cargo las Api de Maps ya que las necesito en casi todos los contextos de uso.*/
 		LoadApi.go(onLoad, false);
-		RootPanel.get().add(new MainScreen());
+		
+		
 	}
 	
 	
