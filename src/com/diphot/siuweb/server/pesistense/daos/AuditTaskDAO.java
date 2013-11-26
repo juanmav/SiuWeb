@@ -30,7 +30,7 @@ public class AuditTaskDAO extends AbstractDAO<AuditTask, AuditTaskDTO>{
 						
 		ArrayList<Object> parameters = new ArrayList<Object>();
 		String stringFilter = "inspeccion == inspeccionParam ";
-		String stringDeclared = "com.diphot.siuweb.server.business.model lastParam";
+		String stringDeclared = "com.diphot.siuweb.server.business.model.Inspeccion inspeccionParam";
 		parameters.add(i);
 		
 		Query query = pm.newQuery(AuditTask.class);

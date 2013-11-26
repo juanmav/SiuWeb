@@ -61,7 +61,11 @@ public class AuditoriaFacade {
 		
 		AuditTaskDAO autdao = new AuditTaskDAO();
 		autdao.begin();
-		List<AuditTask> l = autdao.getList(new AuditTaskFilterDTO());
+		
+		AuditTaskFilterDTO autFilterDTO = new AuditTaskFilterDTO();
+		autFilterDTO.inspeccionID = dto.getInspeccionID();
+		
+		List<AuditTask> l = autdao.getList(autFilterDTO);
 		AuditTask auTask = l.get(0);
 		auTask.setRealizada(true);
 		autdao.end();
