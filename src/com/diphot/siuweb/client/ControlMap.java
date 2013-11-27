@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.diphot.siuweb.client.services.InspeccionService;
 import com.diphot.siuweb.client.services.InspeccionServiceAsync;
+import com.diphot.siuweb.shared.SiuConstants;
 //import com.diphot.siuweb.server.services.utils.ConversionUtil;
 import com.diphot.siuweb.shared.dtos.InspeccionDTO;
 import com.diphot.siuweb.shared.dtos.filters.InspeccionFilterDTO;
@@ -43,7 +44,7 @@ public class ControlMap extends Composite {
 		initWidget(uiBinder.createAndBindUi(this));
 
 		drawMap();
-		
+
 		InspeccionFilterDTO filter = new InspeccionFilterDTO();
 		filter.estadoID = 2;
 		filter.desde = "15/09/2013";
@@ -92,33 +93,74 @@ public class ControlMap extends Composite {
 		options.setPosition(center);
 		options.setTitle("Inspeccion id: " + idto.getId());
 
+		if (idto.getRiesgo() == 1)
+			options.setIcon("http://google.com/mapfiles/ms/micons/green-dot.png");
+		if (idto.getRiesgo() == 2)
+			options.setIcon("http://google.com/mapfiles/ms/micons/yellow-dot.png");
+		if (idto.getRiesgo() == 3)
+			options.setIcon("http://google.com/mapfiles/ms/micons/red-dot.png");
+
 		markerBasic = Marker.newInstance(options);
 		markerBasic.setMap(mapWidget);
 
 		markerBasic.addClickHandler(new ClickMapHandler() {
 			@Override
 			public void onEvent(ClickMapEvent event) {
-				HTML html = new HTML(getInspeccionHMTL(idto));
-				InfoWindowOptions options = InfoWindowOptions.newInstance();
-				options.setContent(html);
-				InfoWindow iw = InfoWindow.newInstance(options);
-				iw.open(mapWidget, markerBasic);
+				// Solo llama este metodo cuando se clikea el pin.
+				InspeccionFilterDTO filter = new InspeccionFilterDTO();
+				filter.inspeccionID = idto.getId();
+				inspeccionServiceAsync.getInspeccionWithImage(filter, new AsyncCallback<InspeccionDTO>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+
+					}
+
+					@Override
+					public void onSuccess(InspeccionDTO result) {
+						String stringResult = 
+								"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><b>ID: </b>"+ idto.getId() +"</p>\r\n" +
+										"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><b>Fecha: </b>"+ /*ConversionUtil.getSimpleDate(*/idto.getFecha().toString()/*)*/ +"</p>\r\n" + 
+										"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><b>Riesgo: </b>"+ /*ConversionUtil.getRiesgoString(*/getRiesgoString(idto.getRiesgo())/*)*/ +"</p>\r\n" +
+										"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><b>Localidad: </b>"+ idto.getLocalidad().getNombre() +"</p>\r\n" +
+										"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><b>Calle: </b>"+ idto.getCalle() +"</p>\r\n" +
+										"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><b>Altura: </b>"+ idto.getAltura() +"</p>\r\n" +
+										"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><b>Entre Calles: </b>"+ idto.getEntreCalleUno()+ " y " + idto.getEntreCalleDos() +"</p>\r\n" +
+										"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><b>Tema: </b>"+ idto.getTema().getNombre() +"</p>\r\n" + 
+										"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><b>Observaci&oacute;n: </b>" + idto.getObservacion()	+"</p>\r\n"+ 
+										"<img src=\""+ "data:image/jpeg;base64," + result.getImg1() +"\"></img>"+
+										"<img src=\""+ "data:image/jpeg;base64," + result.getImg2() +"\"></img>"+
+										"<img src=\""+ "data:image/jpeg;base64," + result.getImg3() +"\"></img>";
+
+						HTML html = new HTML(stringResult);
+						InfoWindowOptions options = InfoWindowOptions.newInstance();
+						options.setContent(html);
+						InfoWindow iw = InfoWindow.newInstance(options);
+						iw.open(mapWidget, markerBasic);
+					}
+				});
 			}
-		});
+		});	
 	}
-	
-	private String getInspeccionHMTL(InspeccionDTO idto){
-		String result = 
-				"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>ID: </strong>"+ idto.getId() +"</p>\r\n" +
-				"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Fecha: </strong>"+ /*ConversionUtil.getSimpleDate(*/idto.getFecha().toString()/*)*/ +"</p>\r\n" + 
-				"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Riesgo: </strong>"+ /*ConversionUtil.getRiesgoString(*/idto.getRiesgo()/*)*/ +"</p>\r\n" +
-				"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Localidad: </strong>"+ idto.getLocalidad().getNombre() +"</p>\r\n" +
-				"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Calle: </strong>"+ idto.getCalle() +"</p>\r\n" +
-				"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Altura: </strong>"+ idto.getAltura() +"</p>\r\n" +
-				"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Entre Calles: </strong>"+ idto.getEntreCalleUno()+ " y " + idto.getEntreCalleDos() +"</p>\r\n" +
-				"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Tema: </strong>"+ idto.getTema().getNombre() +"</p>\r\n" + 
-				"<p style=\"margin-left: 6px; margin-right: 6px; font: 15px sans-serif;\"><strong>Observaci&oacute;n: </strong>" + idto.getObservacion()	+"</p>\r\n";
-		return result;
+
+	private String getRiesgoString(Integer i){
+		switch (i) {
+		case SiuConstants.BAJO:
+			return "BAJO";
+		case SiuConstants.MEDIO:
+			return "MEDIO";
+		case SiuConstants.ALTO:
+			return "ALTO";
+		default:
+			return "ALTO";
+		}
 	}
-	
+
+	/*
+	http://google.com/mapfiles/ms/micons/red-dot.png
+	http://google.com/mapfiles/ms/micons/green-dot.png
+	http://google.com/mapfiles/ms/micons/yellow-dot.png
+	 */
+
 }

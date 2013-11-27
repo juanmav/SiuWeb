@@ -15,4 +15,5 @@ public interface InspeccionService extends RemoteService {
 	void createImage(EncodedImageDTO dto, int numero);
 	void examplesCreate();
 	ArrayList<InspeccionDTO> getInspeccionesDTO(InspeccionFilterDTO filter);
+	InspeccionDTO getInspeccionWithImage(InspeccionFilterDTO filter);
 }

@@ -50,4 +50,9 @@ public class InspeccionServiceImpl extends RemoteServiceServlet implements Inspe
 	public ArrayList<InspeccionDTO> getInspeccionesDTO(InspeccionFilterDTO filter){
 		return InspeccionFacade.getInstance().getDTOList(filter);
 	}
+
+	@Override
+	public InspeccionDTO getInspeccionWithImage(InspeccionFilterDTO filter) {
+		return InspeccionFacade.getInstance().getDTOById(filter.inspeccionID);
+	}
 }

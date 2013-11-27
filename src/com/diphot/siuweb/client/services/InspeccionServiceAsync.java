@@ -13,4 +13,5 @@ public interface InspeccionServiceAsync {
 	void createImage(EncodedImageDTO dto, int numero, AsyncCallback<Void> callback);
 	void examplesCreate(AsyncCallback<Void> callback);
 	void getInspeccionesDTO(InspeccionFilterDTO filter, AsyncCallback<ArrayList<InspeccionDTO>> callback);
+	void getInspeccionWithImage(InspeccionFilterDTO filter, AsyncCallback<InspeccionDTO> callback);
 }
