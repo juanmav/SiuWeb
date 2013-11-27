@@ -142,6 +142,9 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		idto.setEntreCalleUno(i.getEntreCalleUno());
 		idto.setEntreCalleDos(i.getEntreCalleDos());
 		idto.setAuditoriaCant(i.getAuditorias().size());
+		
+		idto.UUID = i.getUuid();
+		
 		return idto;
 	}
 
@@ -161,6 +164,9 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		idto.setEntreCalleUno(i.getEntreCalleUno());
 		idto.setEntreCalleDos(i.getEntreCalleDos());
 		idto.setAuditoriaCant(i.getAuditorias().size());
+		
+		idto.UUID = i.getUuid();
+		
 		return idto;
 	}
 
