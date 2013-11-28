@@ -82,7 +82,7 @@ public class ControlMap extends Composite {
 						// TODO Auto-generated method stub	
 					}
 				});
-				this.schedule(10000);
+				this.schedule(30000);
 			}};
 		timer.schedule(1);
 	}

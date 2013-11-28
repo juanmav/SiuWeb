@@ -138,7 +138,8 @@ public class InspeccionDAO extends AbstractDAO<Inspeccion, InspeccionDTO> {
 		idto.setLastStateIdentifier(i.getLastStateIdentifier());
 		idto.setImgMap("");
 		Localidad localidad = i.getLocalidad();
-		idto.setLocalidad(new LocalidadDTO(localidad.getId(), localidad.getNombre()));
+		if (localidad != null)
+			idto.setLocalidad(new LocalidadDTO(localidad.getId(), localidad.getNombre()));
 		idto.setEntreCalleUno(i.getEntreCalleUno());
 		idto.setEntreCalleDos(i.getEntreCalleDos());
 		idto.setAuditoriaCant(i.getAuditorias().size());
