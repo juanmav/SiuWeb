@@ -21,6 +21,7 @@ import com.google.gwt.maps.client.overlays.Marker;
 import com.google.gwt.maps.client.overlays.MarkerOptions;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
@@ -45,26 +46,47 @@ public class ControlMap extends Composite {
 
 		drawMap();
 
-		InspeccionFilterDTO filter = new InspeccionFilterDTO();
-		filter.estadoID = 2;
-		filter.desde = "15/09/2013";
-		filter.hasta = "30/11/2013";
-
-		inspeccionServiceAsync.getInspeccionesDTO(filter, new AsyncCallback<ArrayList<InspeccionDTO>>() {
-			@Override
-			public void onSuccess(ArrayList<InspeccionDTO> result) {
-				for (InspeccionDTO idto : result) {
-					drawBasicMarker(idto);
-				}
-			}
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub	
-			}
-		});
+		reloadData();
 	}
 
+	
+	ArrayList<Marker> marcadores = new ArrayList<Marker>();
+	
+	private void reloadData(){
+		Timer timer = new Timer(){
+
+			@Override
+			public void run() {
+				InspeccionFilterDTO filter = new InspeccionFilterDTO();
+				filter.estadoID = 1;
+				filter.desde = "15/09/2013";
+				filter.hasta = "30/11/2013";
+
+				
+				// Arreglar este metodo
+				// No le da bola al filtro!
+				inspeccionServiceAsync.getInspeccionesDTO(filter, new AsyncCallback<ArrayList<InspeccionDTO>>() {
+					@Override
+					public void onSuccess(ArrayList<InspeccionDTO> result) {
+						for (Marker m : marcadores){
+							m.setMap((MapWidget)null);
+						}
+						marcadores.clear();
+						for (InspeccionDTO idto : result) {
+							marcadores.add(drawBasicMarker(idto));	
+						}
+					}
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub	
+					}
+				});
+				this.schedule(10000);
+			}};
+		timer.schedule(1);
+	}
+	
 	private void drawMap() {
 		LatLng center = LatLng.newInstance(-34.4347865, -58.5785161);
 		MapOptions opts = MapOptions.newInstance();
@@ -86,7 +108,7 @@ public class ControlMap extends Composite {
 	}
 
 
-	private void drawBasicMarker(final InspeccionDTO idto) {
+	private Marker drawBasicMarker(final InspeccionDTO idto) {
 		final Marker markerBasic;
 		LatLng center = LatLng.newInstance(idto.getLatitude(), idto.getLongitude());
 		MarkerOptions options = MarkerOptions.newInstance();
@@ -142,6 +164,7 @@ public class ControlMap extends Composite {
 				});
 			}
 		});	
+		return markerBasic;
 	}
 
 	private String getRiesgoString(Integer i){
