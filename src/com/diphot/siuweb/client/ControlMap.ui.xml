@@ -5,8 +5,13 @@
 		.important {
 			font-weight: bold;
 		}
+		.size{
+			width: 100%;
+			right: 100%;
+		}
+
 	</ui:style>
-	<g:HTMLPanel ui:field="mapContainer">
+	<g:HTMLPanel ui:field="mapContainer" styleName="{style.size}">
 		
 	</g:HTMLPanel>
 </ui:UiBinder> 

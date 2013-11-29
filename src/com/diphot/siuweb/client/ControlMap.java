@@ -22,6 +22,7 @@ import com.google.gwt.maps.client.overlays.MarkerOptions;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
@@ -96,8 +97,10 @@ public class ControlMap extends Composite {
 
 		mapWidget = new MapWidget(opts);
 		mapContainer.add(mapWidget);
-		mapWidget.setSize("1200px", "800px");
+		mapWidget.setSize( (Window.getClientWidth()-10) + "px", (Window.getClientHeight()-10) + "px");
 
+		
+		
 		mapWidget.addClickHandler(new ClickMapHandler() {
 			@Override
 			public void onEvent(ClickMapEvent event) {
